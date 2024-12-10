@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.launchcode.moviedock.MoviedockApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-10T02:37:52" hostname="Alexs-MacBook-Air.local" time="0.37">
+  <properties/>
+  <testcase name="contextLoads()" classname="org.launchcode.moviedock.MoviedockApplicationTests" time="0.37"/>
+  <system-out><![CDATA[20:37:52.208 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.launchcode.moviedock.MoviedockApplicationTests]: MoviedockApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:37:52.244 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.launchcode.moviedock.MoviedockApplication for test class org.launchcode.moviedock.MoviedockApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.0)
+
+2024-12-09T20:37:52.376-06:00  INFO 2507 --- [moviedock] [    Test worker] o.l.moviedock.MoviedockApplicationTests  : Starting MoviedockApplicationTests using Java 17.0.12 with PID 2507 (started by alex in /Users/alex/Documents/LaunchCode/Java/kavin-dev-dazzlers)
+2024-12-09T20:37:52.376-06:00  INFO 2507 --- [moviedock] [    Test worker] o.l.moviedock.MoviedockApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2024-12-09T20:37:52.751-06:00  INFO 2507 --- [moviedock] [    Test worker] o.l.moviedock.MoviedockApplicationTests  : Started MoviedockApplicationTests in 0.46 seconds (process running for 0.85)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
