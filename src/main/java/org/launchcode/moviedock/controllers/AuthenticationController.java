@@ -4,10 +4,12 @@ import jakarta.servlet.http.HttpSession;
 import org.launchcode.moviedock.models.User;
 import org.launchcode.moviedock.models.data.UserRepository;
 import org.launchcode.moviedock.models.dto.LoginFormDTO;
+import org.launchcode.moviedock.models.dto.RegisterFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
@@ -40,10 +42,26 @@ public class AuthenticationController {
     }
 
     @GetMapping("login")
-    public String login(Model model) {
-        model.addAttribute("title", "Login");
+    public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
+        model.addAttribute("title", "Login");
         return "login";
+    }
+
+    @PostMapping
+
+    @GetMapping("register")
+    public String displayRegisterForm(Model model) {
+        model.addAttribute(new RegisterFormDTO());
+        model.addAttribute("title", "Register");
+        return "register";
+    }
+
+    @PostMapping
+
+    @GetMapping("profile")
+    public String profile() {
+        return "profile";
     }
 
 }

@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport">
-    <title>Title</title>
-</head>
-<body class="container">
+<head th:replace="fragments :: head"></head>
+<body class="container bg-primary-subtle">
 <form method="post">
    <div class="form-group">
       <label>Username
@@ -25,7 +21,7 @@
       </label>
    </div>
 
-   <input type="submit" class="btn btn-primary" value="Register" />
+   <input type="submit" class="btn btn-success" value="Register" />
 </form>
 
 </body>
