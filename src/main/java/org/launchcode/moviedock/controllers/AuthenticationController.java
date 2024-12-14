@@ -1,6 +1,8 @@
 package org.launchcode.moviedock.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.launchcode.moviedock.models.User;
 import org.launchcode.moviedock.models.data.UserRepository;
 import org.launchcode.moviedock.models.dto.LoginFormDTO;
@@ -8,7 +10,9 @@ import org.launchcode.moviedock.models.dto.RegisterFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
@@ -48,8 +52,6 @@ public class AuthenticationController {
         return "login";
     }
 
-    @PostMapping
-
     @GetMapping("register")
     public String displayRegisterForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
@@ -57,10 +59,9 @@ public class AuthenticationController {
         return "register";
     }
 
-    @PostMapping
-
     @GetMapping("profile")
-    public String profile() {
+    public String profile(Model model) {
+        model.addAttribute("title", "My Profile");
         return "profile";
     }
 
