@@ -1,8 +1,16 @@
 package org.launchcode.moviedock.models.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class RegisterFormDTO extends LoginFormDTO {
 
     private String verifyPassword;
+
+    @NotNull
+    @Email
+    @NotBlank
     private String email;
 
     public String getVerifyPassword() {

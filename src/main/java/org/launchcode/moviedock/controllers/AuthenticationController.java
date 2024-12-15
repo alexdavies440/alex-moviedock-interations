@@ -48,8 +48,39 @@ public class AuthenticationController {
     @GetMapping("login")
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Login");
+        model.addAttribute("title", "Log In");
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
+                                   Errors errors, HttpServletRequest request,
+                                   Model model) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Log In");
+            return "login";
+        }
+
+        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+
+        if (theUser == null) {
+            errors.rejectValue("username", "user.invalid", "The given username does not exist");
+            model.addAttribute("title", "Log In");
+            return "login";
+        }
+
+        String password = loginFormDTO.getPassword();
+
+        if (!theUser.isMatchingPassword(password)) {
+            errors.rejectValue("password", "password.invalid", "Invalid password");
+            model.addAttribute("title", "Log In");
+            return "login";
+        }
+
+        setUserInSession(request.getSession(), theUser);
+
+        return "redirect:";
     }
 
     @GetMapping("register")
@@ -77,6 +108,8 @@ public class AuthenticationController {
             return "register";
         }
 
+        // May add check here to prevent one email holder from making multiple accounts but still undecided
+
         String password = registerFormDTO.getPassword();
         String verifyPassword = registerFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
@@ -93,9 +126,15 @@ public class AuthenticationController {
     }
 
     @GetMapping("profile")
-    public String profile(Model model) {
-        model.addAttribute("title", "My Profile");
+    public String displayProfile() {
+        // Need to think on how to implement this. Will probably involve username as path parameter
         return "profile";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/login";
     }
 
 }
