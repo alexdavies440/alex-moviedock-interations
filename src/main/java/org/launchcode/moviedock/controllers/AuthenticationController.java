@@ -25,7 +25,7 @@ public class AuthenticationController {
 
     private static final String userSessionKey = "user";
 
-    public User gretUserFromSession(HttpSession session) {
+    public User getUserFromSession(HttpSession session) {
 
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -45,7 +45,7 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
         model.addAttribute("title", "Log In");
@@ -83,7 +83,7 @@ public class AuthenticationController {
         return "redirect:";
     }
 
-    @GetMapping("register")
+    @GetMapping("/register")
     public String displayRegisterForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
@@ -125,7 +125,7 @@ public class AuthenticationController {
         return "redirect:";
     }
 
-    @GetMapping("profile")
+    @GetMapping("/profile")
     public String displayProfile() {
         // Need to think on how to implement this. Will probably involve username as path parameter
         return "profile";
