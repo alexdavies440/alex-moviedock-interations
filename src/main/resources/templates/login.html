@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container bg-dark text-white">
+<body class="container bg-info">
+<nav th:replace="fragments :: header"></nav>
 <form method="post">
    <div class="form-group">
       <label>Username
@@ -15,7 +16,6 @@
       </label>
       <p class="error" th:errors="${loginFormDTO.password}"></p>
    </div>
-   <br>
    <div class="form-group">
       <input type="submit" class="btn btn-success" value="Log In" />
    </div>
