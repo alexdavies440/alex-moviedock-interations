@@ -1,7 +1,11 @@
-#header {
+#navigation {
     margin-bottom: 100px;
+    box-shadow: 0 0 9px 3px grey;
 }
 
-form {
-    margin-top: 100px;
+#bar {
+    box-shadow: 0 0 30px 1px rgb(52, 235, 174, 0.8);
 }
+
+
+
