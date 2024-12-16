@@ -3,9 +3,13 @@
     box-shadow: 0 0 9px 3px grey;
 }
 
-#bar {
-    box-shadow: 0 0 30px 1px rgb(52, 235, 174, 0.8);
+.bar {
+    box-shadow: 0 0 15px 1px rgb(0, 252, 248, 0.5);
 }
 
+.bg-1 {
+    background: #2d2d30;
+    color: #bdbdbd;
+  }
 
 
