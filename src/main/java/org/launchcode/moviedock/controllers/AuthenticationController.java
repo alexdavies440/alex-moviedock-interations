@@ -63,6 +63,7 @@ public class AuthenticationController {
         }
 
         User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        model.addAttribute("user", theUser);
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
@@ -126,8 +127,13 @@ public class AuthenticationController {
     }
 
     @GetMapping("/profile")
-    public String displayProfile() {
-        // Need to think on how to implement this. Will probably involve username as path parameter
+    public String displayMyProfile(Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        User user = this.getUserFromSession(session);
+
+        model.addAttribute("user", user);
+
         return "profile";
     }
 

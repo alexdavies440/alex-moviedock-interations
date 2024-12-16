@@ -4,7 +4,7 @@
 
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
-<h1>My Profile</h1>
-<p>You must be logged in to access this page</p>
+<h1 th:text="${user.username}"></h1>
+<p>You must be logged in to edit this page</p>
 </body>
 </html>

@@ -52,4 +52,6 @@ public class AuthenticationFilter implements HandlerInterceptor {
         response.sendRedirect("/login");
         return false;
     }
+
+
 }
