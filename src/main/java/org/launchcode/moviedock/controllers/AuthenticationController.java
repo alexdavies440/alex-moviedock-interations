@@ -5,8 +5,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.models.User;
 import org.launchcode.moviedock.models.data.UserRepository;
-import org.launchcode.moviedock.models.dto.LoginFormDTO;
-import org.launchcode.moviedock.models.dto.RegisterFormDTO;
+import org.launchcode.moviedock.models.dto.SigninFormDTO;
+import org.launchcode.moviedock.models.dto.SignupFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,102 +45,97 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-    @GetMapping("/login")
-    public String displayLoginForm(Model model) {
-        model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Log In");
-        return "login";
+
+    @GetMapping("/signin")
+    public String displaySigninForm(Model model) {
+        model.addAttribute(new SigninFormDTO());
+        model.addAttribute("title", "Sign In");
+        return "signin";
     }
 
-    @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
+    @PostMapping("/signin")
+    public String processSigninForm(@ModelAttribute @Valid SigninFormDTO signinFormDTO,
                                    Errors errors, HttpServletRequest request,
                                    Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Log In");
-            return "login";
+            model.addAttribute("title", "Sign In");
+            return "signin";
         }
 
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+        User theUser = userRepository.findByUsername(signinFormDTO.getUsername());
         model.addAttribute("user", theUser);
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
-            model.addAttribute("title", "Log In");
-            return "login";
+            model.addAttribute("title", "Sign In");
+            return "signin";
         }
 
-        String password = loginFormDTO.getPassword();
+        String password = signinFormDTO.getPassword();
 
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
-            model.addAttribute("title", "Log In");
-            return "login";
+            model.addAttribute("title", "Sign In");
+            return "signin";
         }
 
         setUserInSession(request.getSession(), theUser);
 
-        return "profile";
+        return "redirect:/profile";
     }
 
-    @GetMapping("/register")
-    public String displayRegisterForm(Model model) {
-        model.addAttribute(new RegisterFormDTO());
-        model.addAttribute("title", "Register");
-        return "register";
+    @GetMapping("/signup")
+    public String displaySignupForm(Model model) {
+        model.addAttribute(new SignupFormDTO());
+        model.addAttribute("title", "Sign Up");
+
+        // In case you accidentally hit signup but wanted to sign in
+        model.addAttribute("option", "SIGN IN");
+        return "signup";
     }
 
-    @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
+    @PostMapping("/signup")
+    public String processSignupForm(@ModelAttribute @Valid SignupFormDTO signupFormDTO,
                                           Errors errors, HttpServletRequest request,
                                           Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Register");
-            return "register";
+            model.addAttribute("title", "Sign Up");
+            return "signup";
         }
 
-        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
+        User existingUser = userRepository.findByUsername(signupFormDTO.getUsername());
 
         if (existingUser != null) {
-            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
-            model.addAttribute("title", "Register");
-            return "register";
+            errors.rejectValue("username", "username.alreadyexists", "Sorry, someone has already taken that username. Please try another");
+            model.addAttribute("title", "Sign Up");
+            return "signup";
         }
 
-        // May add check here to prevent one email holder from making multiple accounts but still undecided
-
-        String password = registerFormDTO.getPassword();
-        String verifyPassword = registerFormDTO.getVerifyPassword();
+        String password = signupFormDTO.getPassword();
+        String verifyPassword = signupFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            model.addAttribute("title", "Register");
-            return "register";
+            errors.rejectValue("password", "passwords.mismatch", "Please check that passwords match");
+            model.addAttribute("title", "Sign Up");
+            return "signup";
         }
 
-        User newUser = new User(registerFormDTO.getUsername(),registerFormDTO.getEmail(), registerFormDTO.getPassword());
+        User newUser = new User(signupFormDTO.getUsername(), signupFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
         return "redirect:";
     }
 
-    @GetMapping("/profile")
-    public String displayMyProfile(Model model, HttpServletRequest request) {
 
-        HttpSession session = request.getSession();
-        User user = this.getUserFromSession(session);
 
-        model.addAttribute("user", user);
 
-        return "profile";
-    }
 
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    @GetMapping("/signout")
+    public String signout(HttpServletRequest request){
         request.getSession().invalidate();
-        return "redirect:/login";
+        return "redirect:/signin";
     }
 
 }

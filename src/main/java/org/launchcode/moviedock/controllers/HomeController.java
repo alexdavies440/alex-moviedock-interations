@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -22,13 +21,76 @@ public class HomeController {
     @Autowired
     AuthenticationController authenticationController;
 
+
+    @GetMapping("/home")
+    public String displaySigninSignout(Model model, HttpServletRequest request, String option, String path) {
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
+        if (user == null) {
+            option = "SIGN IN";
+            path = "/signin";
+        } else {
+            option = "SIGN OUT";
+            path = "/signout";
+        }
+
+        model.addAttribute("option", option);
+        model.addAttribute("path", path);
+        model.addAttribute("title", "Welcome");
+
+
+        return "index";
+    }
+
+    @GetMapping("/profile")
+    public String displayMyProfile(Model model, HttpServletRequest request, String option, String path) {
+
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
+        model.addAttribute("user", user);
+
+        if (user == null) {
+            option = "SIGN IN";
+            path = "/signin";
+        } else {
+            option = "SIGN OUT";
+            path = "/signout";
+        }
+
+        model.addAttribute("option", option);
+        model.addAttribute("path", path);
+        model.addAttribute("title", "Welcome");
+
+        return "profile";
+    }
+
     @GetMapping("/profile/{username}")
-    public String displayUserProfile(Model model, @PathVariable String username) {
+    public String displayUserProfile(Model model, @PathVariable String username, HttpServletRequest request, String option, String path) {
+
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
+        model.addAttribute("user", user);
+
+        if (user == null) {
+            option = "SIGN IN";
+            path = "/signin";
+        } else {
+            option = "SIGN OUT";
+            path = "/signout";
+        }
+
+        model.addAttribute("option", option);
+        model.addAttribute("path", path);
+        model.addAttribute("title", "Welcome");
+
         Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(username));
 
         if(optUser.isPresent()) {
-            User user = (User) optUser.get();
-            model.addAttribute("user", user);
+            User aUser = (User) optUser.get();
+            model.addAttribute("user", aUser);
             return "profile";
         } else {
             return "redirect:";

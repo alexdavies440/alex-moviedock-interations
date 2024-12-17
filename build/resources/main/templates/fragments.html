@@ -3,7 +3,9 @@
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <!--    Bootstrap dependencies-->
 <!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -12,6 +14,7 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <title th:text="${title}">Moviedock</title>
 </head>
 <body>
@@ -20,14 +23,14 @@
             <div class="container-fluid">
                 <div>
                     <ul class="nav navbar-nav navbar-left">
-                        <li><a href="/">HOME</a></li>
+                        <li><a href="/home">HOME</a></li>
                         <li><a href="/profile">MY PROFILE</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-                        <li><a href="/login">LOG IN</a></li>
-                        <li><a href="/register">REGISTER</a></li>
-                        <li><a href="/logout">LOG OUT</a></li>
+<!--                        <li><a href="/signin">SIGN IN</a></li>-->
+<!--                        <li><a href="/signout">SIGN OUT</a></li>-->
+                        <li><a th:href="${path}" th:text="${option}"></a></li>
                     </ul>
                 </div>
             </div>
