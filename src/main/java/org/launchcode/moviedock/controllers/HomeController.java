@@ -21,69 +21,73 @@ public class HomeController {
     @Autowired
     AuthenticationController authenticationController;
 
+    // The following two methods are necessary for the SIGN IN/SIGN OUT button to work properly.
+    // I will probably revamp this over time
 
-    @GetMapping("/home")
-    public String displaySigninSignout(Model model, HttpServletRequest request, String option, String path) {
+    // Determines whether a user is currently signed in and displays the appropriate option to sign in or out
+    public String getOption(HttpServletRequest request) {
+
         HttpSession session = request.getSession();
         User user = authenticationController.getUserFromSession(session);
 
         if (user == null) {
-            option = "SIGN IN";
-            path = "/signin";
+            return "SIGN IN";
         } else {
-            option = "SIGN OUT";
-            path = "/signout";
+            return "SIGN OUT";
         }
+    }
 
-        model.addAttribute("option", option);
-        model.addAttribute("path", path);
+    // Determines whether a user is currently signed in and assigns the appropriate path for signin/signout button
+    public String getPath(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
+        if (user == null) {
+            return "/signin";
+        } else {
+            return "/signout";
+        }
+    }
+
+    @GetMapping("/home")
+    public String displaySigninSignoutOption(Model model, HttpServletRequest request) {
+
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
         model.addAttribute("title", "Welcome");
-
 
         return "index";
     }
 
+    @GetMapping("/search")
+    public String searchPage(Model model, HttpServletRequest request) {
+
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
+
+        return "search";
+    }
+
     @GetMapping("/profile")
-    public String displayMyProfile(Model model, HttpServletRequest request, String option, String path) {
+    public String displayCurrentUserProfile(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         User user = authenticationController.getUserFromSession(session);
 
         model.addAttribute("user", user);
-
-        if (user == null) {
-            option = "SIGN IN";
-            path = "/signin";
-        } else {
-            option = "SIGN OUT";
-            path = "/signout";
-        }
-
-        model.addAttribute("option", option);
-        model.addAttribute("path", path);
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
         model.addAttribute("title", "Welcome");
 
         return "profile";
     }
 
     @GetMapping("/profile/{username}")
-    public String displayUserProfile(Model model, @PathVariable String username, HttpServletRequest request, String option, String path) {
+    public String displayUserProfile(Model model, @PathVariable String username, HttpServletRequest request) {
 
-        HttpSession session = request.getSession();
-        User user = authenticationController.getUserFromSession(session);
-
-        model.addAttribute("user", user);
-
-        if (user == null) {
-            option = "SIGN IN";
-            path = "/signin";
-        } else {
-            option = "SIGN OUT";
-            path = "/signout";
-        }
-
-        model.addAttribute("option", option);
-        model.addAttribute("path", path);
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
         model.addAttribute("title", "Welcome");
 
         Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(username));
@@ -96,7 +100,5 @@ public class HomeController {
             return "redirect:";
         }
     }
-
-
 
 }

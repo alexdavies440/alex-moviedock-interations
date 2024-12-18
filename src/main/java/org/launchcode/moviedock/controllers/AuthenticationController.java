@@ -45,11 +45,38 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
+    // Determines whether a user is currently signed in and displays the appropriate option to sign in or out
+    public String getOption(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        User user = this.getUserFromSession(session);
+
+        if (user == null) {
+            return "SIGN IN";
+        } else {
+            return "SIGN OUT";
+        }
+    }
+
+    // Determines whether a user is currently signed in and assigns the appropriate path for signin/signout button
+    public String getPath(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        User user = this.getUserFromSession(session);
+
+        if (user == null) {
+            return "/signin";
+        } else {
+            return "/signout";
+        }
+    }
 
     @GetMapping("/signin")
-    public String displaySigninForm(Model model) {
+    public String displaySigninForm(Model model, HttpServletRequest request) {
         model.addAttribute(new SigninFormDTO());
         model.addAttribute("title", "Sign In");
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
         return "signin";
     }
 
@@ -81,6 +108,9 @@ public class AuthenticationController {
         }
 
         setUserInSession(request.getSession(), theUser);
+
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
 
         return "redirect:/profile";
     }
@@ -127,10 +157,6 @@ public class AuthenticationController {
 
         return "redirect:";
     }
-
-
-
-
 
     @GetMapping("/signout")
     public String signout(HttpServletRequest request){
