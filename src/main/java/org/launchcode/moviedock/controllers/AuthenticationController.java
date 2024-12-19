@@ -154,7 +154,7 @@ public class AuthenticationController {
             return "user/signup";
         }
 
-        User newUser = new User(signupFormDTO.getUsername(), signupFormDTO.getPassword());
+        User newUser = new User(signupFormDTO.getUsername(), signupFormDTO.getEmail(), signupFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
