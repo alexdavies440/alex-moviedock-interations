@@ -2,7 +2,7 @@ package org.launchcode.moviedock.models;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.persistence.Entity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -11,17 +11,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 public class User extends AbstractEntity {
 
-    @NotNull
     @NotBlank
     private String username;
 
-    @NotNull
     @NotBlank
     @Email
     private String email;
 
-    @NotNull
-    private String pwHash;
+@NotEmpty
+private String pwHash;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
