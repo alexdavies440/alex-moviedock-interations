@@ -114,7 +114,7 @@ public class AuthenticationController {
         model.addAttribute("option", getOption(request));
         model.addAttribute("path", getPath(request));
 
-        return "redirect:user/profile";
+        return "redirect:/profile";
     }
 
     @GetMapping("/signup")
