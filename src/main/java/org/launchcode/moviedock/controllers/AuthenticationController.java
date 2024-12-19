@@ -14,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -167,4 +168,93 @@ public class AuthenticationController {
         return "redirect:/user/signin";
     }
 
+    @GetMapping("/delete")
+    public String displayDeleteAccount(Model model, HttpServletRequest request) {
+
+        model.addAttribute(new SigninFormDTO());
+        model.addAttribute("title", "Delete Account");
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
+
+        return "user/delete";
+    }
+
+    @PostMapping("/delete")
+    public String nukeAccount(Model model, HttpServletRequest request,
+                              @ModelAttribute @Valid SigninFormDTO signinFormDTO, Errors errors) {
+
+        model.addAttribute("title", "Delete Account");
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Delete Account");
+            return "user/delete";
+        }
+
+        User theUser = userRepository.findByUsername(signinFormDTO.getUsername());
+        model.addAttribute("user", theUser);
+
+        if (theUser == null) {
+            errors.rejectValue("username", "user.invalid", "Please try again");
+            model.addAttribute("title", "Sign In");
+            return "user/delete";
+        }
+
+        String password = signinFormDTO.getPassword();
+
+        if (!theUser.isMatchingPassword(password)) {
+            errors.rejectValue("password", "password.invalid", "Invalid password");
+            model.addAttribute("title", "Delete Account");
+            return "user/delete";
+        }
+
+        userRepository.delete(theUser);
+
+        request.getSession().invalidate();
+        return "redirect:/user/signin";
+    }
+
+    @GetMapping("/settings")
+    public String displaySettings(Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        User user = this.getUserFromSession(session);
+
+        model.addAttribute(new SignupFormDTO());
+        model.addAttribute("user", user);
+        model.addAttribute("title", "Account Settings");
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
+
+
+        return "user/settings";
+    }
+
+    @PostMapping("/settings")
+        public String updateEmail(Model model, HttpServletRequest request,
+                                  @ModelAttribute @Valid SignupFormDTO signupFormDTO, Errors errors) {
+
+        HttpSession session = request.getSession();
+        User user = this.getUserFromSession(session);
+
+        model.addAttribute("user", user);
+        model.addAttribute("title", "Account Settings");
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
+
+        if (errors.hasErrors()) {
+
+            model.addAttribute("title", "Account Settings");
+            model.addAttribute("option", getOption(request));
+            model.addAttribute("path", getPath(request));
+
+            return "user/settings";
+        }
+
+        user.setEmail(signupFormDTO.getEmail());
+
+        return "user/settings";
+
+    }
 }

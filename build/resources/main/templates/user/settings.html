@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container bg-1">
+<nav th:replace="fragments :: header"></nav>
+
+<h1>ACCOUNT SETTINGS</h1>
+
+<a href="/delete"><h3>Delete My Account</h3></a>
+
+<h3>My Email: <span th:text="${user.email}"></span></h3>
+<a href="/update-email"><h3>Update</h3></a>
+
+</body>
+</html>

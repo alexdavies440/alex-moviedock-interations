@@ -50,7 +50,7 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String displaySigninSignoutOption(Model model, HttpServletRequest request) {
 
         model.addAttribute("option", getOption(request));

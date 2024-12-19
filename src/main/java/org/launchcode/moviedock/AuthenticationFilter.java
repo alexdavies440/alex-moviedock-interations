@@ -22,11 +22,11 @@ public class AuthenticationFilter implements HandlerInterceptor {
     AuthenticationController authenticationController;
 
     private static final List<String> whitelist =
-            Arrays.asList("/home","/signin", "/signup", "/css/styles.css", "/profile", "/search");
+            Arrays.asList("/","/signin", "/signup", "/css/styles.css", "/profile", "/search");
 
     private static boolean isWhitelisted(String path) {
         for (String pathRoot : whitelist) {
-            if (path.startsWith(pathRoot)) {
+            if (path.equals(pathRoot)) {
                 return true;
             }
         }
