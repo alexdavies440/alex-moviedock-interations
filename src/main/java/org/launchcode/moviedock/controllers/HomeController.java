@@ -80,7 +80,7 @@ public class HomeController {
         model.addAttribute("path", getPath(request));
         model.addAttribute("title", "Welcome");
 
-        return "profile";
+        return "user/profile";
     }
 
     @GetMapping("/profile/{username}")
@@ -95,9 +95,9 @@ public class HomeController {
         if(optUser.isPresent()) {
             User aUser = (User) optUser.get();
             model.addAttribute("user", aUser);
-            return "profile";
+            return "user/profile";
         } else {
-            return "redirect:";
+            return "redirect:..";
         }
     }
 

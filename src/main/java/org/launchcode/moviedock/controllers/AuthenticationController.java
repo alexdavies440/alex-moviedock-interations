@@ -77,7 +77,7 @@ public class AuthenticationController {
         model.addAttribute("title", "Sign In");
         model.addAttribute("option", getOption(request));
         model.addAttribute("path", getPath(request));
-        return "signin";
+        return "user/signin";
     }
 
     @PostMapping("/signin")
@@ -87,7 +87,7 @@ public class AuthenticationController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Sign In");
-            return "signin";
+            return "user/signin";
         }
 
         User theUser = userRepository.findByUsername(signinFormDTO.getUsername());
@@ -96,7 +96,7 @@ public class AuthenticationController {
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
             model.addAttribute("title", "Sign In");
-            return "signin";
+            return "user/signin";
         }
 
         String password = signinFormDTO.getPassword();
@@ -104,7 +104,7 @@ public class AuthenticationController {
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Sign In");
-            return "signin";
+            return "user/signin";
         }
 
         setUserInSession(request.getSession(), theUser);
@@ -112,17 +112,20 @@ public class AuthenticationController {
         model.addAttribute("option", getOption(request));
         model.addAttribute("path", getPath(request));
 
-        return "redirect:/profile";
+        return "redirect:user/profile";
     }
 
     @GetMapping("/signup")
-    public String displaySignupForm(Model model) {
+    public String displaySignupForm(Model model, HttpServletRequest request) {
+
         model.addAttribute(new SignupFormDTO());
         model.addAttribute("title", "Sign Up");
 
         // In case you accidentally hit signup but wanted to sign in
-        model.addAttribute("option", "SIGN IN");
-        return "signup";
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
+
+        return "user/signup";
     }
 
     @PostMapping("/signup")
@@ -132,7 +135,7 @@ public class AuthenticationController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Sign Up");
-            return "signup";
+            return "user/signup";
         }
 
         User existingUser = userRepository.findByUsername(signupFormDTO.getUsername());
@@ -140,7 +143,7 @@ public class AuthenticationController {
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists", "Sorry, someone has already taken that username. Please try another");
             model.addAttribute("title", "Sign Up");
-            return "signup";
+            return "user/signup";
         }
 
         String password = signupFormDTO.getPassword();
@@ -148,20 +151,20 @@ public class AuthenticationController {
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Please check that passwords match");
             model.addAttribute("title", "Sign Up");
-            return "signup";
+            return "user/signup";
         }
 
         User newUser = new User(signupFormDTO.getUsername(), signupFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return "redirect:/profile";
     }
 
     @GetMapping("/signout")
     public String signout(HttpServletRequest request){
         request.getSession().invalidate();
-        return "redirect:/signin";
+        return "redirect:/user/signin";
     }
 
 }
