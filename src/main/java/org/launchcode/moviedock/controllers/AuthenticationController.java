@@ -7,6 +7,7 @@ import org.launchcode.moviedock.models.User;
 import org.launchcode.moviedock.models.data.UserRepository;
 import org.launchcode.moviedock.models.dto.SigninFormDTO;
 import org.launchcode.moviedock.models.dto.SignupFormDTO;
+import org.launchcode.moviedock.models.dto.UpdateEmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -147,6 +148,14 @@ public class AuthenticationController {
             return "user/signup";
         }
 
+        // Add validation here for email field like for username and password
+
+//        if (email) {
+//
+//            model.addAttribute("title", "Sign Up");
+//            return "user/signup";
+//        }
+
         String password = signupFormDTO.getPassword();
         String verifyPassword = signupFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
@@ -231,14 +240,24 @@ public class AuthenticationController {
         return "user/settings";
     }
 
-    @PostMapping("/settings")
+    @GetMapping("/update-email")
+    public String displayUpdateEmailForm(Model model, HttpServletRequest request) {
+
+        model.addAttribute(new UpdateEmailDTO());
+        model.addAttribute("title", "Account Settings");
+        model.addAttribute("option", getOption(request));
+        model.addAttribute("path", getPath(request));
+
+        return "user/update-email";
+    }
+
+    @PostMapping("/update-email")
         public String updateEmail(Model model, HttpServletRequest request,
-                                  @ModelAttribute @Valid SignupFormDTO signupFormDTO, Errors errors) {
+                                  @ModelAttribute @Valid UpdateEmailDTO updateEmailDTO, Errors errors) {
 
         HttpSession session = request.getSession();
         User user = this.getUserFromSession(session);
 
-        model.addAttribute("user", user);
         model.addAttribute("title", "Account Settings");
         model.addAttribute("option", getOption(request));
         model.addAttribute("path", getPath(request));
@@ -249,10 +268,12 @@ public class AuthenticationController {
             model.addAttribute("option", getOption(request));
             model.addAttribute("path", getPath(request));
 
-            return "user/settings";
+            return "user/update-email";
         }
 
-        user.setEmail(signupFormDTO.getEmail());
+        user.setEmail(updateEmailDTO.getEmail());
+        userRepository.save(user);
+        model.addAttribute("user", user);
 
         return "user/settings";
 
