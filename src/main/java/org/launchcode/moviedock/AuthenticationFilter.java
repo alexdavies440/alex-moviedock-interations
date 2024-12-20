@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.launchcode.moviedock.controllers.AuthenticationController;
 import org.launchcode.moviedock.models.User;
-import org.launchcode.moviedock.models.data.UserRepository;
+import org.launchcode.moviedock.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 

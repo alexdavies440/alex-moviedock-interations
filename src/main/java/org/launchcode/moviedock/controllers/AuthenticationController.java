@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.models.User;
-import org.launchcode.moviedock.models.data.UserRepository;
+import org.launchcode.moviedock.data.UserRepository;
 import org.launchcode.moviedock.models.dto.SigninFormDTO;
 import org.launchcode.moviedock.models.dto.SignupFormDTO;
 import org.launchcode.moviedock.models.dto.UpdateEmailDTO;
@@ -15,7 +15,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 

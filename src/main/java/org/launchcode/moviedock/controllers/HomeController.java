@@ -3,7 +3,7 @@ package org.launchcode.moviedock.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.launchcode.moviedock.models.User;
-import org.launchcode.moviedock.models.data.UserRepository;
+import org.launchcode.moviedock.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

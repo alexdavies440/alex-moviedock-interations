@@ -1,4 +1,4 @@
-package org.launchcode.moviedock.models.data;
+package org.launchcode.moviedock.data;
 
 import org.launchcode.moviedock.models.User;
 import org.springframework.data.repository.CrudRepository;
