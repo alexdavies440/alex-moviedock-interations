@@ -59,7 +59,7 @@ public class Movie extends AbstractEntity{
         return favUser;
     }
 
-    public List<User> getToWatchUserUser() {
+    public List<User> getToWatchUser() {
         return toWatchUser;
     }
 
