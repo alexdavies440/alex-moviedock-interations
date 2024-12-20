@@ -1,42 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments :: head"></head>
 
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<!--Displays username of whatever user is currently logged in when clicking My Profile button-->
-<h1 th:text="${user.username.toUpperCase()}"></h1>
-<p>Maybe a short bio could go here</p>
-<br>
-<div>
-    <h3>Favorites</h3>
-    <ul>
-        <li>Movie</li>
-        <li>Movie</li>
-        <li>Movie</li>
-        <li>Movie</li>
-    </ul>
-</div>
-<div>
-    <h3>To-Watch</h3>
-    <ul>
-        <li>Movie</li>
-        <li>Movie</li>
-        <li>Movie</li>
-    </ul>
-</div>
-<div>
-    <h3>Reviews</h3>
-    <h4>Movie Title</h4>
-    <p>
-        Sed nec auctor dui, a congue quam. Duis eget nisl porttitor, faucibus metus at, pellentesque augue. Vivamus vitae cursus nisl. In aliquet est vel imperdiet finibus. Fusce congue risus ac cursus ultricies. Nulla scelerisque dui a mollis scelerisque. Nullam placerat maximus orci eu tempus. Vestibulum gravida elit sed purus posuere tincidunt at nec arcu. Fusce consectetur condimentum accumsan. Morbi vulputate ipsum arcu, non elementum felis sollicitudin nec.
-        Praesent non tincidunt nisl. Etiam tincidunt libero neque. Cras volutpat lobortis porttitor. Phasellus luctus, leo vitae viverra tincidunt, urna felis hendrerit sem, sed venenatis enim leo eu magna. Quisque pharetra neque id interdum iaculis. Morbi gravida ultrices erat, at consectetur velit malesuada ut. Sed quam tellus, commodo ut ligula at, iaculis blandit quam. Cras interdum urna non iaculis hendrerit. Phasellus metus felis, commodo at malesuada vitae, vestibulum nec felis. Vivamus lobortis sodales lectus eget mattis.
-    </p>
-    <h4>Ice Age</h4>
-    <p>
-        Does anyone know the name of the squirrel??
-    </p>
-</div>
+<h1 th:inline="text">Hello <span sec:authentication="name"></span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
 </body>
 </html>
