@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User extends AbstractEntity implements UserDetailsService {
+public class User extends AbstractEntity {
 
     @NotBlank
     private String username;
@@ -68,6 +68,9 @@ public class User extends AbstractEntity implements UserDetailsService {
         this.email = email;
     }
 
+    public String getPwHash() {
+        return pwHash;
+    }
 
     public List<Review> getReviewsList() {
         return reviewsList;
@@ -93,8 +96,8 @@ public class User extends AbstractEntity implements UserDetailsService {
         this.roles = roles;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return null;
+//    }
 }
