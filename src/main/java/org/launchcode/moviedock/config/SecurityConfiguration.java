@@ -2,9 +2,9 @@ package org.launchcode.moviedock.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,10 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfiguration {
 
     @Bean
     protected UserDetailsService userDetailsService() {
+
         UserDetails user = User.builder()
                 .username("user")
                 .password(passwordEncoder().encode("user123"))
@@ -40,20 +41,19 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(
-                        request -> request.requestMatchers("/login").permitAll()
-                                .requestMatchers("/**").authenticated()
-                )
-                .formLogin(form -> form.loginPage("/login")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/login?error=true")
-                        .permitAll())
-                .logout(config -> config
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID"))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/login").permitAll();
+                    auth.requestMatchers("/").permitAll();
+                    auth.requestMatchers("/css/styles.css").permitAll();
+                    auth.requestMatchers("/user").hasRole("USER");
+                    auth.requestMatchers("/profile").hasRole("USER");
+
+                    auth.requestMatchers("/admin").hasRole("ADMIN");
+
+                })
+
+                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 }

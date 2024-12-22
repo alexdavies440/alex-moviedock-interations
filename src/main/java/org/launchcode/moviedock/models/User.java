@@ -3,10 +3,11 @@ package org.launchcode.moviedock.models;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;//for ENTITY ,ManyToMany etc.
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends AbstractEntity {
@@ -18,10 +19,24 @@ public class User extends AbstractEntity {
     @Email
     private String email;
 
-@NotEmpty
-private String pwHash;
+    @NotEmpty
+    private String pwHash;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private final List<Review> reviewsList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "favUser")
+    private final List<Movie> favoriteMovies = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "toWatchUser")
+    private final List<Movie> toWatchMovies = new ArrayList<>();
+
 
     public User () {}
 
@@ -45,6 +60,19 @@ private String pwHash;
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public List<Review> getReviewsList() {
+        return reviewsList;
+    }
+
+    public List<Movie> getFavoriteMovies() {
+        return favoriteMovies;
+    }
+
+    public List<Movie> getToWatchMovies() {
+        return toWatchMovies;
     }
 
     public boolean isMatchingPassword(String password) {
