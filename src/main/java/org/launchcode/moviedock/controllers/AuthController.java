@@ -16,6 +16,11 @@ public class AuthController {
         return "login";
     }
 
+    @GetMapping("/signup")
+    public String signup() {
+        return "user/signup";
+    }
+
     @PostMapping("/login")
     public String loginSuccess() {return "user/profile"; }
     @GetMapping("/profile")

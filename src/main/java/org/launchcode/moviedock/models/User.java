@@ -4,13 +4,16 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.persistence.*;//for ENTITY ,ManyToMany etc.
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User extends AbstractEntity {
+public class User extends AbstractEntity implements UserDetailsService {
 
     @NotBlank
     private String username;
@@ -23,6 +26,8 @@ public class User extends AbstractEntity {
     private String pwHash;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    private String roles;
 
     @OneToMany(
             mappedBy = "user",
@@ -40,10 +45,11 @@ public class User extends AbstractEntity {
 
     public User () {}
 
-    public User (String username, String email, String password) {
+    public User (String username, String email, String password, String roles) {
         this.username = username;
         this.email = email;
         this.pwHash = encoder.encode(password);
+        this.roles = roles;
     }
 
     public String getUsername() {
@@ -79,4 +85,16 @@ public class User extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }
