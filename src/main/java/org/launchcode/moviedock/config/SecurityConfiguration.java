@@ -33,20 +33,20 @@ public class SecurityConfiguration {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/profile").permitAll()
                         .requestMatchers("/css/styles.css").permitAll()
-                        .requestMatchers("/user").hasRole("USER")
-                        .requestMatchers("/profile").hasRole("USER")
-                        .requestMatchers("/admin").hasRole("ADMIN")
-                    )
+                        .anyRequest().authenticated()
+                )
                 .userDetailsService(jpaUserDetailsService)
                 .httpBasic(withDefaults())
                 .build();
     }
 
-    @Bean
-    protected PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }

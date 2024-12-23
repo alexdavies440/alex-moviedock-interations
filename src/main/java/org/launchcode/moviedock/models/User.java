@@ -27,6 +27,7 @@ public class User extends AbstractEntity {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+
     private String roles;
 
     @OneToMany(
@@ -83,6 +84,7 @@ public class User extends AbstractEntity {
     public List<Movie> getToWatchMovies() {
         return toWatchMovies;
     }
+
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);

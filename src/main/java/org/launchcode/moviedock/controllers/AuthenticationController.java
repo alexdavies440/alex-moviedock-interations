@@ -72,49 +72,49 @@
 //        }
 //    }
 //
-//    @GetMapping("/signin")
-//    public String displaySigninForm(Model model, HttpServletRequest request) {
-//        model.addAttribute(new SigninFormDTO());
-//        model.addAttribute("title", "Sign In");
-//        model.addAttribute("option", getOption(request));
-//        model.addAttribute("path", getPath(request));
-//        return "user/signin";
-//    }
-//
-//    @PostMapping("/signin")
-//    public String processSigninForm(@ModelAttribute @Valid SigninFormDTO signinFormDTO,
-//                                   Errors errors, HttpServletRequest request,
-//                                   Model model) {
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Sign In");
-//            return "user/signin";
-//        }
-//
-//        User theUser = userRepository.findByUsername(signinFormDTO.getUsername());
-//        model.addAttribute("user", theUser);
-//
-//        if (theUser == null) {
-//            errors.rejectValue("username", "user.invalid", "The given username does not exist");
-//            model.addAttribute("title", "Sign In");
-//            return "user/signin";
-//        }
-//
-//        String password = signinFormDTO.getPassword();
-//
-//        if (!theUser.isMatchingPassword(password)) {
-//            errors.rejectValue("password", "password.invalid", "Invalid password");
-//            model.addAttribute("title", "Sign In");
-//            return "user/signin";
-//        }
-//
-//        setUserInSession(request.getSession(), theUser);
-//
-//        model.addAttribute("option", getOption(request));
-//        model.addAttribute("path", getPath(request));
-//
-//        return "redirect:/profile";
-//    }
+////    @GetMapping("/signin")
+////    public String displaySigninForm(Model model, HttpServletRequest request) {
+////        model.addAttribute(new SigninFormDTO());
+////        model.addAttribute("title", "Sign In");
+////        model.addAttribute("option", getOption(request));
+////        model.addAttribute("path", getPath(request));
+////        return "user/signin";
+////    }
+////
+////    @PostMapping("/signin")
+////    public String processSigninForm(@ModelAttribute @Valid SigninFormDTO signinFormDTO,
+////                                   Errors errors, HttpServletRequest request,
+////                                   Model model) {
+////
+////        if (errors.hasErrors()) {
+////            model.addAttribute("title", "Sign In");
+////            return "user/signin";
+////        }
+////
+////        User theUser = userRepository.findByUsername(signinFormDTO.getUsername());
+////        model.addAttribute("user", theUser);
+////
+////        if (theUser == null) {
+////            errors.rejectValue("username", "user.invalid", "The given username does not exist");
+////            model.addAttribute("title", "Sign In");
+////            return "user/signin";
+////        }
+////
+////        String password = signinFormDTO.getPassword();
+////
+////        if (!theUser.isMatchingPassword(password)) {
+////            errors.rejectValue("password", "password.invalid", "Invalid password");
+////            model.addAttribute("title", "Sign In");
+////            return "user/signin";
+////        }
+////
+////        setUserInSession(request.getSession(), theUser);
+////
+////        model.addAttribute("option", getOption(request));
+////        model.addAttribute("path", getPath(request));
+////
+////        return "redirect:/profile";
+////    }
 //
 //    @GetMapping("/signup")
 //    public String displaySignupForm(Model model, HttpServletRequest request) {
@@ -139,7 +139,7 @@
 //            return "user/signup";
 //        }
 //
-//        User existingUser = userRepository.findByUsername(signupFormDTO.getUsername());
+//        Optional<User> existingUser = userRepository.findByUsername(signupFormDTO.getUsername()); //////////////
 //
 //        if (existingUser != null) {
 //            errors.rejectValue("username", "username.alreadyexists", "Sorry, someone has already taken that username. Please try another");
@@ -163,7 +163,7 @@
 //            return "user/signup";
 //        }
 //
-//        User newUser = new User(signupFormDTO.getUsername(), signupFormDTO.getEmail(), signupFormDTO.getPassword());
+//        User newUser = new User(signupFormDTO.getUsername(), signupFormDTO.getEmail(), signupFormDTO.getPassword(), "ROLE_USER");
 //        userRepository.save(newUser);
 //        setUserInSession(request.getSession(), newUser);
 //
@@ -176,105 +176,105 @@
 //        return "redirect:/user/signin";
 //    }
 //
-//    @GetMapping("/delete")
-//    public String displayDeleteAccount(Model model, HttpServletRequest request) {
-//
-//        model.addAttribute(new SigninFormDTO());
-//        model.addAttribute("title", "Delete Account");
-//        model.addAttribute("option", getOption(request));
-//        model.addAttribute("path", getPath(request));
-//
-//        return "user/delete";
-//    }
-//
-//    @PostMapping("/delete")
-//    public String nukeAccount(Model model, HttpServletRequest request,
-//                              @ModelAttribute @Valid SigninFormDTO signinFormDTO, Errors errors) {
-//
-//        model.addAttribute("title", "Delete Account");
-//        model.addAttribute("option", getOption(request));
-//        model.addAttribute("path", getPath(request));
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Delete Account");
-//            return "user/delete";
-//        }
-//
-//        User theUser = userRepository.findByUsername(signinFormDTO.getUsername());
-//        model.addAttribute("user", theUser);
-//
-//        if (theUser == null) {
-//            errors.rejectValue("username", "user.invalid", "Please try again");
-//            model.addAttribute("title", "Sign In");
-//            return "user/delete";
-//        }
-//
-//        String password = signinFormDTO.getPassword();
-//
-//        if (!theUser.isMatchingPassword(password)) {
-//            errors.rejectValue("password", "password.invalid", "Invalid password");
-//            model.addAttribute("title", "Delete Account");
-//            return "user/delete";
-//        }
-//
-//        userRepository.delete(theUser);
-//
-//        request.getSession().invalidate();
-//        return "redirect:/user/signin";
-//    }
-//
-//    @GetMapping("/settings")
-//    public String displaySettings(Model model, HttpServletRequest request) {
-//
-//        HttpSession session = request.getSession();
-//        User user = this.getUserFromSession(session);
-//
-//        model.addAttribute(new SignupFormDTO());
-//        model.addAttribute("user", user);
-//        model.addAttribute("title", "Account Settings");
-//        model.addAttribute("option", getOption(request));
-//        model.addAttribute("path", getPath(request));
-//
-//
-//        return "user/settings";
-//    }
-//
-//    @GetMapping("/update-email")
-//    public String displayUpdateEmailForm(Model model, HttpServletRequest request) {
-//
-//        model.addAttribute(new UpdateEmailDTO());
-//        model.addAttribute("title", "Account Settings");
-//        model.addAttribute("option", getOption(request));
-//        model.addAttribute("path", getPath(request));
-//
-//        return "user/update-email";
-//    }
-//
-//    @PostMapping("/update-email")
-//        public String updateEmail(Model model, HttpServletRequest request,
-//                                  @ModelAttribute @Valid UpdateEmailDTO updateEmailDTO, Errors errors) {
-//
-//        HttpSession session = request.getSession();
-//        User user = this.getUserFromSession(session);
-//
-//        model.addAttribute("title", "Account Settings");
-//        model.addAttribute("option", getOption(request));
-//        model.addAttribute("path", getPath(request));
-//
-//        if (errors.hasErrors()) {
-//
-//            model.addAttribute("title", "Account Settings");
-//            model.addAttribute("option", getOption(request));
-//            model.addAttribute("path", getPath(request));
-//
-//            return "user/update-email";
-//        }
-//
-//        user.setEmail(updateEmailDTO.getEmail());
-//        userRepository.save(user);
-//        model.addAttribute("user", user);
-//
-//        return "user/settings";
-//
-//    }
+////    @GetMapping("/delete")
+////    public String displayDeleteAccount(Model model, HttpServletRequest request) {
+////
+////        model.addAttribute(new SigninFormDTO());
+////        model.addAttribute("title", "Delete Account");
+////        model.addAttribute("option", getOption(request));
+////        model.addAttribute("path", getPath(request));
+////
+////        return "user/delete";
+////    }
+////
+////    @PostMapping("/delete")
+////    public String nukeAccount(Model model, HttpServletRequest request,
+////                              @ModelAttribute @Valid SigninFormDTO signinFormDTO, Errors errors) {
+////
+////        model.addAttribute("title", "Delete Account");
+////        model.addAttribute("option", getOption(request));
+////        model.addAttribute("path", getPath(request));
+////
+////        if (errors.hasErrors()) {
+////            model.addAttribute("title", "Delete Account");
+////            return "user/delete";
+////        }
+////
+////        User theUser = userRepository.findByUsername(signinFormDTO.getUsername());
+////        model.addAttribute("user", theUser);
+////
+////        if (theUser == null) {
+////            errors.rejectValue("username", "user.invalid", "Please try again");
+////            model.addAttribute("title", "Sign In");
+////            return "user/delete";
+////        }
+////
+////        String password = signinFormDTO.getPassword();
+////
+////        if (!theUser.isMatchingPassword(password)) {
+////            errors.rejectValue("password", "password.invalid", "Invalid password");
+////            model.addAttribute("title", "Delete Account");
+////            return "user/delete";
+////        }
+////
+////        userRepository.delete(theUser);
+////
+////        request.getSession().invalidate();
+////        return "redirect:/user/signin";
+////    }
+////
+////    @GetMapping("/settings")
+////    public String displaySettings(Model model, HttpServletRequest request) {
+////
+////        HttpSession session = request.getSession();
+////        User user = this.getUserFromSession(session);
+////
+////        model.addAttribute(new SignupFormDTO());
+////        model.addAttribute("user", user);
+////        model.addAttribute("title", "Account Settings");
+////        model.addAttribute("option", getOption(request));
+////        model.addAttribute("path", getPath(request));
+////
+////
+////        return "user/settings";
+////    }
+////
+////    @GetMapping("/update-email")
+////    public String displayUpdateEmailForm(Model model, HttpServletRequest request) {
+////
+////        model.addAttribute(new UpdateEmailDTO());
+////        model.addAttribute("title", "Account Settings");
+////        model.addAttribute("option", getOption(request));
+////        model.addAttribute("path", getPath(request));
+////
+////        return "user/update-email";
+////    }
+////
+////    @PostMapping("/update-email")
+////        public String updateEmail(Model model, HttpServletRequest request,
+////                                  @ModelAttribute @Valid UpdateEmailDTO updateEmailDTO, Errors errors) {
+////
+////        HttpSession session = request.getSession();
+////        User user = this.getUserFromSession(session);
+////
+////        model.addAttribute("title", "Account Settings");
+////        model.addAttribute("option", getOption(request));
+////        model.addAttribute("path", getPath(request));
+////
+////        if (errors.hasErrors()) {
+////
+////            model.addAttribute("title", "Account Settings");
+////            model.addAttribute("option", getOption(request));
+////            model.addAttribute("path", getPath(request));
+////
+////            return "user/update-email";
+////        }
+////
+////        user.setEmail(updateEmailDTO.getEmail());
+////        userRepository.save(user);
+////        model.addAttribute("user", user);
+////
+////        return "user/settings";
+////
+////    }
 //}
