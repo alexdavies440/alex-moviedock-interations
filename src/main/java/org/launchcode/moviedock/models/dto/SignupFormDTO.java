@@ -2,11 +2,12 @@ package org.launchcode.moviedock.models.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.launchcode.moviedock.data.ValidEmail;
 
 public class SignupFormDTO extends SigninFormDTO {
 
     @NotBlank
-    @Email
+    @ValidEmail // Custom email validator
     private String email;
 
     @NotBlank

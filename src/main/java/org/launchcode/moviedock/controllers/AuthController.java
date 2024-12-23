@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.context.request.WebRequest;
 
 
 @Controller
@@ -21,16 +22,9 @@ public class AuthController {
     public String loginSuccess() {return "user/profile"; }
 
     @GetMapping("signup")
-    public String signinForm() {
-        return "signup";
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/settings")
-    public String displaySettings(Model model) {
-
-        model.addAttribute("title", "Account Settings");
-
-        return "user/settings";
+    public String showRegistrationForm(WebRequest request, Model model) {
+        SignupFormDTO signupFormDTO = new SignupFormDTO();
+        model.addAttribute("user", signupFormDTO);
+        return "registration";
     }
 }
