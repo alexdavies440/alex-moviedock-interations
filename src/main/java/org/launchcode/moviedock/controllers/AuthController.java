@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AuthController {
-    @GetMapping("/")
-    public String home() {
-        return "index";
-    }
 
     @GetMapping("/login")
     public String login() {
@@ -24,16 +20,15 @@ public class AuthController {
     @PostMapping("/login")
     public String loginSuccess() {return "user/profile"; }
 
-    @GetMapping("/profile")
-    public String profile() {
-        return "user/profile";
+    @GetMapping("signup")
+    public String signinForm() {
+        return "signup";
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/settings")
-    public String displaySettings(Model model, HttpServletRequest request) {
+    public String displaySettings(Model model) {
 
-        model.addAttribute(new SignupFormDTO());
         model.addAttribute("title", "Account Settings");
 
         return "user/settings";

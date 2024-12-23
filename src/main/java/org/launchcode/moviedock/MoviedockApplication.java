@@ -14,7 +14,7 @@ public class MoviedockApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MoviedockApplication.class, args);
 	}
-//
+
 //	@Bean
 //	CommandLineRunner commandLineRunner(UserRepository users, PasswordEncoder encoder) {
 //		return args -> {

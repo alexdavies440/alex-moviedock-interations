@@ -22,10 +22,13 @@ public class User extends AbstractEntity {
     @Email
     private String email;
 
-    @NotEmpty
-    private String pwHash;
+//    @NotEmpty
+//    private String pwHash;
+//
+//    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @NotBlank
+    private String password;
 
 
     private String roles;
@@ -49,7 +52,8 @@ public class User extends AbstractEntity {
     public User (String username, String email, String password, String roles) {
         this.username = username;
         this.email = email;
-        this.pwHash = encoder.encode(password);
+//        this.pwHash = encoder.encode(password);
+        this.password = password;
         this.roles = roles;
     }
 
@@ -69,8 +73,13 @@ public class User extends AbstractEntity {
         this.email = email;
     }
 
-    public String getPwHash() {
-        return pwHash;
+//    public String getPwHash() {
+//        return pwHash;
+//    }
+
+
+    public String getPassword() {
+        return password;
     }
 
     public List<Review> getReviewsList() {
@@ -86,9 +95,9 @@ public class User extends AbstractEntity {
     }
 
 
-    public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, pwHash);
-    }
+//    public boolean isMatchingPassword(String password) {
+//        return encoder.matches(password, pwHash);
+//    }
 
     public String getRoles() {
         return roles;
