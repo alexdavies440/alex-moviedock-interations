@@ -2,12 +2,11 @@ package org.launchcode.moviedock.models.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import org.launchcode.moviedock.data.ValidEmail;
 
 public class SignupFormDTO extends SigninFormDTO {
 
     @NotBlank
-    @ValidEmail // Custom email validator
+//    @ValidEmail // Custom email validator
     private String email;
 
     @NotBlank
@@ -27,6 +26,6 @@ public class SignupFormDTO extends SigninFormDTO {
 
     public void setVerifyPassword(String verifyPassword) {
         this.verifyPassword = verifyPassword;
-    }
+    } // Do I actually need this?
 
 }

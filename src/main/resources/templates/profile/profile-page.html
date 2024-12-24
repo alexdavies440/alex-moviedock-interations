@@ -7,6 +7,11 @@
 
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
-<h1>Search functionality could go here? Do whatever you like with this template. If you change the name, make sure to update it in fragments in the href="/search"</h1>
+
+<h1 th:inline="text">Hello <span sec:authentication="name"></span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
 </body>
 </html>
