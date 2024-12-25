@@ -2,8 +2,8 @@ package org.launchcode.moviedock.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.launchcode.moviedock.data.appUserRepository;
-import org.launchcode.moviedock.models.appUser;
+import org.launchcode.moviedock.data.AppUserRepository;
+import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.SignupFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class RegistrationController {
 
     @Autowired
-    private appUserRepository appUserRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -38,7 +38,7 @@ public class RegistrationController {
         String userPassword = passwordEncoder.encode(signupFormDTO.getPassword());
         String userRole = "USER";
 
-        appUser newAppUser = new appUser(signupFormDTO.getUsername(), signupFormDTO.getEmail(), userPassword, userRole);
+        AppUser newAppUser = new AppUser(signupFormDTO.getUsername(), signupFormDTO.getEmail(), userPassword, userRole);
         appUserRepository.save(newAppUser);
 
         return "index";

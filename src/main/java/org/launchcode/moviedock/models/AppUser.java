@@ -1,21 +1,19 @@
 package org.launchcode.moviedock.models;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.*;//for ENTITY ,ManyToMany etc.
 
 
 @Entity
-public class appUser extends AbstractEntity {
+public class AppUser extends AbstractEntity {
 
     private String username;
     private String email;
     private String password;
     private String role;
 
-    public appUser() {}
+    public AppUser() {}
 
-    public appUser(String username, String email, String password, String role) {
+    public AppUser(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
         this.password = password;
