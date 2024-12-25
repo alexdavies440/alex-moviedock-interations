@@ -1,6 +1,6 @@
 package org.launchcode.moviedock.controllers;
 
-import org.launchcode.moviedock.data.ProfileRepository;
+import org.launchcode.moviedock.data.appUserRepository;
 import org.launchcode.moviedock.models.dto.SigninFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController {
 
     @Autowired
-    private ProfileRepository profileRepository;
+    private appUserRepository appUserRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

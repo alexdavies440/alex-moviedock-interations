@@ -2,34 +2,24 @@ package org.launchcode.moviedock.models;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.persistence.*;//for ENTITY ,ManyToMany etc.
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-public class Profile extends AbstractEntity {
+public class appUser extends AbstractEntity {
 
-    @NotBlank
     private String username;
-
-    @NotBlank
-    @Email
     private String email;
-
-    @NotBlank
     private String password;
+    private String role;
 
-    public Profile() {}
+    public appUser() {}
 
-    public Profile(String username, String email, String password) {
+    public appUser(String username, String email, String password, String role) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -56,9 +46,11 @@ public class Profile extends AbstractEntity {
         this.password = password;
     }
 
-    //    public boolean isMatchingPassword(String password) {
-//        return encoder.matches(password, pwHash);
-//    }
+    public String getRole() {
+        return role;
+    }
 
-
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
