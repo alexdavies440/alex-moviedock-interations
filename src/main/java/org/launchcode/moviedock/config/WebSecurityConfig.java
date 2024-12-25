@@ -6,6 +6,7 @@ import org.launchcode.moviedock.service.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -26,13 +27,16 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 // For the purposes of this project, CSRF protection is overkill
-                .csrf(AbstractHttpConfigurer::disable)
+//                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(Customizer.withDefaults()) // This also works
+
                 .authorizeHttpRequests(registry -> {
                     registry
                             .requestMatchers("/").permitAll()
                             .requestMatchers("/signup").permitAll()
                             .requestMatchers("/signin").permitAll()
                             .requestMatchers("/css/**").permitAll()
+                            .requestMatchers("/profile").permitAll()
                             .anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {

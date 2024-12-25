@@ -7,19 +7,22 @@
 
 <body class="container bg-1">
 <div th:replace="fragments :: header"></div>
-<div class="container-content">
-   <h1>Sign In</h1>
-</div>
-<form action="/signin" method="post">
+<h1>Please Log In</h1>
+<div th:if="${param.logout}">
+   You have been signed out.</div>
+<br>
+<form th:action="@{/signin}" method="post">
    <div class="form-group">
       <label>Username
-         <input class="form-control" type="text" name="username" required>
+         <input class="form-control" type="text" th:field="${signinFormDTO.username}">
       </label>
+      <p class="error" th:errors="${signinFormDTO.username}"></p>
    </div>
    <div class="form-group">
       <label>Password
-         <input class="form-control" type="password" name="password" required>
+         <input class="form-control" type="password" th:field="${signinFormDTO.password}">
       </label>
+      <p class="error" th:errors="${signinFormDTO.password}"></p>
    </div>
    <div class="form-group">
       <input type="submit" class="btn btn-success" value="Sign In" />

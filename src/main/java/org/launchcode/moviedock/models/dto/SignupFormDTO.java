@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 public class SignupFormDTO extends SigninFormDTO {
 
     @NotBlank
+    @Email
 //    @ValidEmail // Custom email validator
     private String email;
 

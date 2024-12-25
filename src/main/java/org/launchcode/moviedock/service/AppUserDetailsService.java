@@ -23,7 +23,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
         Optional<AppUser> appUser = appUserRepository.findByUsername(username);
         if (appUser.isPresent()) {
-            var userObj = appUser.get();
+            AppUser userObj = appUser.get();
             return User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())

@@ -8,26 +8,30 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 <h1>Sign Up</h1>
-<form method="post">
+<form th:action="@{/signup}" method="post">
    <div class="form-group">
       <label>Username
-         <input class="form-control" type="text" name="username" required/>
+         <input class="form-control" type="text" th:field="${signupFormDTO.username}" required/>
       </label>
+      <p class="error" th:errors="${signupFormDTO.username}"></p>
    </div>
    <div class="form-group">
       <label>Email
-         <input class="form-control" type="email" name="email" required/>
+         <input class="form-control" type="email" th:field="${signupFormDTO.email}"/>
       </label>
+      <p class="error" th:errors="${signupFormDTO.email}"></p>
    </div>
    <div class="form-group">
       <label>Password
-         <input class="form-control" type="password" name="password" required/>
+         <input class="form-control" type="password" th:field="${signupFormDTO.password}"/>
       </label>
+      <p class="error" th:errors="${signupFormDTO.password}"></p>
    </div>
    <div class="form-group">
       <label>Verify Password
-         <input class="form-control" type="password" />
+         <input class="form-control" type="password" th:field="${signupFormDTO.verifyPassword}"/>
       </label>
+      <p class="error" th:errors="${signupFormDTO.verifyPassword}"></p>
    </div>
    <input type="submit" class="btn btn-success" value="Sign Up" />
 </form>

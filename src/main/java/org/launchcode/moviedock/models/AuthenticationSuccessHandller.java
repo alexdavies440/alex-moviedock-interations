@@ -8,6 +8,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 import java.io.IOException;
 
+// Upon successful authentication, determines what page user is redirected to
 public class AuthenticationSuccessHandller extends SavedRequestAwareAuthenticationSuccessHandler {
 
     @Override

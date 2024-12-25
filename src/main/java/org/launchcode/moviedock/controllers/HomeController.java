@@ -22,10 +22,10 @@ public class HomeController {
         return "profile/settings";
     }
 
-    @GetMapping("signup")
-    public String signupForm() {
-        return "profile/signup";
-    }
+//    @GetMapping("signup")
+//    public String signupForm() {
+//        return "profile/signup";
+//    }
 
     @GetMapping("/profile")
     public String profile() {
