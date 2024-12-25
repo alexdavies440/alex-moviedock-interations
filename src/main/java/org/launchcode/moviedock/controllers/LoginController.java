@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
@@ -18,9 +19,8 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/signin")
-    public String signin(Model model) {
-
-        model.addAttribute(new SigninFormDTO());
+    public String signin() {
         return "profile/signin";
     }
+
 }

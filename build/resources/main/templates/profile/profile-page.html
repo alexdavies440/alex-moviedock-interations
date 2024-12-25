@@ -8,7 +8,7 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<h1 th:inline="text">Hello <span sec:authentication="name"></span>!</h1>
+<h1 th:inline="text">Hello!</h1>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>

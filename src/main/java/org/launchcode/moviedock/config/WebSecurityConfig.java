@@ -1,6 +1,7 @@
 package org.launchcode.moviedock.config;
 
 import com.mysql.cj.protocol.AuthenticationProvider;
+import org.launchcode.moviedock.models.AuthenticationSuccessHandller;
 import org.launchcode.moviedock.service.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -34,7 +35,12 @@ public class WebSecurityConfig {
                             .requestMatchers("/css/**").permitAll()
                             .anyRequest().authenticated();
                 })
-                .formLogin(formLogin -> formLogin.permitAll())
+                .formLogin(httpSecurityFormLoginConfigurer -> {
+                    httpSecurityFormLoginConfigurer
+                            .loginPage("/signin")
+                            .successHandler(new AuthenticationSuccessHandller())
+                            .permitAll();
+                })
                 .build();
 
     }
