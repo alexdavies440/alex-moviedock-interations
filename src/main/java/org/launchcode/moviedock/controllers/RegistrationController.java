@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class RegistrationController {
 
     @Autowired
@@ -21,29 +21,10 @@ public class RegistrationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/signup")
-    public String signupPage(Model model) {
-
-        model.addAttribute(new SignupFormDTO());
-        return "profile/signup";
-    }
-
-
     @PostMapping("/signup")
-    public String signupSuccess(@ModelAttribute @Valid SignupFormDTO signupFormDTO,
-                                Errors errors, HttpServletRequest request,
-                                Model model) {
-
-
-        String userPassword = passwordEncoder.encode(signupFormDTO.getPassword());
-        String userRole = "USER";
-
-        AppUser newAppUser = new AppUser(signupFormDTO.getUsername(), signupFormDTO.getEmail(), userPassword, userRole);
-        appUserRepository.save(newAppUser);
-
-        return "index";
-
+    public AppUser createUser(@RequestBody AppUser appUser) {
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+        return appUserRepository.save(appUser);
     }
-
 
 }

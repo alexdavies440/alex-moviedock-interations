@@ -12,9 +12,19 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/403")
+    public String test() {
+        return "error/403";
+    }
+
     @GetMapping("/settings")
     public String settings() {
         return "profile/settings";
+    }
+
+    @GetMapping("signup")
+    public String signupForm() {
+        return "profile/signup";
     }
 
     @GetMapping("/signout")
