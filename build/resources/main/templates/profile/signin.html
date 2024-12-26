@@ -7,9 +7,10 @@
 
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
-<h1>Please Log In</h1>
-<div th:if="${param.logout}">
-   You have been signed out.</div>
+<h1>Please Sign In</h1>
+<div th:if="${param.error}">
+   Invalid username and password.
+</div>
 <br>
 <form th:action="@{/signin}" method="post">
    <div class="form-group">
@@ -26,6 +27,7 @@
       <input type="submit" class="btn btn-success" value="Sign In" />
    </div>
 </form>
+
 
 <p>Don't have an account? <a href="/signup">Sign up today!</a></p>
 </body>

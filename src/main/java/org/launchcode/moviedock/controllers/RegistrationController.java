@@ -1,11 +1,10 @@
 package org.launchcode.moviedock.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
-import org.launchcode.moviedock.models.dto.SignupFormDTO;
+import org.launchcode.moviedock.models.dto.AppUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -27,28 +26,28 @@ public class RegistrationController {
 
     @GetMapping("/signup")
     public String signup(Model model) {
-        model.addAttribute(new SignupFormDTO());
+        model.addAttribute(new AppUserDto());
         return "/profile/signup";
     }
 
     @PostMapping("/signup")
-    public String signupSuccess(Model model, @ModelAttribute @Valid SignupFormDTO signupFormDTO,
+    public String signupSuccess(Model model, @ModelAttribute @Valid AppUserDto appUserDto,
                                 Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             return "profile/signup";
         }
 
-        Optional<AppUser> existingUser = appUserRepository.findByUsername(signupFormDTO.getUsername());
+        Optional<AppUser> existingUser = appUserRepository.findByUsername(appUserDto.getUsername());
 
         if (existingUser.isPresent()) {
             errors.rejectValue("username", "username.alreadyexists", "Sorry, someone has already taken that username. Please try another");
             return "profile/signup";
         }
 
-        String password = signupFormDTO.getPassword();
+        String password = appUserDto.getPassword();
 
-        String verifyPassword = signupFormDTO.getVerifyPassword();
+        String verifyPassword = appUserDto.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Please check that passwords match");
             return "profile/signup";
@@ -57,7 +56,7 @@ public class RegistrationController {
         password = passwordEncoder.encode(password);
         String role = "USER";
 
-        AppUser newUser = new AppUser(signupFormDTO.getUsername(), signupFormDTO.getEmail(), password, role);
+        AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role);
         appUserRepository.save(newUser);
 
         return "profile/profile-page";

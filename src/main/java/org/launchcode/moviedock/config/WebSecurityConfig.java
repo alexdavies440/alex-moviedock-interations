@@ -28,15 +28,15 @@ public class WebSecurityConfig {
         return httpSecurity
                 // For the purposes of this project, CSRF protection is overkill
 //                .csrf(AbstractHttpConfigurer::disable)
-                .csrf(Customizer.withDefaults()) // This also works
-
-                .authorizeHttpRequests(registry -> {
-                    registry
+                .csrf(Customizer.withDefaults())
+                .authorizeHttpRequests(authorize -> {
+                    authorize
                             .requestMatchers("/").permitAll()
                             .requestMatchers("/signup").permitAll()
                             .requestMatchers("/signin").permitAll()
                             .requestMatchers("/css/**").permitAll()
                             .requestMatchers("/profile").permitAll()
+                            .requestMatchers("/search").permitAll()
                             .anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
@@ -45,6 +45,7 @@ public class WebSecurityConfig {
                             .successHandler(new AuthenticationSuccessHandller())
                             .permitAll();
                 })
+
                 .build();
 
     }
