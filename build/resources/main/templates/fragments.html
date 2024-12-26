@@ -20,6 +20,11 @@
     <title th:text="${title}">Moviedock</title>
 </head>
 <body>
+
+<!--<div th:fragment="options">-->
+<!--    <li sec:authorize="!isAuthenticated()"><a href="/signout">SIGN IN</a></li>-->
+<!--    <li sec:authorize="isAuthenticated()"><a href="/signin">SIGN OUT</a></li>-->
+<!--</div>-->
     <div th:fragment="header" id="navigation">
         <nav class="navbar navbar-inverse navbar-fixed-top bar">
             <div class="container-fluid">
@@ -31,8 +36,10 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
-                        <li sec:authorize="!isAuthenticated()"><a href="/signout">SIGN IN</a></li>
-                        <li sec:authorize="hasRole('ROLE_USER')"><a href="/signin">SIGN OUT</a></li>
+                        <li>
+                            <a sec:authorize="!isAuthenticated()" th:href="@{/signin}">SIGN IN</a>
+                            <a sec:authorize="isAuthenticated()" th:href="@{/signout}">SIGN OUT</a>
+                        </li>
                     </ul>
                 </div>
             </div>

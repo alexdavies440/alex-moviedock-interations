@@ -18,11 +18,14 @@ public class AuthenticationSuccessHandller extends SavedRequestAwareAuthenticati
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
 
+        boolean isUser = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER"));
         // Set custom page to display when user logs in depending on authorities
-        if(isAdmin) {
-            setDefaultTargetUrl("/settings");
-        } else {
+
+        if (isUser) {
             setDefaultTargetUrl("/profile");
+        } else {
+            setDefaultTargetUrl("/");
         }
 
         super.onAuthenticationSuccess(request, response, authentication);
