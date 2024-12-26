@@ -1,5 +1,6 @@
 package org.launchcode.moviedock.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
@@ -52,11 +53,17 @@ public class LoginController {
         if (!providedPassword.equals(userPassword)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Sign In");
-            return "user/signin";
+            return "profile/signin";
         }
 
 
         return "profile/profile-page";
+    }
+
+    @GetMapping("/signout")
+    public String signout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "profile/signin";
     }
 
 }

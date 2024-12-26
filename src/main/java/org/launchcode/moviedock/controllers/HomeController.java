@@ -22,19 +22,11 @@ public class HomeController {
         return "profile/settings";
     }
 
-//    @GetMapping("signup")
-//    public String signupForm() {
-//        return "profile/signup";
-//    }
 
     @GetMapping("/profile")
     public String profile() {
         return "profile/profile-page";
     }
 
-    @GetMapping("/signout")
-    public String signout(HttpServletRequest request){
-        request.getSession().invalidate();
-        return "redirect:/user/signin";
-    }
+
 }
