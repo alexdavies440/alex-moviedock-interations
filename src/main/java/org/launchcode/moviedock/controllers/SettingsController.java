@@ -1,11 +1,19 @@
 package org.launchcode.moviedock.controllers;
 
+import com.mysql.cj.protocol.x.XAuthenticationProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.SigninFormDTO;
+import org.launchcode.moviedock.models.dto.UpdateEmailDTO;
+import org.launchcode.moviedock.service.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +35,12 @@ public class SettingsController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/settings")
-    public String settings() {
+    public String settings(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        String username = userDetails.getUsername();
+        Optional<AppUser> principal = appUserRepository.findByUsername(username);
+        model.addAttribute("email", principal.get().getEmail());
+
         return "profile/settings";
     }
 
@@ -68,5 +81,26 @@ public class SettingsController {
         request.getSession().invalidate();
 
         return "redirect:/signin";
+    }
+
+    @GetMapping("/settings/update-email")
+    public String updateEmail(Model model) {
+
+        model.addAttribute(new UpdateEmailDTO());
+
+        return "profile/update-email";
+    }
+
+    @PostMapping("/settings/update-email")
+    public String updateEmailSuccess(@ModelAttribute @Valid UpdateEmailDTO updateEmailDTO,
+                                     @AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        String username = userDetails.getUsername();
+        Optional<AppUser> principal = appUserRepository.findByUsername(username);
+
+        principal.get().setEmail(updateEmailDTO.getEmail());
+        appUserRepository.save(principal.get());
+
+        return "redirect:/settings";
     }
 }

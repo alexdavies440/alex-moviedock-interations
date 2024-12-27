@@ -8,7 +8,7 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<form method="post">
+<form th:action="@{/settings/update-email}" method="post">
     <div class="container-content">
         <!--    May change this to "Update Info" and just have one Update link in settings-->
         <h1>Update Email</h1>
