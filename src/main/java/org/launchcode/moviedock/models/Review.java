@@ -53,6 +53,14 @@ public class Review extends AbstractEntity{
         return star_rating;
     }
 
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public void setReview_text(String review_text) {
         this.review_text = review_text;
     }
