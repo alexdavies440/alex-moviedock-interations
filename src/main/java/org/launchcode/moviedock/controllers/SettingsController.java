@@ -1,5 +1,6 @@
 package org.launchcode.moviedock.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
@@ -38,7 +39,8 @@ public class SettingsController {
     }
 
     @PostMapping("/settings/delete-account")
-    public String deleteAccountSuccess(@ModelAttribute @Valid SigninFormDTO signinFormDTO, Errors errors) {
+    public String deleteAccountSuccess(@ModelAttribute @Valid SigninFormDTO signinFormDTO,
+                                       Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
             return "profile/delete-account";
@@ -46,21 +48,25 @@ public class SettingsController {
 
         Optional<AppUser> optUser = appUserRepository.findByUsername(signinFormDTO.getUsername());
 
-        if (optUser.isPresent()) {
-
-            String providedPassword = signinFormDTO.getPassword();
-            String password = optUser.get().getPassword();
-            if (!password.equals(passwordEncoder.encode(providedPassword))) {
-                errors.rejectValue("password",
-                        "password.invalid",
-                        "Invalid password");
-
-                return "profile/delete-account";
-            }
-
-            AppUser exUser = (AppUser) optUser.get();
-            appUserRepository.delete(exUser);
+        if (optUser.isEmpty()) {
+            return "profile/delete-account";
         }
-        return "index";
+
+        String providedPassword = signinFormDTO.getPassword();
+        String userPassword = optUser.get().getPassword();
+
+        if (!passwordEncoder.matches(providedPassword, userPassword)) {
+            errors.rejectValue("password",
+                    "password.invalid",
+                    "Invalid password");
+
+            return "profile/delete-account";
+        }
+
+        AppUser exUser = (AppUser) optUser.get();
+        appUserRepository.delete(exUser);
+        request.getSession().invalidate();
+
+        return "redirect:/signin";
     }
 }

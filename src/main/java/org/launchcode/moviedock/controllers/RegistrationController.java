@@ -1,5 +1,6 @@
 package org.launchcode.moviedock.controllers;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
@@ -32,7 +33,7 @@ public class RegistrationController {
 
     @PostMapping("/signup")
     public String signupSuccess(Model model, @ModelAttribute @Valid AppUserDto appUserDto,
-                                Errors errors, HttpServletRequest request) {
+                                Errors errors, HttpServletRequest request) throws ServletException {
 
         if (errors.hasErrors()) {
             return "profile/signup";
@@ -58,6 +59,8 @@ public class RegistrationController {
 
         AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role);
         appUserRepository.save(newUser);
+
+        request.login(newUser.getUsername(), appUserDto.getPassword());
 
         return "profile/profile-page";
     }
