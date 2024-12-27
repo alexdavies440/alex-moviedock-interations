@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
-import org.launchcode.moviedock.models.dto.SigninFormDTO;
 import org.launchcode.moviedock.models.dto.UpdateEmailDTO;
 import org.launchcode.moviedock.service.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,37 +45,27 @@ public class SettingsController {
 
     @GetMapping("/settings/delete-account")
     public String deleteAccount(Model model) {
-        model.addAttribute(new SigninFormDTO());
 
         return "profile/delete-account";
     }
 
     @PostMapping("/settings/delete-account")
-    public String deleteAccountSuccess(@ModelAttribute @Valid SigninFormDTO signinFormDTO,
-                                       Errors errors, HttpServletRequest request) {
+    public String deleteAccountSuccess(@RequestParam String password, Model model,
+                                       @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
 
-        if (errors.hasErrors()) {
+
+        Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
+
+
+        String userPassword = principal.get().getPassword();
+
+        model.addAttribute("password", password);
+
+        if (!passwordEncoder.matches(password, userPassword)) {
             return "profile/delete-account";
         }
 
-        Optional<AppUser> optUser = appUserRepository.findByUsername(signinFormDTO.getUsername());
-
-        if (optUser.isEmpty()) {
-            return "profile/delete-account";
-        }
-
-        String providedPassword = signinFormDTO.getPassword();
-        String userPassword = optUser.get().getPassword();
-
-        if (!passwordEncoder.matches(providedPassword, userPassword)) {
-            errors.rejectValue("password",
-                    "password.invalid",
-                    "Invalid password");
-
-            return "profile/delete-account";
-        }
-
-        AppUser exUser = (AppUser) optUser.get();
+        AppUser exUser = (AppUser) principal.get();
         appUserRepository.delete(exUser);
         request.getSession().invalidate();
 
