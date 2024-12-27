@@ -95,8 +95,7 @@ public class SettingsController {
     public String updateEmailSuccess(@ModelAttribute @Valid UpdateEmailDTO updateEmailDTO,
                                      @AuthenticationPrincipal UserDetails userDetails, Model model) {
 
-        String username = userDetails.getUsername();
-        Optional<AppUser> principal = appUserRepository.findByUsername(username);
+        Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
 
         principal.get().setEmail(updateEmailDTO.getEmail());
         appUserRepository.save(principal.get());
