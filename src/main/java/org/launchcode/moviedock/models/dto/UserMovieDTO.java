@@ -1,7 +1,9 @@
 package org.launchcode.moviedock.models.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.launchcode.moviedock.models.Movie;
 import org.launchcode.moviedock.models.Review;
 import org.launchcode.moviedock.models.User;
@@ -14,7 +16,8 @@ public class UserMovieDTO {
     @NotNull
     private Movie movie;
 
-    @NotBlank
+//    @Valid
+    @NotNull
     private Review review;
 
     public UserMovieDTO() {

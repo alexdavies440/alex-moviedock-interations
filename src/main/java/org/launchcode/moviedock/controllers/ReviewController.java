@@ -43,11 +43,14 @@ public class ReviewController {
             Movie movie = value.get();
             User user = userInSession.getUserFromSession(request.getSession());
             Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(),user.getId());
+
+            UserMovieDTO userMovie =new UserMovieDTO();
+            userMovie.setMovie(movie);
+            userMovie.setUser(user);
+            userMovie.setReview(review);
+
             if(review == null){
                 model.addAttribute("dispText","Enter your review for " + movie.getName());
-                UserMovieDTO userMovie =new UserMovieDTO();
-                userMovie.setMovie(movie);
-                userMovie.setReview(review);
                 model.addAttribute("userMovie", userMovie);
                 model.addAttribute("buttonName","Submit Review");
 
@@ -55,8 +58,9 @@ public class ReviewController {
 
             }
             else {
-                model.addAttribute("dispText", "You have already reviewed the movie" + movie.getName() + "\n Update Review: ");
-                model.addAttribute("oldReview", reviewRepository.findById(review.getId()));
+                model.addAttribute("userMovie", userMovie);
+                model.addAttribute("dispText", "You have already reviewed the movie '" + movie.getName() + "'.  Update Review: ");
+                model.addAttribute("oldReview", review);
                 model.addAttribute("buttonName", "Update Review");
                 return "review/addReview.html";
             }
@@ -70,12 +74,32 @@ public class ReviewController {
 
         if (!errors.hasErrors()) {
             Movie movie = userMovie.getMovie();
-            Review review = userMovie.getReview();
             User user = userInSession.getUserFromSession(request.getSession());
+            //            Review review = userMovie.getReview();
+            Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(),user.getId());
 
+            if(review != null){
+                review.setMovie(movie);
+                review.setUser(user);
+                review.setReview_text(userMovie.getReview().getReview_text());
+                review.setStar_rating(userMovie.getReview().getStar_rating());
+                reviewRepository.save(review);
+            }
+
+            else{
+
+                Review newReview = userMovie.getReview();
+                newReview.setMovie(movie);
+                newReview.setUser(user);
+                reviewRepository.save(newReview);
+            }
+
+
+            model.addAttribute("user",user);
+            return "user/profile.html";
         }
 
-        return "something";
+        return "redirect:";
     }
 
 
