@@ -7,7 +7,9 @@ import jakarta.persistence.*;//for ENTITY ,ManyToMany etc.
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User extends AbstractEntity {
@@ -31,11 +33,11 @@ private String pwHash;
     )
     private final List<Review> reviewsList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "favUser")
-    private final List<Movie> favoriteMovies = new ArrayList<>();
+    @ManyToMany(mappedBy = "favoriteUsers")
+    private Set<Movie> favoriteMovies = new HashSet<>();
 
-    @ManyToMany(mappedBy = "toWatchUser")
-    private final List<Movie> toWatchMovies = new ArrayList<>();
+    @ManyToMany(mappedBy = "toWatchUsers")
+    private Set<Movie> toWatchMovies = new HashSet<>();
 
 
     public User () {}
@@ -67,12 +69,28 @@ private String pwHash;
         return reviewsList;
     }
 
-    public List<Movie> getFavoriteMovies() {
+    public Set<Movie> getFavoriteMovies() {
         return favoriteMovies;
     }
 
-    public List<Movie> getToWatchMovies() {
+    public Set<Movie> getToWatchMovies() {
         return toWatchMovies;
+    }
+
+    public void setFavoriteMovies(Set<Movie> favoriteMovies){
+        this.favoriteMovies = favoriteMovies;
+    }
+
+    public void setToWatchMovies(Set<Movie> toWatchMovies){
+        this.toWatchMovies = toWatchMovies;
+    }
+
+    public void addFavoriteMovie(Movie movie) {
+        this.favoriteMovies.add(movie);
+    }
+
+    public void addToWatchMovies(Movie movie) {
+        this.toWatchMovies.add(movie);
     }
 
     public boolean isMatchingPassword(String password) {
