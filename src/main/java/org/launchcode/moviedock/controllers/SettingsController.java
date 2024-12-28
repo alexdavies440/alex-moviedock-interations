@@ -1,18 +1,15 @@
 package org.launchcode.moviedock.controllers;
 
-import com.mysql.cj.protocol.x.XAuthenticationProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
-import org.launchcode.moviedock.models.dto.UpdateEmailDTO;
-import org.launchcode.moviedock.service.AppUserDetailsService;
+import org.launchcode.moviedock.models.dto.EmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +57,7 @@ public class SettingsController {
         String userPassword = principal.get().getPassword();
 
         model.addAttribute("password", password);
+        model.addAttribute("error", true);
 
         if (!passwordEncoder.matches(password, userPassword)) {
             return "profile/delete-account";
@@ -75,18 +73,24 @@ public class SettingsController {
     @GetMapping("/settings/update-email")
     public String updateEmail(Model model) {
 
-        model.addAttribute(new UpdateEmailDTO());
+        model.addAttribute(new EmailDTO());
 
         return "profile/update-email";
     }
 
     @PostMapping("/settings/update-email")
-    public String updateEmailSuccess(@ModelAttribute @Valid UpdateEmailDTO updateEmailDTO,
-                                     @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String updateEmailSuccess(@Valid @ModelAttribute EmailDTO emailDTO, Errors errors,
+                                     @AuthenticationPrincipal UserDetails userDetails) {
+
+        if (errors.hasErrors()) {
+            return "profile/update-email";
+        }
 
         Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
 
-        principal.get().setEmail(updateEmailDTO.getEmail());
+        // Needs email validation before setting new email, no email submission causes error
+
+        principal.get().setEmail(emailDTO.getEmail());
         appUserRepository.save(principal.get());
 
         return "redirect:/settings";

@@ -10,15 +10,14 @@
 
 <form th:action="@{/settings/update-email}" method="post">
     <div class="container-content">
-        <!--    May change this to "Update Info" and just have one Update link in settings-->
         <h1>Update Email</h1>
     </div>
     <br>
     <div class="form-group">
         <label>New Email
-            <input class="form-control" th:field="${updateEmailDTO.email}" type="email" />
+            <input class="form-control" th:field="${emailDTO.email}" type="email" />
         </label>
-        <p class="error" th:errors="${updateEmailDTO.email}"></p>
+        <p class="error" th:errors="${emailDTO.email}"></p>
     </div>
     <input type="submit" class="btn btn-success" value="Update" />
 </form>
