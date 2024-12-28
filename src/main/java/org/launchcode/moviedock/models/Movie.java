@@ -45,6 +45,10 @@ public class Movie extends AbstractEntity{
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getSearch_count() {
         return search_count;
     }
