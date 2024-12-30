@@ -21,8 +21,10 @@ public class User extends AbstractEntity {
     @Email
     private String email;
 
-@NotEmpty
-private String pwHash;
+    @NotEmpty
+    private String pwHash;
+
+
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -33,16 +35,22 @@ private String pwHash;
     )
     private final List<Review> reviewsList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "favoriteUsers")
+    @ManyToMany
+    @JoinTable(
+            name = "user_favourite_movies",
+            joinColumns = @JoinColumn(name = "favorite_user_id",referencedColumnName = "id") ,
+            inverseJoinColumns = @JoinColumn(name="favorite_movie_id",referencedColumnName = "id")
+    )
     private Set<Movie> favoriteMovies = new HashSet<>();
 
-    @ManyToMany(mappedBy = "toWatchUsers")
+    @ManyToMany
     private Set<Movie> toWatchMovies = new HashSet<>();
 
 
     public User () {}
 
     public User (String username, String email, String password) {
+        super();
         this.username = username;
         this.email = email;
         this.pwHash = encoder.encode(password);
@@ -85,13 +93,15 @@ private String pwHash;
         this.toWatchMovies = toWatchMovies;
     }
 
-    public void addFavoriteMovie(Movie movie) {
+    public void addFavoriteMovies(Movie movie) {
         this.favoriteMovies.add(movie);
     }
 
     public void addToWatchMovies(Movie movie) {
         this.toWatchMovies.add(movie);
     }
+
+
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);

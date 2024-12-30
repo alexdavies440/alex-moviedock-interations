@@ -24,22 +24,24 @@ public class Movie extends AbstractEntity{
     )
     private final List<Review> reviewsList = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "favoriteList")
+    @ManyToMany(mappedBy = "favoriteMovies")
     private Set<User> favoriteUsers = new HashSet<>();
 
 
-    @ManyToMany
-    @JoinTable(name = "toWatchList")
+    @ManyToMany(mappedBy = "toWatchMovies")
     private Set<User> toWatchUsers = new HashSet<>();
 
+
+    public Movie() {
+    }
+
     public Movie(String name, int search_count) {
+        super();
         this.name = name;
         this.search_count = search_count;
     }
 
-    public Movie() {
-    }
+
 
     public String getName() {
         return name;
