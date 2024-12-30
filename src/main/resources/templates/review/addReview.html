@@ -6,52 +6,40 @@
 
 <form method="post">
 
+
+
     <div class="form-group">
 
-        <label th:text="${dispText}"></label>
+            <input type="hidden" th:field="${userMovie.movie}">
+            <input type="hidden" th:field="${userMovie.user}">
 
-    </div>
+        <div class="form-group">
 
-    <div class="form-group">
-        <input type="hidden" th:field="${userMovie.movie}">
-        <input type="hidden" th:field="${userMovie.user}">
-
-        <span th:if="${userMovie.review != null}">
-            <textarea th:field="${userMovie.review.review_text}"  rows="10" cols="50" th:value="${oldReview.review_text}"></textarea>
-            <p class="error" th:errors="${userMovie.review.review_text}"></p>
-        </span>
-
-        <span th:if="${userMovie.review == null}">
-            <textarea th:field="${userMovie.review.review_text}"  rows="10" cols="50"></textarea>
-            <p class="error" th:errors="${userMovie.review.review_text}"></p>
-        </span>
+            <label th:text="${dispText}"></label>
 
 
+        </div>
+
+            <label>
+                <textarea class="form-control"  th:field="${userMovie.review_text}" maxlength="500" rows="10" cols="50" th:value="userMovie.review_text"></textarea>
+            </label>
+            <p class="error" th:text="${errorMsg}"></p>
+            <p class="error" th:errors ="${userMovie.review_text}"></p>
 
     </div>
 
     <div class="form-group">
         <label>Rate: </label>
 
-            <span th:if="${userMovie.review.star_rating != null}">
-                <select th:field="${userMovie.review.star_rating}">
+
+                <select th:field="${userMovie.star_rating}">
                     <option th:each="i : ${#numbers.sequence(1, 5)}" th:value="${i}" th:text="${i}"
-                            th:selected="${userMovie.review.star_rating}"></option>
+                            th:selected="${userMovie.star_rating}"></option>
                 </select>
-            </span>
-
-        <span th:if="${userMovie.review.star_rating == null}">
-                <select th:field="${userMovie.review.star_rating}">
-                    <option th:each="i : ${#numbers.sequence(1, 5)}" th:value="${i}" th:text="${i}"
-                            th:selected="${userMovie.review.star_rating}"></option>
-                </select>
-            </span>
-
-
 
     </div>
 
-    <input type="submit" class="btn btn-success" th:value="${buttonName}">
+    <input type="submit" class="btn btn-success" value="Submit Review">
 
 </form>
 

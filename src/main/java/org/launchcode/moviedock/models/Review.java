@@ -2,6 +2,7 @@ package org.launchcode.moviedock.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,7 +20,7 @@ public class Review extends AbstractEntity{
     @NotNull
     private User user;
 
-    @NotEmpty(message = "Review cannot be empty")
+    @NotBlank(message = "Review cannot be empty")
     @Size(max = 500, message = "Review cannot exceed 500 characters")
     private String review_text;
 
