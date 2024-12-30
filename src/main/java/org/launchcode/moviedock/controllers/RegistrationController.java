@@ -12,8 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
+import static org.thymeleaf.util.StringUtils.randomAlphanumeric;
 
 //@RestController
 @Controller
@@ -60,7 +60,9 @@ public class RegistrationController {
         // Will come back to this with email verification
         boolean isEnabled = false;
 
-        AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role, isEnabled);
+        String verificationCode = randomAlphanumeric(32);
+
+        AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role, isEnabled, verificationCode);
         appUserRepository.save(newUser);
 
         request.login(newUser.getUsername(), appUserDto.getPassword());

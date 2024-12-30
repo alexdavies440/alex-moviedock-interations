@@ -26,17 +26,18 @@ public class AppUser extends AbstractEntity {
     @NotNull
     private boolean isEnabled;
 
-//    @NotNull
-//    private String verificationCode;
+    @NotNull
+    private String verificationCode;
 
     public AppUser() {}
 
-    public AppUser(String username, String email, String password, String role, boolean isEnabled) {
+    public AppUser(String username, String email, String password, String role, boolean isEnabled, String verificationCode) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.isEnabled = isEnabled;
+        this.verificationCode = verificationCode;
     }
 
     public String getUsername() {
@@ -74,4 +75,9 @@ public class AppUser extends AbstractEntity {
     public boolean getEnabled() { return isEnabled; }
 
     public void setEnabled(boolean isEnabled) { this.isEnabled = isEnabled; }
+
+    public void setVerificationCode(String verificationCode) { this.verificationCode = verificationCode; }
+
+    public String getVerificationCode() { return verificationCode; }
+
 }

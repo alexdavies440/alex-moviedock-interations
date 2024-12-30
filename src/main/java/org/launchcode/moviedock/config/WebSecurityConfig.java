@@ -3,11 +3,13 @@ package org.launchcode.moviedock.config;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.AuthenticationSuccessHandller;
 import org.launchcode.moviedock.service.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.authentication.ott.OneTimeToken;
 import org.springframework.security.config.Customizer;
@@ -58,13 +60,6 @@ public class WebSecurityConfig {
                 })
                 .build();
 
-    }
-
-
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return appUserDetailsService;
     }
 
     @Bean
