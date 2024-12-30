@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private AppUserRepository appUserRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private AppUserRepository appUserRepository;
+//
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/signin")
     public String signin(Model model) {

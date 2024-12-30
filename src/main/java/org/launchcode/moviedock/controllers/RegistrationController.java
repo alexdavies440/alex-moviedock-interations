@@ -57,7 +57,10 @@ public class RegistrationController {
         password = passwordEncoder.encode(password);
         String role = "USER";
 
-        AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role);
+        // Will come back to this with email verification
+        boolean isEnabled = false;
+
+        AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role, isEnabled);
         appUserRepository.save(newUser);
 
         request.login(newUser.getUsername(), appUserDto.getPassword());

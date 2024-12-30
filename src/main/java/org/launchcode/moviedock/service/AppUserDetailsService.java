@@ -28,6 +28,7 @@ public class AppUserDetailsService implements UserDetailsService {
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
                     .roles(getRoles(userObj))
+                    .disabled(userObj.getEnabled())
                     .build();
         } else {
             throw new UsernameNotFoundException(username);
@@ -40,4 +41,6 @@ public class AppUserDetailsService implements UserDetailsService {
         }
         return appUser.getRole().split(",");
     }
+
+
 }

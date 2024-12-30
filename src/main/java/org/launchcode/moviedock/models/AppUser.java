@@ -3,6 +3,8 @@ package org.launchcode.moviedock.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.launchcode.moviedock.service.AppUserDetailsService;
 
 
 @Entity
@@ -18,15 +20,23 @@ public class AppUser extends AbstractEntity {
     @NotBlank
     private String password;
 
+    @NotNull
     private String role;
+
+    @NotNull
+    private boolean isEnabled;
+
+//    @NotNull
+//    private String verificationCode;
 
     public AppUser() {}
 
-    public AppUser(String username, String email, String password, String role) {
+    public AppUser(String username, String email, String password, String role, boolean isEnabled) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.isEnabled = isEnabled;
     }
 
     public String getUsername() {
@@ -60,4 +70,8 @@ public class AppUser extends AbstractEntity {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public boolean getEnabled() { return isEnabled; }
+
+    public void setEnabled(boolean isEnabled) { this.isEnabled = isEnabled; }
 }
