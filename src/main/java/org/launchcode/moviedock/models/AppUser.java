@@ -24,19 +24,19 @@ public class AppUser extends AbstractEntity {
     private String role;
 
     @NotNull
-    private boolean isEnabled;
+    private boolean enabled;
 
     @NotNull
     private String verificationCode;
 
     public AppUser() {}
 
-    public AppUser(String username, String email, String password, String role, boolean isEnabled, String verificationCode) {
+    public AppUser(String username, String email, String password, String role, boolean enabled, String verificationCode) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.isEnabled = isEnabled;
+        this.enabled = enabled;
         this.verificationCode = verificationCode;
     }
 
@@ -72,9 +72,9 @@ public class AppUser extends AbstractEntity {
         this.role = role;
     }
 
-    public boolean getEnabled() { return isEnabled; }
+    public boolean isEnabled() { return enabled; }
 
-    public void setEnabled(boolean isEnabled) { this.isEnabled = isEnabled; }
+    public void setEnabled(boolean isEnabled) { this.enabled = isEnabled; }
 
     public void setVerificationCode(String verificationCode) { this.verificationCode = verificationCode; }
 

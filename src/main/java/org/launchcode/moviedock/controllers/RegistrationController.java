@@ -7,6 +7,9 @@ import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.AppUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +27,8 @@ public class RegistrationController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+
 
     @GetMapping("/signup")
     public String signup(Model model) {
@@ -54,6 +59,7 @@ public class RegistrationController {
             return "profile/signup";
         }
 
+
         password = passwordEncoder.encode(password);
         String role = "USER";
 
@@ -65,6 +71,7 @@ public class RegistrationController {
         AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role, isEnabled, verificationCode);
         appUserRepository.save(newUser);
 
+        // Logs in new user after registration
         request.login(newUser.getUsername(), appUserDto.getPassword());
 
         return "profile/profile-page";
