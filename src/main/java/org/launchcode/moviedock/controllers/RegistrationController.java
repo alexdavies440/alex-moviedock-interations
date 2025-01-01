@@ -5,9 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
-import org.launchcode.moviedock.models.EmailDetails;
-import org.launchcode.moviedock.models.EmailService;
 import org.launchcode.moviedock.models.dto.AppUserDto;
+import org.launchcode.moviedock.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -76,13 +75,14 @@ public class RegistrationController {
         AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role, isEnabled, verificationCode);
         appUserRepository.save(newUser);
 
-        EmailDetails details = new EmailDetails(appUserDto.getEmail(), "Please verify your account with this code:" + verificationCode, "Thank you for joining Moviedock!");
+        emailService.sendEmail(
+                "Thank you for joining Moviedock!",
+                appUserDto.getEmail(),
+                "Please verify your account with this code:" + verificationCode);
 
-        emailService.sendSimpleMail(details);
+        // Logs in new user after registration. Will need to move this to after email verification
+        //request.login(newUser.getUsername(), appUserDto.getPassword());
 
-        // Logs in new user after registration
-        request.login(newUser.getUsername(), appUserDto.getPassword());
-
-        return "profile/profile-page";
+        return "profile/verify-email";
     }
 }
