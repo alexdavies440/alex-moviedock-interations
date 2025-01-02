@@ -26,7 +26,6 @@ public class AppUser extends AbstractEntity {
     @NotNull
     private boolean enabled;
 
-    @NotNull
     private String verificationCode;
 
     public AppUser() {}

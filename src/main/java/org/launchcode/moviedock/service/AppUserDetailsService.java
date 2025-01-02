@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService {
-    
+
     @Autowired
     private AppUserRepository appUserRepository;
 
@@ -22,13 +22,15 @@ public class AppUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<AppUser> appUser = appUserRepository.findByUsername(username);
+
         if (appUser.isPresent()) {
             AppUser userObj = appUser.get();
+
             return User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
                     .roles(getRoles(userObj))
-                    .disabled(userObj.isEnabled())
+                    .disabled(!userObj.isEnabled()) // Value is reversed since disabled should be false if enabled
                     .build();
         } else {
             throw new UsernameNotFoundException(username);
@@ -41,6 +43,5 @@ public class AppUserDetailsService implements UserDetailsService {
         }
         return appUser.getRole().split(",");
     }
-
 
 }
