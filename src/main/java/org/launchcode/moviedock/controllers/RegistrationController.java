@@ -86,7 +86,7 @@ public class RegistrationController {
         emailService.sendEmail(
                 "Thank you for joining Moviedock!",
                 appUserDto.getEmail(),
-                "Please verify your account with this code " + verificationCode);
+                "To complete sign up for " + newUser.getUsername() + ", please verify your account with this code: " + verificationCode);
 
         return "redirect:/signup-verify";
     }

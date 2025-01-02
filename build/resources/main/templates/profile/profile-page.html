@@ -8,10 +8,24 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<h1 th:inline="text">Hello <span sec:authentication="name"></span>!</h1>
+<h1 th:text="${user.username.toUpperCase()}"></h1>
 <div sec:authorize="isAuthenticated()">
     This content is only shown to authenticated users.
 </div>
 
+<!--dummy content-->
+<ul>
+    <li th:text="${user.email}"></li>
+    <li th:text="${user.role}"></li>
+    <li th:text="${user.username}"></li>
+    <li th:text="${user.username}"></li>
+    <li th:text="${user.username}"></li>
+    <li th:text="${user.username}"></li>
+    <li th:text="${user.username}"></li>
+
+
+
+
+</ul>
 </body>
 </html>
