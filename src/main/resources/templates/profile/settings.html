@@ -10,19 +10,26 @@
 
 <h1>ACCOUNT SETTINGS</h1>
 <br>
-<h3>My Email:
-    <span th:text="${email}"></span>
-    <span>
+<ul>
+    <li>
+        <h3>My Email:
+            <span th:text="${email}"></span>
+            <span>
         <a href="settings/update-email">
             <button class="btn btn-success">Update Email</button>
         </a>
     </span>
-</h3>
-<br>
-<h3>Want to leave?</h3>
-<a href="settings/delete-account">
-    <button class="btn btn-danger">Delete My Account</button>
-</a>
-
+        </h3>
+        <br>
+    </li>
+    <li>
+        <h3>Want to leave?
+            <span>
+            <a href="settings/delete-account"><button class="btn btn-danger">Delete My Account</button></a>
+        </span>
+        </h3>
+        <br>
+    </li>
+</ul>
 </body>
 </html>

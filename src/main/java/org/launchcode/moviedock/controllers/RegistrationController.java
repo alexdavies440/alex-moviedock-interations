@@ -14,11 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 import static org.thymeleaf.util.StringUtils.randomAlphanumeric;
 
-//@RestController
 @Controller
 public class RegistrationController {
 
@@ -41,7 +39,7 @@ public class RegistrationController {
 
     @PostMapping("/signup")
     public String signupSuccess(Model model, @ModelAttribute @Valid AppUserDto appUserDto,
-                                Errors errors, HttpServletRequest request) throws ServletException {
+                                Errors errors) throws ServletException {
 
         if (errors.hasErrors()) {
             return "profile/signup";
@@ -50,7 +48,10 @@ public class RegistrationController {
         Optional<AppUser> existingUser = appUserRepository.findByUsername(appUserDto.getUsername());
 
         if (existingUser.isPresent()) {
-            errors.rejectValue("username", "username.alreadyexists", "Sorry, someone has already taken that username. Please try another");
+            errors.rejectValue(
+                    "username",
+                    "username.alreadyexists",
+                    "Sorry, someone has already taken that username. Please try another");
             return "profile/signup";
         }
 
@@ -58,20 +59,28 @@ public class RegistrationController {
 
         String verifyPassword = appUserDto.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password", "passwords.mismatch", "Please check that passwords match");
+            errors.rejectValue(
+                    "password",
+                    "passwords.mismatch",
+                    "Please check that passwords match");
             return "profile/signup";
         }
-
 
         password = passwordEncoder.encode(password);
         String role = "USER";
 
-        // Will come back to this with email verification
+        // Account will not be enabled until email is verified
         boolean isEnabled = false;
 
         String verificationCode = randomAlphanumeric(6);
 
-        AppUser newUser = new AppUser(appUserDto.getUsername(), appUserDto.getEmail(), password, role, isEnabled, verificationCode);
+        AppUser newUser = new AppUser(
+                appUserDto.getUsername(),
+                appUserDto.getEmail(),
+                password,
+                role,
+                isEnabled,
+                verificationCode);
         appUserRepository.save(newUser);
 
         emailService.sendEmail(

@@ -29,19 +29,12 @@ public class AppUserDetailsService implements UserDetailsService {
             return User.builder()
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
-                    .roles(getRoles(userObj))
+                    .roles(userObj.getRole())
                     .disabled(!userObj.isEnabled()) // Value is reversed since disabled should be false if enabled
                     .build();
         } else {
             throw new UsernameNotFoundException(username);
         }
-    }
-
-    private String[] getRoles(AppUser appUser) {
-        if (appUser.getRole() == null) {
-            return new String[]{"USER"};
-        }
-        return appUser.getRole().split(",");
     }
 
 }

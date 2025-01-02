@@ -8,6 +8,8 @@ import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.EmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,8 +50,8 @@ public class SettingsController {
 
     @PostMapping("/settings/delete-account")
     public String deleteAccountSuccess(@RequestParam String password, Model model,
-                                       @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request) {
-
+                                       @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request)
+    {
 
         Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
 
