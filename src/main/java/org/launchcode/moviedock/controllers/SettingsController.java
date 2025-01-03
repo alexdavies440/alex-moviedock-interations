@@ -2,14 +2,10 @@ package org.launchcode.moviedock.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
-import org.launchcode.moviedock.models.dto.EmailDTO;
+import org.launchcode.moviedock.models.dto.EmailDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostFilter;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -75,13 +71,13 @@ public class SettingsController {
     @GetMapping("/settings/update-email")
     public String updateEmail(Model model) {
 
-        model.addAttribute(new EmailDTO());
+        model.addAttribute(new EmailDto());
 
         return "user/update-email";
     }
 
     @PostMapping("/settings/update-email")
-    public String updateEmailSuccess(@Valid @ModelAttribute EmailDTO emailDTO, Errors errors,
+    public String updateEmailSuccess(@Valid @ModelAttribute EmailDto emailDto, Errors errors,
                                      @AuthenticationPrincipal UserDetails userDetails) {
 
         if (errors.hasErrors()) {
@@ -92,7 +88,7 @@ public class SettingsController {
 
         // Needs email validation before setting new email, no email submission causes error
 
-        principal.get().setEmail(emailDTO.getEmail());
+        principal.get().setEmail(emailDto.getEmail());
         appUserRepository.save(principal.get());
 
         return "redirect:/settings";

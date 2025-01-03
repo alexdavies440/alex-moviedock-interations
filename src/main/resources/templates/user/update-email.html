@@ -15,9 +15,9 @@
     <br>
     <div class="form-group">
         <label>New Email
-            <input class="form-control" th:field="${emailDTO.email}" type="email" />
+            <input class="form-control" th:field="${emailDto.email}" type="email" />
         </label>
-        <p class="error" th:errors="${emailDTO.email}"></p>
+        <p class="error" th:errors="${emailDto.email}"></p>
     </div>
     <input type="submit" class="btn btn-success" value="Update" />
 </form>
