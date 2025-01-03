@@ -10,22 +10,8 @@
 
 <h1 th:text="${user.username.toUpperCase()}"></h1>
 <div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
+    <h2>This text is only shown to authenticated users.</h2>
 </div>
 
-<!--dummy content-->
-<ul>
-    <li th:text="${user.email}"></li>
-    <li th:text="${user.role}"></li>
-    <li th:text="${user.username}"></li>
-    <li th:text="${user.username}"></li>
-    <li th:text="${user.username}"></li>
-    <li th:text="${user.username}"></li>
-    <li th:text="${user.username}"></li>
-
-
-
-
-</ul>
 </body>
 </html>

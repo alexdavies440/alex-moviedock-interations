@@ -19,6 +19,7 @@ public class LoginController {
     @GetMapping("/signin")
     public String signin(Model model) {
         model.addAttribute("title", "Please Sign In");
+        model.addAttribute("greeting", "Please Sign In");
         return "user/signin";
     }
 

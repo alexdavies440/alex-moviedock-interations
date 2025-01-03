@@ -7,7 +7,7 @@
 
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
-<h1>Please Sign In</h1>
+<h1 th:text="${greeting}">Please Sign In</h1>
 <div th:if="${param.error}">
    Invalid username and password.
 </div>

@@ -100,7 +100,7 @@ public class RegistrationController {
         }
 
         @PostMapping("/signup-verify")
-    public String verifySuccess(@ModelAttribute VerifyCodeDto verifyCodeDto) {
+    public String verifySuccess(@ModelAttribute VerifyCodeDto verifyCodeDto, Model model) {
 
             Optional<AppUser> newUser = appUserRepository.findByVerificationCode(verifyCodeDto.getCode());
 
@@ -111,6 +111,8 @@ public class RegistrationController {
                 userObj.setVerificationCode(null);
                 appUserRepository.save(userObj);
             }
+
+            model.addAttribute("greeting", "You can now sign into your new account for the first time");
 
             return "user/signin";
         }

@@ -48,10 +48,11 @@ public class WebSecurityConfig {
                             .requestMatchers("/signup").permitAll()
                             .requestMatchers("/signin").permitAll()
                             .requestMatchers("/css/*").permitAll()
-                            .requestMatchers("/profile/**").permitAll()
+                            .requestMatchers("/profile/*").permitAll()
                             .requestMatchers("/signup-verify").permitAll()
                             .requestMatchers("/search").permitAll()
                             .anyRequest().authenticated();
+                            //.anyRequest().permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer
