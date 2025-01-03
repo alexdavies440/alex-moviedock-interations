@@ -19,7 +19,7 @@ public class LoginController {
     @GetMapping("/signin")
     public String signin(Model model) {
         model.addAttribute("title", "Please Sign In");
-        return "profile/signin";
+        return "user/signin";
     }
 
     @GetMapping("/signout")

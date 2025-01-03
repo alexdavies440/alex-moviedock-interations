@@ -39,13 +39,13 @@ public class SettingsController {
         Optional<AppUser> principal = appUserRepository.findByUsername(username);
         model.addAttribute("email", principal.get().getEmail());
 
-        return "profile/settings";
+        return "user/settings";
     }
 
     @GetMapping("/settings/delete-account")
     public String deleteAccount(Model model) {
 
-        return "profile/delete-account";
+        return "user/delete-account";
     }
 
     @PostMapping("/settings/delete-account")
@@ -62,7 +62,7 @@ public class SettingsController {
         model.addAttribute("error", true);
 
         if (!passwordEncoder.matches(password, userPassword)) {
-            return "profile/delete-account";
+            return "user/delete-account";
         }
 
         AppUser exUser = (AppUser) principal.get();
@@ -77,7 +77,7 @@ public class SettingsController {
 
         model.addAttribute(new EmailDTO());
 
-        return "profile/update-email";
+        return "user/update-email";
     }
 
     @PostMapping("/settings/update-email")
@@ -85,7 +85,7 @@ public class SettingsController {
                                      @AuthenticationPrincipal UserDetails userDetails) {
 
         if (errors.hasErrors()) {
-            return "profile/update-email";
+            return "user/update-email";
         }
 
         Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());

@@ -34,7 +34,7 @@ public class RegistrationController {
     @GetMapping("/signup")
     public String signup(Model model) {
         model.addAttribute(new AppUserDto());
-        return "/profile/signup";
+        return "/user/signup";
     }
 
     @PostMapping("/signup")
@@ -42,7 +42,7 @@ public class RegistrationController {
                                 Errors errors) throws ServletException {
 
         if (errors.hasErrors()) {
-            return "profile/signup";
+            return "user/signup";
         }
 
         Optional<AppUser> existingUser = appUserRepository.findByUsername(appUserDto.getUsername());
@@ -52,7 +52,7 @@ public class RegistrationController {
                     "username",
                     "username.alreadyexists",
                     "Sorry, someone has already taken that username. Please try another");
-            return "profile/signup";
+            return "user/signup";
         }
 
         String password = appUserDto.getPassword();
@@ -63,7 +63,7 @@ public class RegistrationController {
                     "password",
                     "passwords.mismatch",
                     "Please check that passwords match");
-            return "profile/signup";
+            return "user/signup";
         }
 
         password = passwordEncoder.encode(password);
@@ -96,7 +96,7 @@ public class RegistrationController {
 
         model.addAttribute(new VerifyCodeDto());
 
-            return "profile/verify-email";
+            return "user/verify-email";
         }
 
         @PostMapping("/signup-verify")
@@ -112,6 +112,6 @@ public class RegistrationController {
                 appUserRepository.save(userObj);
             }
 
-            return "profile/signin";
+            return "user/signin";
         }
 }

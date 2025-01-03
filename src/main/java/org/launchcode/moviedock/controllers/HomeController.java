@@ -32,7 +32,7 @@ public class HomeController {
         Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
 
         model.addAttribute("user", principal.get());
-        return "profile/profile-page";
+        return "user/profile";
     }
 
     @GetMapping("/profile/{username}")
@@ -43,7 +43,7 @@ public class HomeController {
         if(appUser.isPresent()) {
             AppUser aUser = (AppUser) appUser.get();
             model.addAttribute("user", aUser);
-            return "profile/profile-page";
+            return "user/profile";
         } else {
             return "redirect:..";
         }
