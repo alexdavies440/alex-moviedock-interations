@@ -21,7 +21,7 @@ public class EmailService {
     private String subject;
     private String recipient;
     private String msgBody;
-    private URL confirmationLink;
+//    private URL confirmationLink;
 
     public void sendEmail(String subject, String recipient, String msgBody) {
 
