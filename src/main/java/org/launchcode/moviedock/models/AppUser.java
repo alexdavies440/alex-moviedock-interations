@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class AppUser extends AbstractEntity {
 
@@ -25,6 +28,20 @@ public class AppUser extends AbstractEntity {
     private boolean enabled;
 
     private String verificationCode;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private final List<Review> reviewsList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "favUser")
+    private final List<Movie> favoriteMovies = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "toWatchUser")
+    private final List<Movie> toWatchMovies = new ArrayList<>();
+
 
     public AppUser() {}
 
@@ -77,4 +94,15 @@ public class AppUser extends AbstractEntity {
 
     public String getVerificationCode() { return verificationCode; }
 
+    public List<Review> getReviewsList() {
+        return reviewsList;
+    }
+
+    public List<Movie> getFavoriteMovies() {
+        return favoriteMovies;
+    }
+
+    public List<Movie> getToWatchMovies() {
+        return toWatchMovies;
+    }
 }
