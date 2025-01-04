@@ -9,8 +9,8 @@ import org.launchcode.moviedock.data.UserRepository;
 import org.launchcode.moviedock.models.Movie;
 import org.launchcode.moviedock.models.Review;
 import org.launchcode.moviedock.models.User;
-import org.launchcode.moviedock.models.dto.UserMovieDTO;
-import org.launchcode.moviedock.service.UserInSession;
+import org.launchcode.moviedock.models.dto.UserReviewDTO;
+import org.launchcode.moviedock.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +35,7 @@ public class ReviewController {
     UserRepository userRepository;
 
     @Autowired
-    UserInSession userInSession;
+    UserService userInSession;
 
     private String reviewError = "false";
 
@@ -46,9 +46,9 @@ public class ReviewController {
         User user = userInSession.getUserFromSession(request.getSession());
         Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(),user.getId());
 
-        UserMovieDTO userMovie =new UserMovieDTO();
-        userMovie.setMovie(movie);
-        userMovie.setUser(user);
+        UserReviewDTO userReview =new UserReviewDTO();
+        userReview.setMovie(movie);
+        userReview.setUser(user);
 
 
         if(reviewError.equals("true")){
@@ -57,18 +57,18 @@ public class ReviewController {
         }
 
         if(review != null){
-            userMovie.setReview_text(review.getReview_text());
-            userMovie.setStar_rating(review.getStar_rating());
+            userReview.setReview_text(review.getReview_text());
+            userReview.setStar_rating(review.getStar_rating());
 
 
-            model.addAttribute("userMovie", userMovie);
+            model.addAttribute("userReview", userReview);
             model.addAttribute("dispText","You have already reviewed '" + movie.getName() + "'. You can update your old review.");
 
             return "review/addReview.html";
         }
         else{
 
-            model.addAttribute("userMovie", userMovie);
+            model.addAttribute("userReview", userReview);
             model.addAttribute("dispText","Enter your review for " + movie.getName());
 
             return "review/addReview.html";
@@ -78,7 +78,7 @@ public class ReviewController {
     }
 
     @PostMapping("review")
-    public String saveMovieReview(@ModelAttribute @Valid UserMovieDTO userMovie,
+    public String saveMovieReview(@ModelAttribute @Valid UserReviewDTO userReview,
                                   Errors errors, HttpServletRequest request,
                                   Model model) {
 
@@ -87,25 +87,25 @@ public class ReviewController {
 
             reviewError = "true";
 
-            return "redirect:review?movieId=" + userMovie.getMovie().getId();
+            return "redirect:review?movieId=" + userReview.getMovie().getId();
 
         } else {
 
-            Movie movie = userMovie.getMovie();
+            Movie movie = userReview.getMovie();
             User user = userInSession.getUserFromSession(request.getSession());
 
             Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(), user.getId());
 
             if (review != null) {
 
-                review.setReview_text(userMovie.getReview_text());
-                review.setStar_rating(userMovie.getStar_rating());
+                review.setReview_text(userReview.getReview_text());
+                review.setStar_rating(userReview.getStar_rating());
                 reviewRepository.save(review);
             } else {
 
                 Review newReview = new Review();
-                newReview.setReview_text(userMovie.getReview_text());
-                newReview.setStar_rating(userMovie.getStar_rating());
+                newReview.setReview_text(userReview.getReview_text());
+                newReview.setStar_rating(userReview.getStar_rating());
                 newReview.setMovie(movie);
                 newReview.setUser(user);
                 reviewRepository.save(newReview);
@@ -113,7 +113,7 @@ public class ReviewController {
 
 
             model.addAttribute("user", user);
-            model.addAttribute("reviews",reviewRepository.findByUserId(user.getId()));
+//            model.addAttribute("reviews",reviewRepository.findByUserId(user.getId()));
 //            model.addAttribute("movies",movieRepository.findAllById(reviewRepository.findMovieByUserId(user.getId())));
             return "user/profile.html";
         }

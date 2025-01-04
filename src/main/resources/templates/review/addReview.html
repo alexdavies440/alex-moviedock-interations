@@ -10,8 +10,8 @@
 
     <div class="form-group">
 
-            <input type="hidden" th:field="${userMovie.movie}">
-            <input type="hidden" th:field="${userMovie.user}">
+            <input type="hidden" th:field="${userReview.movie}">
+            <input type="hidden" th:field="${userReview.user}">
 
         <div class="form-group">
 
@@ -21,10 +21,10 @@
         </div>
 
             <label>
-                <textarea class="form-control"  th:field="${userMovie.review_text}" maxlength="500" rows="10" cols="50" th:value="userMovie.review_text"></textarea>
+                <textarea class="form-control"  th:field="${userReview.review_text}" maxlength="500" rows="10" cols="50" th:value="userReview.review_text"></textarea>
             </label>
             <p class="error" th:text="${errorMsg}"></p>
-            <p class="error" th:errors ="${userMovie.review_text}"></p>
+            <p class="error" th:errors ="${userReview.review_text}"></p>
 
     </div>
 
@@ -32,9 +32,9 @@
         <label>Rate: </label>
 
 
-                <select th:field="${userMovie.star_rating}">
+                <select th:field="${userReview.star_rating}">
                     <option th:each="i : ${#numbers.sequence(1, 5)}" th:value="${i}" th:text="${i}"
-                            th:selected="${userMovie.star_rating}"></option>
+                            th:selected="${userReview.star_rating}"></option>
                 </select>
 
     </div>

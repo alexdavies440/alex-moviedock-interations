@@ -40,7 +40,8 @@
             <th>Star Rating</th>
         </tr>
         </thead>
-        <tr th:each="review : ${reviews}">
+<!--        <tr th:each="review : ${reviews}">-->
+        <tr th:each="review : ${user.reviewsList}">
 
             <td th:text="${review.movie}"></td>
             <td th:text="${review.review_text}"></td>
