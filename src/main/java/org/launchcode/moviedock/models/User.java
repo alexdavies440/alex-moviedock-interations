@@ -44,6 +44,11 @@ public class User extends AbstractEntity {
     private Set<Movie> favoriteMovies = new HashSet<>();
 
     @ManyToMany
+    @JoinTable(
+            name = "user_to_watch_movies",
+            joinColumns = @JoinColumn(name = "to_watch_user_id",referencedColumnName = "id") ,
+            inverseJoinColumns = @JoinColumn(name="to_watch_movie_id",referencedColumnName = "id")
+    )
     private Set<Movie> toWatchMovies = new HashSet<>();
 
 

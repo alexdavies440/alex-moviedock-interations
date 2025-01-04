@@ -77,6 +77,7 @@ public class MovieController {
                 //if(!user.getFavoriteMovies().contains(movie)){
                 //user.getFavoriteMovies().add(movie);
                 user.addFavoriteMovies(movie);
+                user.addToWatchMovies(movie);
                 userRepository.save(user);
                 model.addAttribute("user", user);
                 return "user/profile";
