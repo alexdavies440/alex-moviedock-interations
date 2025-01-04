@@ -6,26 +6,29 @@
 <nav th:replace="fragments :: header"></nav>
 
 <!--Displays username of whatever user is currently logged in when clicking My Profile button-->
-<h1 th:text="${user.username.toUpperCase()}"></h1>
-<p>Maybe a short bio could go here</p>
+<!--<h1 th:text="${user.username}"></h1>-->
+
 <br>
 <div>
-    <h3>Favorites</h3>
-    <ul>
-        <li>Movie</li>
-        <li>Movie</li>
-        <li>Movie</li>
-        <li>Movie</li>
-    </ul>
+    <h3>User Profile</h3>
+    <h2 th:text="${user.username}"></h2>
 </div>
+<br>
 <div>
-    <h3>To-Watch</h3>
-    <ul>
-        <li>Movie</li>
-        <li>Movie</li>
-        <li>Movie</li>
+    <h3>Favorite Movies</h3>
+    <ul th:each="favoriteMovie : ${user.favoriteMovies}">
+        <li>
+            <p th:text="${favoriteMovie.name}"></p>
+        </li>
     </ul>
 </div>
+<br>
+<div>
+<h3>To Watch Movies</h3>
+
+</div>
+
+
 <div>
     <h3>Reviews</h3>
     <h4>Movie Title</h4>
