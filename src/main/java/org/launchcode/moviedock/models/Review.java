@@ -19,8 +19,8 @@ public class Review extends AbstractEntity{
     @NotNull
     private User user;
 
-    @NotBlank
-    @Size(min = 3,max = 500)
+    @NotBlank(message = "Review cannot be empty")
+    @Size(max = 500, message = "Review cannot exceed 500 characters")
     private String review_text;
 
     //    provide a dropdown to select options from 1-5
@@ -51,6 +51,14 @@ public class Review extends AbstractEntity{
 
     public int getStar_rating() {
         return star_rating;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setReview_text(String review_text) {
