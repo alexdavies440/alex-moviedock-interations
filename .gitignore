@@ -33,4 +33,4 @@ build/
 .vscode/
 
 # Gradle
-.gradle
+.gradle/
