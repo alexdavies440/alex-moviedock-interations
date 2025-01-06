@@ -1,0 +1,15 @@
+#navigation {
+    margin-bottom: 100px;
+    box-shadow: 0 0 9px 3px grey;
+}
+
+.bar {
+    box-shadow: 0 0 15px 1px;
+}
+
+.bg-1 {
+    background: AliceBlue;
+    color: DodgerBlue;
+  }
+
+

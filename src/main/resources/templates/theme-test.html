@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <link th:href="${cssPath}" rel="stylesheet" />
+   <!--    Bootstrap dependencies-->
+   <!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+   <!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body class="container bg-1">
+<div id="navigation">
+   <nav th:attr="class=${navMode}">
+      <div class="container-fluid">
+         <div>
+            <ul class="nav navbar-nav navbar-left">
+               <li><a href="/">HOME</a></li>
+               <li><a href="/profile">MY PROFILE</a></li>
+               <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+               <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
+            </ul>
+         </div>
+      </div>
+   </nav>
+</div>
+
+<h1 class="container-content">Theme testing</h1>
+
+</body>
+</html>
