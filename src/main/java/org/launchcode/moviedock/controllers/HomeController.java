@@ -40,14 +40,13 @@ public class HomeController {
         Optional<AppUser> appUser = appUserRepository.findByUsername(username);
 
         if(appUser.isPresent()) {
-            AppUser aUser = (AppUser) appUser.get();
-            model.addAttribute("user", aUser);
+            AppUser user = (AppUser) appUser.get();
+            model.addAttribute("user", user);
             return "user/profile";
         } else {
             return "redirect:..";
         }
     }
-
 
     @GetMapping("/search")
     public String search() {

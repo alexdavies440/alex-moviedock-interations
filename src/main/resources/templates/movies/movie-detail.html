@@ -9,7 +9,7 @@
     <h3 th:text="${movie.name}"></h3>
 </div>
 
-<form method="post">
+<form th:action="@{/movies/movie-detail}" method="post">
     <div class="form-group">
         <input type="hidden" th:field="${userMovieDTO.user}">
         <h3>Movie Details</h3>

@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,12 +31,14 @@ public class WebSecurityConfig {
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
                     authorize
-                            .requestMatchers("/").permitAll()
-                            .requestMatchers("/signup").permitAll()
-                            .requestMatchers("/signin").permitAll()
                             .requestMatchers("/css/*").permitAll()
+                            .requestMatchers("/images/*").permitAll()
+                            .requestMatchers("/").permitAll()
+                            .requestMatchers("/signin").permitAll()
+                            .requestMatchers("/signup").permitAll()
                             .requestMatchers("/profile/*").permitAll()
                             .requestMatchers("/signup-verify").permitAll()
+                            .requestMatchers("/movies").permitAll()
                             .requestMatchers("/search").permitAll()
                             .anyRequest().authenticated();
                             //.anyRequest().permitAll();

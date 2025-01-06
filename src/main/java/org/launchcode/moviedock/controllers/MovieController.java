@@ -39,7 +39,6 @@ public class MovieController {
         return "movies/index";
     }
 
-
     @GetMapping("/movies/create-movies")
     public String displayCreateMovieForm(Model model) {
         model.addAttribute("title", "Create Favorite Movie");
