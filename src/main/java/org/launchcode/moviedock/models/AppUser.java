@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class AppUser extends AbstractEntity {
@@ -36,12 +38,16 @@ public class AppUser extends AbstractEntity {
     )
     private final List<Review> reviewsList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "favUser")
-    private final List<Movie> favoriteMovies = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_favourite_movies",
+            joinColumns = @JoinColumn(name = "favorite_user_id",referencedColumnName = "id") ,
+            inverseJoinColumns = @JoinColumn(name="favorite_movie_id",referencedColumnName = "id")
+    )
+    private Set<Movie> favoriteMovies = new HashSet<>();
 
-    @ManyToMany(mappedBy = "toWatchUser")
-    private final List<Movie> toWatchMovies = new ArrayList<>();
-
+    @ManyToMany
+    private Set<Movie> toWatchMovies = new HashSet<>();
 
     public AppUser() {}
 
@@ -98,11 +104,28 @@ public class AppUser extends AbstractEntity {
         return reviewsList;
     }
 
-    public List<Movie> getFavoriteMovies() {
+    public Set<Movie> getFavoriteMovies() {
         return favoriteMovies;
     }
 
-    public List<Movie> getToWatchMovies() {
+    public Set<Movie> getToWatchMovies() {
         return toWatchMovies;
     }
+
+    public void setFavoriteMovies(Set<Movie> favoriteMovies){
+        this.favoriteMovies = favoriteMovies;
+    }
+
+    public void setToWatchMovies(Set<Movie> toWatchMovies){
+        this.toWatchMovies = toWatchMovies;
+    }
+
+    public void addFavoriteMovies(Movie movie) {
+        this.favoriteMovies.add(movie);
+    }
+
+    public void addToWatchMovies(Movie movie) {
+        this.toWatchMovies.add(movie);
+    }
+
 }

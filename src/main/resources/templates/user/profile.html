@@ -5,14 +5,8 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<!--Displays username of whatever user is currently logged in when clicking My Profile button-->
-<!--<h1 th:text="${user.username}"></h1>-->
+<h2 th:text="${user.username.toUpperCase()}"></h2>
 
-<br>
-<div>
-    <h3>User Profile</h3>
-    <h2 th:text="${user.username}"></h2>
-</div>
 <br>
 <div>
     <h3>Favorite Movies</h3>

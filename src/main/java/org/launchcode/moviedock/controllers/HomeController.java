@@ -28,9 +28,8 @@ public class HomeController {
 
     @GetMapping("/profile")
     public String myProfile(Model model) {
-
-        String username = principalService.getAuthentication().getName();
-        model.addAttribute("username", username);
+        AppUser user = principalService.getPrincipal().get();
+        model.addAttribute("user", user);
 
         return "user/profile";
     }

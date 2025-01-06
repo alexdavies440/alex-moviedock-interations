@@ -3,14 +3,14 @@ package org.launchcode.moviedock.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.data.MovieRepository;
 import org.launchcode.moviedock.data.ReviewRepository;
-import org.launchcode.moviedock.data.UserRepository;
+import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.Movie;
 import org.launchcode.moviedock.models.Review;
-import org.launchcode.moviedock.models.User;
 import org.launchcode.moviedock.models.dto.UserReviewDTO;
-import org.launchcode.moviedock.service.UserService;
+import org.launchcode.moviedock.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,10 +32,10 @@ public class ReviewController {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
-    UserService userInSession;
+    private PrincipalService principalService;
 
     private String reviewError = "false";
 
@@ -43,7 +43,7 @@ public class ReviewController {
     public String displayReviewForm(@RequestParam Integer movieId,HttpServletRequest request, Model model){
         Optional<Movie> value = movieRepository.findById(movieId);
         Movie movie = value.get();
-        User user = userInSession.getUserFromSession(request.getSession());
+        AppUser user = principalService.getPrincipal().get();
         Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(),user.getId());
 
         UserReviewDTO userReview =new UserReviewDTO();
@@ -92,7 +92,7 @@ public class ReviewController {
         } else {
 
             Movie movie = userReview.getMovie();
-            User user = userInSession.getUserFromSession(request.getSession());
+            AppUser user = principalService.getPrincipal().get();
 
             Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(), user.getId());
 

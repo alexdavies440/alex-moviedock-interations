@@ -25,11 +25,11 @@ public class Movie extends AbstractEntity{
     private final List<Review> reviewsList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "favoriteMovies")
-    private Set<User> favoriteUsers = new HashSet<>();
+    private Set<AppUser> favoriteUsers = new HashSet<>();
 
 
     @ManyToMany(mappedBy = "toWatchMovies")
-    private Set<User> toWatchUsers = new HashSet<>();
+    private Set<AppUser> toWatchUsers = new HashSet<>();
 
 
     public Movie() {
@@ -63,27 +63,27 @@ public class Movie extends AbstractEntity{
         return reviewsList;
     }
 
-    public Set<User> getFavUsers() {
+    public Set<AppUser> getFavUsers() {
         return favoriteUsers;
     }
 
-    public Set<User> getToWatchUsers() {
+    public Set<AppUser> getToWatchUsers() {
         return toWatchUsers;
     }
 
-    public void setFavoriteUsers(Set<User> favoriteUsers){
+    public void setFavoriteUsers(Set<AppUser> favoriteUsers){
         this.favoriteUsers = favoriteUsers;
     }
 
-    public void setToWatchUsers(Set<User> toWatchUsers){
+    public void setToWatchUsers(Set<AppUser> toWatchUsers){
         this.toWatchUsers = toWatchUsers;
     }
 
-    public void addFavoriteUser(User user){
+    public void addFavoriteUser(AppUser user){
         this.favoriteUsers.add(user);
     }
 
-    public void addToWatchUser(User user) {
+    public void addToWatchUser(AppUser user) {
         this.toWatchUsers.add(user);
     }
 
