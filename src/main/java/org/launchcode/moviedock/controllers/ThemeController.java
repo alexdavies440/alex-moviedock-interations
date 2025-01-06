@@ -18,7 +18,6 @@ public class ThemeController {
             cssPath = "/css/styles.css";
             navMode = "navbar navbar-inverse navbar-fixed-top bar";
         }
-
         if (mode.equals("light")) {
             cssPath = "/css/styles-light.css";
             navMode = "navbar navbar-default navbar-fixed-top bar";
