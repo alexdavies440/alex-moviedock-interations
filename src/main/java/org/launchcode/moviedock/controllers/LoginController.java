@@ -1,14 +1,6 @@
 package org.launchcode.moviedock.controllers;
 
-import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
-import org.launchcode.moviedock.data.AppUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +12,13 @@ public class LoginController {
     public String signin(Model model) {
         model.addAttribute("title", "Please Sign In");
         model.addAttribute("greeting", "Please Sign In");
+
         return "user/signin";
     }
 
     @GetMapping("/signout")
-    public String signout(HttpServletRequest request){
+    public String signout(HttpServletRequest request, Model model){
+        model.addAttribute("greeting", "You have been signed out");
         request.getSession().invalidate();
         return "redirect:/signin";
     }

@@ -5,9 +5,8 @@ import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.EmailDto;
+import org.launchcode.moviedock.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +22,26 @@ import java.util.Optional;
 public class SettingsController {
 
     @Autowired
-    AppUserRepository appUserRepository;
+    private AppUserRepository appUserRepository;
+
+    @Autowired
+    private PrincipalService principalService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/settings")
-    public String settings(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String settings(Model model) {
 
-        String username = userDetails.getUsername();
+        String username = principalService.getAuthentication().getName();
         Optional<AppUser> principal = appUserRepository.findByUsername(username);
-        model.addAttribute("email", principal.get().getEmail());
 
-        return "user/settings";
+        if (principal.isPresent()) {
+            model.addAttribute("email", principal.get().getEmail());
+            return "user/settings";
+        }
+
+        return "redirect:..";
     }
 
     @GetMapping("/settings/delete-account")
@@ -45,27 +51,29 @@ public class SettingsController {
     }
 
     @PostMapping("/settings/delete-account")
-    public String deleteAccountSuccess(@RequestParam String password, Model model,
-                                       @AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request)
+    public String deleteAccountSuccess(@RequestParam String providedPassword, Model model, HttpServletRequest request)
     {
 
-        Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
+        String username = principalService.getAuthentication().getName();
 
+        Optional<AppUser> principal = appUserRepository.findByUsername(username);
 
-        String userPassword = principal.get().getPassword();
+        if (principal.isPresent()) {
+            String userPassword = principal.get().getPassword();
 
-        model.addAttribute("password", password);
-        model.addAttribute("error", true);
+            model.addAttribute("error", true);
 
-        if (!passwordEncoder.matches(password, userPassword)) {
-            return "user/delete-account";
+            if (!passwordEncoder.matches(providedPassword, userPassword)) {
+                return "user/delete-account";
+            }
+
+            AppUser exUser = (AppUser) principal.get();
+            appUserRepository.delete(exUser);
+            request.getSession().invalidate();
+
+            return "redirect:/signin";
         }
-
-        AppUser exUser = (AppUser) principal.get();
-        appUserRepository.delete(exUser);
-        request.getSession().invalidate();
-
-        return "redirect:/signin";
+        return "redirect:..";
     }
 
     @GetMapping("/settings/update-email")
@@ -77,20 +85,22 @@ public class SettingsController {
     }
 
     @PostMapping("/settings/update-email")
-    public String updateEmailSuccess(@Valid @ModelAttribute EmailDto emailDto, Errors errors,
-                                     @AuthenticationPrincipal UserDetails userDetails) {
+    public String updateEmailSuccess(@Valid @ModelAttribute EmailDto emailDto, Errors errors) {
 
         if (errors.hasErrors()) {
             return "user/update-email";
         }
 
-        Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
+        String username = principalService.getAuthentication().getName();
 
-        // Needs email validation before setting new email, no email submission causes error
+        Optional<AppUser> principal = appUserRepository.findByUsername(username);
 
-        principal.get().setEmail(emailDto.getEmail());
-        appUserRepository.save(principal.get());
+        if (principal.isPresent()) {
+            principal.get().setEmail(emailDto.getEmail());
+            appUserRepository.save(principal.get());
 
-        return "redirect:/settings";
+            return "redirect:/settings";
+        }
+        return "redirect:..";
     }
 }

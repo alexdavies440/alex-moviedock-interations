@@ -9,7 +9,7 @@
 <nav th:replace="fragments :: header"></nav>
 <h1>NUKE MY ACCOUNT <span class="glyphicon glyphicon-trash"></span></h1>
 <br>
-<h3>Are you sure? Please verify the password for <span sec:authentication="name"></span> before leaving us</h3>
+<h3>Are you sure? Please verify your password before leaving us FOREVER</h3>
 <div th:if="${param.error}">
    Invalid password.
 </div>
@@ -17,7 +17,7 @@
 <form th:action="@{/settings/delete-account}" method="post">
    <div class="form-group">
       <label>Password
-         <input class="form-control" type="password" name="password">
+         <input class="form-control" type="password" name="providedPassword">
       </label>
       <p th:if="${error}" class="error">Please enter a valid password</p>
    </div>

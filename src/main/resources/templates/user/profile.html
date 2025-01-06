@@ -8,10 +8,9 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<h1 th:text="${user.username.toUpperCase()}"></h1>
+<h1 th:text="${username.toUpperCase()}"></h1>
 <div sec:authorize="isAuthenticated()">
     <h2>This text is only shown to authenticated users.</h2>
 </div>
-
 </body>
 </html>

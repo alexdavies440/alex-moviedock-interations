@@ -2,11 +2,8 @@ package org.launchcode.moviedock.controllers;
 
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
+import org.launchcode.moviedock.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +17,9 @@ public class HomeController {
     @Autowired
     AppUserRepository appUserRepository;
 
+    @Autowired
+    private PrincipalService principalService;
+
     @GetMapping("/")
     public String home() {
         return "index";
@@ -27,11 +27,11 @@ public class HomeController {
 
 
     @GetMapping("/profile")
-    public String myProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String myProfile(Model model) {
 
-        Optional<AppUser> principal = appUserRepository.findByUsername(userDetails.getUsername());
+        String username = principalService.getAuthentication().getName();
+        model.addAttribute("username", username);
 
-        model.addAttribute("user", principal.get());
         return "user/profile";
     }
 
