@@ -25,11 +25,11 @@
 <br>
 </div>
 <h3>To Watch Movies</h3>
-<ol th:each="toWatchMovie : ${user.toWatchMovies}">
+<ul th:each="toWatchMovie : ${user.toWatchMovies}">
     <li>
         <p th:text="${toWatchMovie.name}"></p>
     </li>
-</ol>
+</ul>
 </div>
 
 
