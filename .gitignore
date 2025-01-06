@@ -6,6 +6,7 @@ HELP.md
 *.iml
 *.ipr
 
+# Build and traget folders
 !**/src/main/**/build/
 !**/src/test/**/build/
 target/
@@ -29,8 +30,3 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-# Eclipse Gradle plugin generated files
-# Eclipse Core
-.project
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
