@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container bg-1">
+<nav th:replace="fragments :: header"></nav>
+
+<form method="post">
+
+
+
+    <div class="form-group">
+
+            <input type="hidden" th:field="${userReview.movie}">
+            <input type="hidden" th:field="${userReview.user}">
+
+        <div class="form-group">
+
+            <label th:text="${dispText}"></label>
+
+
+        </div>
+
+            <label>
+                <textarea class="form-control"  th:field="${userReview.review_text}" maxlength="500" rows="10" cols="50" th:value="userReview.review_text"></textarea>
+            </label>
+            <p class="error" th:text="${errorMsg}"></p>
+            <p class="error" th:errors ="${userReview.review_text}"></p>
+
+    </div>
+
+    <div class="form-group">
+        <label>Rate: </label>
+
+
+                <select th:field="${userReview.star_rating}">
+                    <option th:each="i : ${#numbers.sequence(1, 5)}" th:value="${i}" th:text="${i}"
+                            th:selected="${userReview.star_rating}"></option>
+                </select>
+
+    </div>
+
+    <input type="submit" class="btn btn-success" value="Submit Review">
+
+</form>
+
+</body>
+</html>
