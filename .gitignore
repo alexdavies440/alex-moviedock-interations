@@ -1,32 +1,17 @@
-HELP.md
-
 # IntelliJ IDEA
 .idea
-*.iws
-*.iml
-*.ipr
 
-# Build and traget folders
-!**/src/main/**/build/
-!**/src/test/**/build/
-target/
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-# Gradle
-.gradle
+# Gradle and build files
+.gradle/
 **/build/
-!src/**/build/
 
-# Ignore Gradle GUI config
-gradle-app.setting
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+# Node
+**/node_modules
 
-# Avoid ignore Gradle wrappper properties
-!gradle-wrapper.properties
+# System files
+**/.DS_Store
 
-# Cache of project
-.gradletasknamecache
+
 
