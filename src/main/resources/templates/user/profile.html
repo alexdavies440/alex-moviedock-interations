@@ -17,9 +17,13 @@
     </ul>
 </div>
 <br>
-<div>
+</div>
 <h3>To Watch Movies</h3>
-
+<ul th:each="toWatchMovie : ${user.toWatchMovies}">
+    <li>
+        <p th:text="${toWatchMovie.name}"></p>
+    </li>
+</ul>
 </div>
 
 
