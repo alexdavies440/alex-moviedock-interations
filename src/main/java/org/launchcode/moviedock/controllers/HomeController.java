@@ -2,7 +2,7 @@ package org.launchcode.moviedock.controllers;
 
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
-import org.launchcode.moviedock.service.PrincipalService;
+import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

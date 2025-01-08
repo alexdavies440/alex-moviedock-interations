@@ -10,7 +10,7 @@ import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.Movie;
 import org.launchcode.moviedock.models.Review;
 import org.launchcode.moviedock.models.dto.UserReviewDTO;
-import org.launchcode.moviedock.service.PrincipalService;
+import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

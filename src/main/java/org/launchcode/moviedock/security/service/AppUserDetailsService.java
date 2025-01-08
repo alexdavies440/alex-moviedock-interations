@@ -1,4 +1,4 @@
-package org.launchcode.moviedock.service;
+package org.launchcode.moviedock.security.service;
 
 
 import org.launchcode.moviedock.data.AppUserRepository;

@@ -1,17 +1,13 @@
-package org.launchcode.moviedock.config;
+package org.launchcode.moviedock.security.config;
 
-import org.launchcode.moviedock.models.AuthenticationSuccessHandller;
-import org.launchcode.moviedock.service.AppUserDetailsService;
+import org.launchcode.moviedock.security.AuthenticationSuccessHandller;
+import org.launchcode.moviedock.security.service.AppUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;

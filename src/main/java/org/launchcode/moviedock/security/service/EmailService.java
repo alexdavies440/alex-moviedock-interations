@@ -1,4 +1,4 @@
-package org.launchcode.moviedock.service;
+package org.launchcode.moviedock.security.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
