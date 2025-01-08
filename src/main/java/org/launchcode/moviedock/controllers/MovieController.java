@@ -2,17 +2,20 @@ package org.launchcode.moviedock.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.data.MovieRepository;
-import org.launchcode.moviedock.data.UserRepository;
+import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.Movie;
-import org.launchcode.moviedock.models.User;
 import org.launchcode.moviedock.models.dto.UserMovieDTO;
-import org.launchcode.moviedock.service.UserService;
+import org.launchcode.moviedock.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -22,10 +25,10 @@ public class MovieController {
     @Autowired
     private MovieRepository movieRepository;
     @Autowired
-    private UserRepository userRepository;
+    private AppUserRepository appUserRepository;
 
     @Autowired
-    private UserService userService;
+    private PrincipalService principalService;
 
 
     @GetMapping("/movies")
@@ -57,7 +60,7 @@ public class MovieController {
     @GetMapping("/movies/movie-detail")
     public String displayMovieDetailsForm(@RequestParam Integer movieId, Model model, HttpServletRequest request) {
 
-        User user = userService.getUserFromSession(request.getSession());
+        AppUser user = principalService.getPrincipal().get();
         Optional<Movie> optMovie = movieRepository.findById(movieId);
         Movie movie = optMovie.get();
         UserMovieDTO userMovieDTO = new UserMovieDTO();
@@ -73,12 +76,12 @@ public class MovieController {
     public String processMovieDetailsForm(@ModelAttribute @Valid UserMovieDTO userMovieDTO, Errors errors, HttpServletRequest request, Model model){
         Movie movie = userMovieDTO.getMovie();
         if (!errors.hasErrors()) {
-            User user = userService.getUserFromSession(request.getSession());
+            AppUser user = principalService.getPrincipal().get();
                 //if(!user.getFavoriteMovies().contains(movie)){
                 //user.getFavoriteMovies().add(movie);
                 user.addFavoriteMovies(movie);
                 user.addToWatchMovies(movie);
-                userRepository.save(user);
+                appUserRepository.save(user);
                 model.addAttribute("user", user);
                 return "user/profile";
             }

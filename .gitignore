@@ -4,7 +4,8 @@
 
 # Gradle and build files
 .gradle/
-**/build/
+#**/build/
+build/
 
 
 # Node
