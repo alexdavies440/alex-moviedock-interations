@@ -9,3 +9,4 @@ public interface MovieRepository extends CrudRepository<Movie, Integer> {
 
 
 }
+

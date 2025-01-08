@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -22,25 +24,31 @@ public class Movie extends AbstractEntity{
     )
     private final List<Review> reviewsList = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "favorite")
-    private final List<User> favUser = new ArrayList<>();
+    @ManyToMany(mappedBy = "favoriteMovies")
+    private Set<AppUser> favoriteUsers = new HashSet<>();
 
 
-    @ManyToMany
-    @JoinTable(name = "toWatchList")
-    private final List<User> toWatchUser = new ArrayList<>();
+    @ManyToMany(mappedBy = "toWatchMovies")
+    private Set<AppUser> toWatchUsers = new HashSet<>();
 
-    public Movie(String name, int search_count) {
-        this.name = name;
-        this.search_count = search_count;
-    }
 
     public Movie() {
     }
 
+    public Movie(String name, int search_count) {
+        super();
+        this.name = name;
+        this.search_count = search_count;
+    }
+
+
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSearch_count() {
@@ -55,13 +63,30 @@ public class Movie extends AbstractEntity{
         return reviewsList;
     }
 
-    public List<User> getFavUser() {
-        return favUser;
+    public Set<AppUser> getFavUsers() {
+        return favoriteUsers;
     }
 
-    public List<User> getToWatchUser() {
-        return toWatchUser;
+    public Set<AppUser> getToWatchUsers() {
+        return toWatchUsers;
     }
+
+    public void setFavoriteUsers(Set<AppUser> favoriteUsers){
+        this.favoriteUsers = favoriteUsers;
+    }
+
+    public void setToWatchUsers(Set<AppUser> toWatchUsers){
+        this.toWatchUsers = toWatchUsers;
+    }
+
+    public void addFavoriteUser(AppUser user){
+        this.favoriteUsers.add(user);
+    }
+
+    public void addToWatchUser(AppUser user) {
+        this.toWatchUsers.add(user);
+    }
+
 
     @Override
     public String toString() {

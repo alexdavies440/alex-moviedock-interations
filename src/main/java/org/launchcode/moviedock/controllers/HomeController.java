@@ -1,9 +1,8 @@
 package org.launchcode.moviedock.controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import org.launchcode.moviedock.models.User;
-import org.launchcode.moviedock.data.UserRepository;
+import org.launchcode.moviedock.data.AppUserRepository;
+import org.launchcode.moviedock.models.AppUser;
+import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,89 +15,41 @@ import java.util.Optional;
 public class HomeController {
 
     @Autowired
-    UserRepository userRepository;
+    AppUserRepository appUserRepository;
 
     @Autowired
-    AuthenticationController authenticationController;
-
-    // The following two methods are necessary for the SIGN IN/SIGN OUT button to work properly.
-    // I will probably revamp this over time
-
-    // Determines whether a user is currently signed in and displays the appropriate option to sign in or out
-    public String getOption(HttpServletRequest request) {
-
-        HttpSession session = request.getSession();
-        User user = authenticationController.getUserFromSession(session);
-
-        if (user == null) {
-            return "SIGN IN";
-        } else {
-            return "SIGN OUT";
-        }
-    }
-
-    // Determines whether a user is currently signed in and assigns the appropriate path for signin/signout button
-    public String getPath(HttpServletRequest request) {
-
-        HttpSession session = request.getSession();
-        User user = authenticationController.getUserFromSession(session);
-
-        if (user == null) {
-            return "/signin";
-        } else {
-            return "/signout";
-        }
-    }
+    private PrincipalService principalService;
 
     @GetMapping("/")
-    public String displaySigninSignoutOption(Model model, HttpServletRequest request) {
-
-        model.addAttribute("option", getOption(request));
-        model.addAttribute("path", getPath(request));
-        model.addAttribute("title", "Welcome");
-
+    public String home() {
         return "index";
     }
 
-    @GetMapping("/search")
-    public String searchPage(Model model, HttpServletRequest request) {
-
-        model.addAttribute("option", getOption(request));
-        model.addAttribute("path", getPath(request));
-
-        return "search";
-    }
 
     @GetMapping("/profile")
-    public String displayCurrentUserProfile(Model model, HttpServletRequest request) {
-
-        HttpSession session = request.getSession();
-        User user = authenticationController.getUserFromSession(session);
-
+    public String myProfile(Model model) {
+        AppUser user = principalService.getPrincipal().get();
         model.addAttribute("user", user);
-        model.addAttribute("option", getOption(request));
-        model.addAttribute("path", getPath(request));
-        model.addAttribute("title", "Welcome");
 
         return "user/profile";
     }
 
     @GetMapping("/profile/{username}")
-    public String displayUserProfile(Model model, @PathVariable String username, HttpServletRequest request) {
+    public String viewProfile(@PathVariable String username, Model model) {
 
-        model.addAttribute("option", getOption(request));
-        model.addAttribute("path", getPath(request));
-        model.addAttribute("title", "Welcome");
+        Optional<AppUser> appUser = appUserRepository.findByUsername(username);
 
-        Optional<User> optUser = Optional.ofNullable(userRepository.findByUsername(username));
-
-        if(optUser.isPresent()) {
-            User aUser = (User) optUser.get();
-            model.addAttribute("user", aUser);
+        if(appUser.isPresent()) {
+            AppUser user = (AppUser) appUser.get();
+            model.addAttribute("user", user);
             return "user/profile";
         } else {
             return "redirect:..";
         }
     }
 
+    @GetMapping("/search")
+    public String search() {
+        return "search";
+    }
 }
