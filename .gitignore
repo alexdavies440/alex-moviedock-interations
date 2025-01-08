@@ -1,0 +1,17 @@
+# IntelliJ IDEA
+.idea/
+
+
+# Gradle and build files
+.gradle/
+**/build/
+
+
+# Node
+**/node_modules/
+
+# System files
+**/.DS_Store
+
+
+
