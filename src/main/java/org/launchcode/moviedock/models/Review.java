@@ -17,7 +17,7 @@ public class Review extends AbstractEntity{
 
     @ManyToOne
     @NotNull
-    private User user;
+    private AppUser user;
 
     @NotBlank(message = "Review cannot be empty")
     @Size(max = 500, message = "Review cannot exceed 500 characters")
@@ -27,7 +27,7 @@ public class Review extends AbstractEntity{
     @NotNull
     private int star_rating;
 
-    public Review(Movie movie, User user, String review_text, int star_rating) {
+    public Review(Movie movie, AppUser user, String review_text, int star_rating) {
         this.movie = movie;
         this.user = user;
         this.review_text = review_text;
@@ -41,7 +41,7 @@ public class Review extends AbstractEntity{
         return movie;
     }
 
-    public User getUser() {
+    public AppUser getUser() {
         return user;
     }
 
@@ -57,7 +57,7 @@ public class Review extends AbstractEntity{
         this.movie = movie;
     }
 
-    public void setUser(User user) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
 

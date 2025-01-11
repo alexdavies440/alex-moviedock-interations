@@ -1,17 +1,15 @@
 package org.launchcode.moviedock.models.dto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.Movie;
-import org.launchcode.moviedock.models.Review;
-import org.launchcode.moviedock.models.User;
 
 public class UserReviewDTO {
 
     @NotNull
-    private User user;
+    private AppUser user;
 
     @NotNull
     private Movie movie;
@@ -31,11 +29,11 @@ public class UserReviewDTO {
     public UserReviewDTO() {
     }
 
-    public User getUser() {
+    public AppUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
 
