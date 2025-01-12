@@ -1,6 +1,11 @@
 package org.launchcode.moviedock.models;
 
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+//@ControllerAdvice
 public class Theme extends AbstractEntity {
+
 
     private String mode;
     private String cssPath;

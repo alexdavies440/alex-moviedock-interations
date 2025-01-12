@@ -7,7 +7,7 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<form method="post">
+<form th:action="@{/movies/create-movies}" method="post">
     <div class="form-group">
         <label>Movie Name
             <input th:field="${movie.name}" class="form-control">

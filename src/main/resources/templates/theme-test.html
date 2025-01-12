@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-   <link th:href="${cssPath}" rel="stylesheet" />
+   <link th:href="${theme.cssPath}" rel="stylesheet" />
    <!--    Bootstrap dependencies-->
    <!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
 </head>
 <body class="container bg-1">
 <div id="navigation">
-   <nav th:attr="class=${navMode}">
+   <nav th:attr="class=${theme.navMode}">
       <div class="container-fluid">
          <div>
             <ul class="nav navbar-nav navbar-left">
@@ -28,8 +28,14 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                <li>
-                  toggle button goes here
-
+                  <h4>
+                     <label>Dark
+                        <input type="radio" name="mode" value="dark" checked>
+                     </label>
+                     <label>Light
+                        <input type="radio" name="mode" value="light">
+                     </label>
+                  </h4>
                </li>
                <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
             </ul>

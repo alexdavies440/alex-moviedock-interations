@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="${theme.cssPath}" rel="stylesheet" />
     <!--    Bootstrap dependencies-->
 <!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -21,7 +21,7 @@
 </head>
 <body>
     <div th:fragment="header" id="navigation">
-        <nav class="navbar navbar-inverse navbar-fixed-top bar">
+        <nav th:attr="class=${theme.navMode}">
             <div class="container-fluid">
                 <div>
                     <ul class="nav navbar-nav navbar-left">
