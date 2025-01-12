@@ -6,20 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 
-@Controller
+@ControllerAdvice
 public class ThemeController {
 
 
-    @GetMapping("/test")
-    public String home(Model model) {
+    @ModelAttribute("theme")
+    public Theme setTheme() {
 
-//        Theme theme = new Theme("light");
-//
-//        model.addAttribute("cssPath", theme.getCssPath());
-//        model.addAttribute("navMode", theme.getNavMode());
+        return new Theme("light");
 
-        return "theme-test";
     }
 }
