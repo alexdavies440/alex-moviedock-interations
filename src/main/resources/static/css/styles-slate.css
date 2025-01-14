@@ -1,0 +1,27 @@
+#navigation {
+    margin-bottom: 100px;
+}
+
+.bar {
+    box-shadow: 0 0 15px 0.5px;
+    background: rgb(33, 33, 33, 0.7);
+    backdrop-filter: blur(10px);
+}
+
+.bg-1 {
+    background: rgb(33, 33, 33);
+    color: rgb(166, 166, 166);
+  }
+
+ul.nav li a, ul.nav li a:visited {
+    background: rgb(255, 255, 255, 0);
+    color: rgb(166, 166, 166);
+}
+
+ul.nav li a:hover {
+    background: rgb(255, 255, 255, 0);
+    color: rgb(209, 209, 209);
+}
+
+
+
