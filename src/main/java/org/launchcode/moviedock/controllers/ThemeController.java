@@ -23,11 +23,16 @@ public class ThemeController {
 
     // Global modelattribute theme based on user logged in. Default is dark
     @ModelAttribute("theme")
-    public Theme setTheme() {
+    public Theme setTheme(Mode theMode) {
 
         String username = principalService.getAuthentication().getName();
         Optional<AppUser> appUser = appUserRepository.findByUsername(username);
 
-        return new Theme(appUser.get().getMode());
+        if (appUser.isPresent()) {
+            theMode = appUser.get().getMode();
+        } else {
+            theMode = Mode.DARK;
+        }
+        return new Theme(theMode);
     }
 }
