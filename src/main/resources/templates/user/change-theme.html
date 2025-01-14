@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head th:replace="fragments :: head"></head>
+
+<body class="container bg-1">
+<nav th:replace="fragments :: header"></nav>
+
+<form th:action="@{/settings/change-theme}" method="post">
+   <div class="container-content">
+      <h1>Change Theme</h1>
+   </div>
+   <br>
+   <div>
+      <label>Dark
+         <input type="radio" name="mode" th:value="DARK"/>
+      </label>
+   </div>
+   <div>
+      <label>Light
+         <input type="radio" name="mode" th:value="LIGHT"/>
+      </label>
+   </div>
+   <input type="submit" class="btn btn-success" value="Change" />
+</form>
+</body>
+</html>

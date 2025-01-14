@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.EmailDto;
+import org.launchcode.moviedock.models.themes.Mode;
 import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -102,5 +103,21 @@ public class SettingsController {
             return "redirect:/settings";
         }
         return "redirect:..";
+    }
+
+    @GetMapping("/settings/change-theme")
+    public String displayThemeSettings() {
+        return "user/change-theme";
+    }
+
+    @PostMapping("/settings/change-theme")
+    public String changeTheme(@RequestParam Mode mode) {
+
+        String username = principalService.getAuthentication().getName();
+        Optional<AppUser> principal = appUserRepository.findByUsername(username);
+
+        principal.get().setMode(mode);
+        appUserRepository.save(principal.get());
+        return "redirect:/settings/change-theme";
     }
 }
