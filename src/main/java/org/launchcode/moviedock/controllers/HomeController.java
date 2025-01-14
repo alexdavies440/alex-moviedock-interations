@@ -52,4 +52,9 @@ public class HomeController {
     public String search() {
         return "search";
     }
+
+    @GetMapping("/test")
+    public String testPage() {
+        return "theme-test";
+    }
 }
