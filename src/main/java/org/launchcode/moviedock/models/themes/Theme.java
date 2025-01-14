@@ -24,7 +24,10 @@ public class Theme extends AbstractEntity {
             this.cssPath = "/css/styles-green.css";
             this.navMode = "navbar navbar-fixed-top bar";
         }
-
+        if (aMode.equals(Mode.PERIWINKLE)) {
+            this.cssPath = "/css/styles-periwinkle.css";
+            this.navMode = "navbar navbar-fixed-top bar";
+        }
     }
 
     public Mode getMode() {
