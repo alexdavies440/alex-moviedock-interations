@@ -1,34 +1,32 @@
-package org.launchcode.moviedock.models;
+package org.launchcode.moviedock.models.themes;
 
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.launchcode.moviedock.models.AbstractEntity;
 
-//@ControllerAdvice
 public class Theme extends AbstractEntity {
 
 
-    private String mode;
+    private Mode mode;
     private String cssPath;
     private String navMode;
 
-    public Theme(String aMode) {
+    public Theme(Mode aMode) {
         this.mode = aMode;
 
-        if (aMode.equals("dark")) {
+        if (aMode.equals(Mode.DARK)) {
             this.cssPath = "/css/styles.css";
             this.navMode = "navbar navbar-inverse navbar-fixed-top bar";
         }
-        if (aMode.equals("light")) {
+        if (aMode.equals(Mode.LIGHT)) {
             this.cssPath = "/css/styles-light.css";
             this.navMode = "navbar navbar-default navbar-fixed-top bar";
         }
     }
 
-    public String getMode() {
+    public Mode getMode() {
         return mode;
     }
 
-    public void setMode(String mode) {
+    public void setMode(Mode mode) {
         this.mode = mode;
     }
 
