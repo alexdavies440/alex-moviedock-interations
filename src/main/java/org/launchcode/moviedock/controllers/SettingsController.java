@@ -106,12 +106,27 @@ public class SettingsController {
     }
 
     @GetMapping("/settings/change-theme")
-    public String displayThemeSettings() {
+    public String displayThemeSettings(Model model) {
+
+        String username = principalService.getAuthentication().getName();
+        Optional<AppUser> principal = appUserRepository.findByUsername(username);
+
+        boolean isDark = principal.get().getMode().equals(Mode.DARK);
+        model.addAttribute("isDark", isDark);
+
+        boolean isLight = principal.get().getMode().equals(Mode.LIGHT);
+        model.addAttribute("isLight", isLight);
+
+        boolean isIce = principal.get().getMode().equals(Mode.ICE);
+        model.addAttribute("isIce", isIce);
+
+        boolean isSlate = principal.get().getMode().equals(Mode.SLATE);
+        model.addAttribute("isSlate", isSlate);
         return "user/change-theme";
     }
 
     @PostMapping("/settings/change-theme")
-    public String changeTheme(@RequestParam Mode mode, Model model) {
+    public String changeTheme(@RequestParam Mode mode) {
 
         String username = principalService.getAuthentication().getName();
         Optional<AppUser> principal = appUserRepository.findByUsername(username);

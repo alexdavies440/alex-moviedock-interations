@@ -14,22 +14,22 @@
    </div>
    <br>
    <div>
-      <label><input type="radio" name="mode" th:value="DARK" checked/>
+      <label><input type="radio" name="mode" th:value="DARK" th:checked="${isDark}"/>
          Dark
       </label>
    </div>
    <div>
-      <label><input type="radio" name="mode" th:value="LIGHT"/>
+      <label><input type="radio" name="mode" th:value="LIGHT" th:checked="${isLight}"/>
          Light
       </label>
    </div>
    <div>
-      <label><input type="radio" name="mode" th:value="ICE" />
+      <label><input type="radio" name="mode" th:value="ICE" th:checked="${isIce}"/>
          Ice
       </label>
    </div>
    <div>
-      <label><input type="radio" name="mode" th:value="SLATE" />
+      <label><input type="radio" name="mode" th:value="SLATE" th:checked="${isSlate}"/>
          Slate
       </label>
    </div>
