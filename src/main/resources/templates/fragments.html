@@ -31,7 +31,14 @@
                         <li sec:authorize="isAuthenticated()"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
+                        <li><a class="glyphicon glyphicon-search" type="button" data-toggle="dropdown"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/search">Movies</a></li>
+                                    <li sec:authorize="isAuthenticated()"><a href="/user_search">User</a></li>
+                                </ul>
+
+                        </li>
+
                         <li>
                             <a sec:authorize="!isAuthenticated()" th:href="@{/signin}">SIGN IN</a>
                             <a sec:authorize="isAuthenticated()" th:href="@{/signout}">SIGN OUT</a>
