@@ -35,4 +35,12 @@ public class ThemeController {
         }
         return new Theme(theMode);
     }
+
+    @ModelAttribute("checked")
+    public Mode mode() {
+        String username = principalService.getAuthentication().getName();
+        Optional<AppUser> appUser = appUserRepository.findByUsername(username);
+
+        return appUser.get().getMode();
+    }
 }

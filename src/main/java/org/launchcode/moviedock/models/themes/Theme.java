@@ -20,8 +20,8 @@ public class Theme extends AbstractEntity {
             this.cssPath = "/css/styles-light.css";
             this.navMode = "navbar navbar-default navbar-fixed-top bar";
         }
-        if (aMode.equals(Mode.GREEN)) {
-            this.cssPath = "/css/styles-green.css";
+        if (aMode.equals(Mode.ICE)) {
+            this.cssPath = "/css/styles-ice.css";
             this.navMode = "navbar navbar-fixed-top bar";
         }
         if (aMode.equals(Mode.SLATE)) {

@@ -111,13 +111,14 @@ public class SettingsController {
     }
 
     @PostMapping("/settings/change-theme")
-    public String changeTheme(@RequestParam Mode mode) {
+    public String changeTheme(@RequestParam Mode mode, Model model) {
 
         String username = principalService.getAuthentication().getName();
         Optional<AppUser> principal = appUserRepository.findByUsername(username);
 
         principal.get().setMode(mode);
         appUserRepository.save(principal.get());
+
         return "redirect:/settings/change-theme";
     }
 }

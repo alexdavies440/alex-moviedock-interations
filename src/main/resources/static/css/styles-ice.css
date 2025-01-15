@@ -4,23 +4,32 @@
 
 .bar {
     box-shadow: 0 0 15px 1px;
-    background: rgb(240, 254, 240, 0.3);
+    background: rgb(230, 254, 255, 0.3);
     backdrop-filter: blur(50px);
 }
 
 .bg-1 {
-    background: rgb(241, 254, 251);
-    color: rgb(20, 84, 69);
+    background: rgb(230, 254, 255);
+    color: rgb(20, 81, 84);
   }
 
 ul.nav li a, ul.nav li a:visited {
     background: rgb(255, 255, 255, 0);
-    color: rgb(20, 84, 69);
+    color: rgb(20, 81, 84);
 }
 
 ul.nav li a:hover {
     background: rgb(255, 255, 255, 0);
-    color: rgb(20, 84, 69);
+    color: rgb(20, 81, 84);
+    text-shadow: 0 0 1px Aquamarine;
+}
+
+ul li a {
+    color: rgb(20, 81, 84);
+}
+
+ul li a:hover {
+    color: rgb(20, 81, 84);
     text-shadow: 0 0 1px Aquamarine;
 }
 
