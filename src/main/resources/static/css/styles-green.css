@@ -9,13 +9,19 @@
 }
 
 .bg-1 {
-    background: rgb(240, 254, 240);
-    color: DarkGreen;
+    background: rgb(241, 254, 251);
+    color: rgb(20, 84, 69);
   }
 
-ul.nav li a, ul.nav li a:visited, ul.nav li a:hover {
+ul.nav li a, ul.nav li a:visited {
     background: rgb(255, 255, 255, 0);
-    color: DarkGreen;
+    color: rgb(20, 84, 69);
+}
+
+ul.nav li a:hover {
+    background: rgb(255, 255, 255, 0);
+    color: rgb(20, 84, 69);
+    text-shadow: 0 0 1px Aquamarine;
 }
 
 
