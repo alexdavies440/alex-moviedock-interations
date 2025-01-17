@@ -16,20 +16,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("user_search")
 public class SearchUserController {
 
     @Autowired
     AppUserRepository appUserRepository;
 
 
-    @GetMapping("")
+    @GetMapping("user_search")
     public String userSearch() {
 
         return "userSearch";
     }
 
-    @PostMapping("")
+    @PostMapping("user_search")
     public String listSearchResults(Model model, @RequestParam String searchName) {
 
         if (searchName.isEmpty()) {
@@ -51,7 +50,7 @@ public class SearchUserController {
 
     }
 
-    @GetMapping("/profile")
+    @GetMapping("searched_profile")
     public String userSearchFound(Model model, @RequestParam int userId) {
 
         Optional<AppUser> appUser = appUserRepository.findById(userId);

@@ -34,7 +34,7 @@
     </tr>
     </thead>
     <tr th:each="user : ${usersList}">
-        <td><a th:href="@{/user_search/profile(userId=${user.id})}" th:text="${user.username}" target="_blank"></a></td>
+        <td><a th:href="@{/searched_profile(userId=${user.id})}" th:text="${user.username}"></a></td>
     </tr>
 </table>
 
