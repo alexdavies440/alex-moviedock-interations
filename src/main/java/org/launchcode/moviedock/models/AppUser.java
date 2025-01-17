@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.launchcode.moviedock.models.themes.Mode;
+import org.launchcode.moviedock.models.themes.Theme;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,7 +32,7 @@ public class AppUser extends AbstractEntity {
 
     private String verificationCode;
 
-    private Mode mode;
+    private Theme theme;
 
     @OneToMany(
             mappedBy = "user",
@@ -59,14 +59,14 @@ public class AppUser extends AbstractEntity {
 
     public AppUser() {}
 
-    public AppUser(String username, String email, String password, String role, boolean enabled, String verificationCode, Mode mode) {
+    public AppUser(String username, String email, String password, String role, boolean enabled, String verificationCode, Theme theme) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.enabled = enabled;
         this.verificationCode = verificationCode;
-        this.mode = mode;
+        this.theme = theme;
     }
 
     public String getUsername() {
@@ -137,8 +137,7 @@ public class AppUser extends AbstractEntity {
         this.toWatchMovies.add(movie);
     }
 
-    public Mode getMode() { return this.mode; }
+    public Theme getTheme() { return theme; }
 
-    public void setMode(Mode aMode) { this.mode = aMode; }
-
+    public void setTheme(Theme theme) { this.theme = theme; }
 }

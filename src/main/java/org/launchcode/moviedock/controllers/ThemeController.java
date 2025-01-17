@@ -2,7 +2,6 @@ package org.launchcode.moviedock.controllers;
 
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
-import org.launchcode.moviedock.models.themes.Mode;
 import org.launchcode.moviedock.models.themes.Theme;
 import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +22,23 @@ public class ThemeController {
 
     // Global modelattribute theme based on user logged in. Default is dark
     @ModelAttribute("theme")
-    public Theme setTheme(Mode theMode) {
+    public Theme globalTheme() {
 
         String username = principalService.getAuthentication().getName();
         Optional<AppUser> appUser = appUserRepository.findByUsername(username);
 
         if (appUser.isPresent()) {
-            theMode = appUser.get().getMode();
+            return appUser.get().getTheme();
         } else {
-            theMode = Mode.DARK;
+            return Theme.DARK;
         }
-        return new Theme(theMode);
     }
 
-    @ModelAttribute("checked")
-    public Mode mode() {
-        String username = principalService.getAuthentication().getName();
-        Optional<AppUser> appUser = appUserRepository.findByUsername(username);
-
-        return appUser.get().getMode();
-    }
+//    @ModelAttribute("checked")
+//    public Theme selectedTheme() {
+//        String username = principalService.getAuthentication().getName();
+//        Optional<AppUser> appUser = appUserRepository.findByUsername(username);
+//
+//        return appUser.get().getTheme();
+//    }
 }

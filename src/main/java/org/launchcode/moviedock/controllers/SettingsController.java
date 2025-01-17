@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.EmailDto;
-import org.launchcode.moviedock.models.themes.Mode;
+import org.launchcode.moviedock.models.themes.Theme;
 import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -111,27 +111,27 @@ public class SettingsController {
         String username = principalService.getAuthentication().getName();
         Optional<AppUser> principal = appUserRepository.findByUsername(username);
 
-        boolean isDark = principal.get().getMode().equals(Mode.DARK);
+        boolean isDark = principal.get().getTheme().equals(Theme.DARK);
         model.addAttribute("isDark", isDark);
 
-        boolean isLight = principal.get().getMode().equals(Mode.LIGHT);
+        boolean isLight = principal.get().getTheme().equals(Theme.LIGHT);
         model.addAttribute("isLight", isLight);
 
-        boolean isIce = principal.get().getMode().equals(Mode.ICE);
+        boolean isIce = principal.get().getTheme().equals(Theme.ICE);
         model.addAttribute("isIce", isIce);
 
-        boolean isSlate = principal.get().getMode().equals(Mode.SLATE);
+        boolean isSlate = principal.get().getTheme().equals(Theme.SLATE);
         model.addAttribute("isSlate", isSlate);
         return "user/change-theme";
     }
 
     @PostMapping("/settings/change-theme")
-    public String changeTheme(@RequestParam Mode mode) {
+    public String changeTheme(@RequestParam Theme theme) {
 
         String username = principalService.getAuthentication().getName();
         Optional<AppUser> principal = appUserRepository.findByUsername(username);
 
-        principal.get().setMode(mode);
+        principal.get().setTheme(theme);
         appUserRepository.save(principal.get());
 
         return "redirect:/settings/change-theme";
