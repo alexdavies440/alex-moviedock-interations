@@ -6,6 +6,7 @@ import org.launchcode.moviedock.models.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -23,8 +24,15 @@ public class PrincipalService {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    public Optional<AppUser> getPrincipal() {
+    public AppUser getPrincipal() {
+
         String username = this.getAuthentication().getName();
-        return appUserRepository.findByUsername(username);
+        Optional<AppUser> appUser =  appUserRepository.findByUsername(username);
+
+        if (appUser.isPresent()) {
+            return appUser.get();
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
     }
 }

@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.EmailDto;
-import org.launchcode.moviedock.models.themes.Theme;
+import org.launchcode.moviedock.models.Theme;
 import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -108,31 +108,30 @@ public class SettingsController {
     @GetMapping("/settings/change-theme")
     public String displayThemeSettings(Model model) {
 
-        String username = principalService.getAuthentication().getName();
-        Optional<AppUser> principal = appUserRepository.findByUsername(username);
+        AppUser principal = principalService.getPrincipal();
 
-        boolean isDark = principal.get().getTheme().equals(Theme.DARK);
+        boolean isDark = principal.getTheme().equals(Theme.DARK);
         model.addAttribute("isDark", isDark);
 
-        boolean isLight = principal.get().getTheme().equals(Theme.LIGHT);
+        boolean isLight = principal.getTheme().equals(Theme.LIGHT);
         model.addAttribute("isLight", isLight);
 
-        boolean isIce = principal.get().getTheme().equals(Theme.ICE);
+        boolean isIce = principal.getTheme().equals(Theme.ICE);
         model.addAttribute("isIce", isIce);
 
-        boolean isSlate = principal.get().getTheme().equals(Theme.SLATE);
+        boolean isSlate = principal.getTheme().equals(Theme.SLATE);
         model.addAttribute("isSlate", isSlate);
+
         return "user/change-theme";
     }
 
     @PostMapping("/settings/change-theme")
     public String changeTheme(@RequestParam Theme theme) {
 
-        String username = principalService.getAuthentication().getName();
-        Optional<AppUser> principal = appUserRepository.findByUsername(username);
+        AppUser principal = principalService.getPrincipal();
 
-        principal.get().setTheme(theme);
-        appUserRepository.save(principal.get());
+        principal.setTheme(theme);
+        appUserRepository.save(principal);
 
         return "redirect:/settings/change-theme";
     }

@@ -6,7 +6,7 @@ import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.dto.AppUserDto;
 import org.launchcode.moviedock.models.dto.VerifyCodeDto;
-import org.launchcode.moviedock.models.themes.Theme;
+import org.launchcode.moviedock.models.Theme;
 import org.launchcode.moviedock.security.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
