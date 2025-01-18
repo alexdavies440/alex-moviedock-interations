@@ -9,7 +9,10 @@
 }
 
 .bg-1 {
-    background: rgb(33, 33, 33);
+    background-image: linear-gradient(rgb(33, 33, 33), rgb(33, 33, 33));
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: rgb(166, 166, 166);
   }
 

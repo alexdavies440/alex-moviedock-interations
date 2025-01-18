@@ -38,7 +38,6 @@
             <th>Star Rating</th>
         </tr>
         </thead>
-<!--        <tr th:each="review : ${reviews}">-->
         <tr th:each="review : ${user.reviewsList}">
 
             <td th:text="${review.movie}"></td>
@@ -46,17 +45,6 @@
             <td th:text="${review.star_rating}"></td>
         </tr>
     </table>
-<!--    <h4>Movie Title</h4>-->
-<!--    <p>-->
-<!--        Sed nec auctor dui, a congue quam. Duis eget nisl porttitor, faucibus metus at, pellentesque augue. Vivamus vitae cursus nisl. In aliquet est vel imperdiet finibus. Fusce congue risus ac cursus ultricies. Nulla scelerisque dui a mollis scelerisque. Nullam placerat maximus orci eu tempus. Vestibulum gravida elit sed purus posuere tincidunt at nec arcu. Fusce consectetur condimentum accumsan. Morbi vulputate ipsum arcu, non elementum felis sollicitudin nec.-->
-<!--        Praesent non tincidunt nisl. Etiam tincidunt libero neque. Cras volutpat lobortis porttitor. Phasellus luctus, leo vitae viverra tincidunt, urna felis hendrerit sem, sed venenatis enim leo eu magna. Quisque pharetra neque id interdum iaculis. Morbi gravida ultrices erat, at consectetur velit malesuada ut. Sed quam tellus, commodo ut ligula at, iaculis blandit quam. Cras interdum urna non iaculis hendrerit. Phasellus metus felis, commodo at malesuada vitae, vestibulum nec felis. Vivamus lobortis sodales lectus eget mattis.-->
-<!--    </p>-->
-<!--    <h4>Ice Age</h4>-->
-<!--    <p>-->
-<!--        Does anyone know the name of the squirrel??-->
-<!--    </p>-->
-
-
 </div>
 </body>
 </html>

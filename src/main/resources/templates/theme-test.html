@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
    <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1">-->
 
    <link th:href="${theme.cssPath}" rel="stylesheet" />
    <!--    Bootstrap dependencies-->
@@ -17,29 +17,35 @@
 
 </head>
 <body class="container bg-1">
-<div id="navigation">
-   <nav th:attr="class=${theme.navMode}">
-      <div class="container-fluid">
-         <div>
-            <ul class="nav navbar-nav navbar-left">
-               <li><a href="/">HOME</a></li>
-               <li><a href="/profile">MY PROFILE</a></li>
-               <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-               <li>
+<div>
+   <div id="navigation">
+      <nav th:attr="class=${theme.navMode}">
+         <div class="container-fluid">
+            <div>
+               <ul class="nav navbar-nav navbar-left">
+                  <li><a href="/">HOME</a></li>
+                  <li><a href="/profile">MY PROFILE</a></li>
+                  <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                  <li>
 
-               </li>
-               <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
-            </ul>
+                  </li>
+                  <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>
+               </ul>
+            </div>
          </div>
-      </div>
-   </nav>
+      </nav>
+   </div>
+   <h1>Theme Test Page</h1>
+   <div>
+      <img src="./images/0db6ae940cf191dc1b0e005ec7e59548.jpg" alt="mockup">
+      <img src="./images/0db6ae940cf191dc1b0e005ec7e59548.jpg" alt="mockup">
+      <img src="./images/0db6ae940cf191dc1b0e005ec7e59548.jpg" alt="mockup">
+   </div>
+
 </div>
-<h1>Theme Test Page</h1>
-<img src="./images/0db6ae940cf191dc1b0e005ec7e59548.jpg" alt="mockup">
-<img src="./images/0db6ae940cf191dc1b0e005ec7e59548.jpg" alt="mockup">
-<img src="./images/0db6ae940cf191dc1b0e005ec7e59548.jpg" alt="mockup">
+
 
 </body>
 </html>

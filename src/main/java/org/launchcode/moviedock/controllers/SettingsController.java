@@ -31,6 +31,11 @@ public class SettingsController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+
+    // CONSIDER MAKING THIS A DROP-DOWN MENU IN THE NAVBAR INSTEAD OF A PAGE
+
+
     @GetMapping("/settings")
     public String settings(Model model) {
 

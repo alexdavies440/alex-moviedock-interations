@@ -1,3 +1,7 @@
+body, html {
+  height: 100%;
+}
+
 #navigation {
     margin-bottom: 100px;
 }
@@ -7,8 +11,10 @@
 }
 
 .bg-1 {
-    //background: #2a3439;
-    background: #2d2d30;
+    background-image: linear-gradient(rgb(45, 45, 48), rgb(26, 26, 28));
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: #bdbdbd;
   }
 
