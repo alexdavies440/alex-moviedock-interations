@@ -14,4 +14,9 @@
     color: DodgerBlue;
   }
 
+  .table-background {
+      background: rgb(255, 255, 255, 0.5);
+      border-radius: 5px;
+  }
+
 

@@ -121,8 +121,8 @@ public class SettingsController {
         boolean isLight = principal.getTheme().equals(Theme.LIGHT);
         model.addAttribute("isLight", isLight);
 
-        boolean isIce = principal.getTheme().equals(Theme.ICE);
-        model.addAttribute("isIce", isIce);
+        boolean isSeafoam = principal.getTheme().equals(Theme.SEAFOAM);
+        model.addAttribute("isSeafoam", isSeafoam);
 
         boolean isSlate = principal.getTheme().equals(Theme.SLATE);
         model.addAttribute("isSlate", isSlate);

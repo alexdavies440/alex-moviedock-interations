@@ -3,13 +3,13 @@
 }
 
 .bar {
-    box-shadow: 0 0 15px 0.5px;
+    box-shadow: 0 0 15px rgb(150, 150, 150);
     background: rgb(33, 33, 33, 0.7);
     backdrop-filter: blur(10px);
 }
 
 .bg-1 {
-    background-image: linear-gradient(rgb(33, 33, 33), rgb(33, 33, 33));
+    background-image: linear-gradient(rgb(66, 66, 66), rgb(33, 33, 33));
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -25,6 +25,12 @@ ul.nav li a:hover {
     background: rgb(255, 255, 255, 0);
     color: rgb(209, 209, 209);
     text-shadow: 0 0 3px;
+}
+
+.table-background {
+     background: rgb(209, 209, 209);
+     border-radius: 5px;
+     color: black;
 }
 
 

@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 
 public enum Theme {
-    DARK("/css/styles.css", "navbar navbar-inverse navbar-fixed-top bar"),
-    LIGHT("/css/styles-light.css", "navbar navbar-default navbar-fixed-top bar"),
-    ICE("/css/styles-ice.css", "navbar navbar-fixed-top bar"),
-    SLATE("/css/styles-slate.css", "navbar navbar-fixed-top bar");
+    DARK("/css/dark.css", "navbar navbar-inverse navbar-fixed-top bar"),
+    LIGHT("/css/light.css", "navbar navbar-default navbar-fixed-top bar"),
+    SEAFOAM("/css/seafoam.css", "navbar navbar-fixed-top bar"),
+    SLATE("/css/slate.css", "navbar navbar-fixed-top bar");
 
     private final String cssPath;
     private final String navMode;
