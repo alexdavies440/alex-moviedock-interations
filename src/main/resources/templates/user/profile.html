@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments :: head"></head>
 
 <body class="container bg-1">
@@ -37,21 +37,46 @@
     <table th:unless="${#lists.isEmpty(user.reviewsList)}" style="width:50%" class="table table-bordered table-dark">
         <thead>
         <tr>
-            <th style="width:30%">Movie Name</th>
+            <th style="width:25%">Movie Name</th>
             <th style="width:60%">Review</th>
             <th style="width:10%">Star Rating</th>
+<!--            <th style="width:5%" sec:authorize="isAuthenticated()" th:if="${selfProfile}">-->
+<!--            <th style="width:5%" th:if="${selfProfile =='true' or selfProfile == ''}">-->
+            <th style="width:5%" th:unless="${selfProfile =='false'}">
+
+            </th>
         </tr>
         </thead>
-<!--        <tr th:each="review : ${reviews}">-->
+        <!--        <tr th:each="review : ${reviews}">-->
         <tr th:each="review : ${user.reviewsList}">
 
             <td th:text="${review.movie}"></td>
             <td th:text="${review.review_text}"></td>
             <td th:text="${review.star_rating}"></td>
+<!--            <td th:if="${selfProfile =='true' or selfProfile == 'null'}">-->
+            <td th:unless="${selfProfile =='false'}">
+<!--            <td sec:authorize="isAuthenticated()">-->
+<!--                <label th:for="${review.id}"></label>-->
+
+                <a th:href="@{/delete_review(reviewId=${review.id})}">Delete</a>
+            </td>
         </tr>
     </table>
 
 
 </div>
+
+<!--<script>-->
+<!--    checkDelete(){-->
+<!--        let result = confirm("Are you sure you want to delete this review?");-->
+
+<!--    if (result) {-->
+<!--       return true;-->
+<!--    } else {-->
+<!--      return false;-->
+<!--    }-->
+
+<!--    }-->
+<!--</script>-->
 </body>
 </html>
