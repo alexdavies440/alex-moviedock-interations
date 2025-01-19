@@ -32,7 +32,14 @@
 
 
 
+    <hr />
 
+    <ul>
+        <li th:each="movie : ${movies}">
+            <a th:href="@{'movie-view/' + ${movie.getApiID()}}" th:text="${movie.getTitle()}"></a>
+            <th:block th:text="${movie.getYear}"></th:block>
+        </li>
+    </ul>
 
 
 

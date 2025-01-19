@@ -34,9 +34,33 @@ public class SearchController {
 
         //model.addAttribute("title", "search for a movie");
 
-
+        //get list of api ids
         MovieHelper mh = new MovieHelper();
-        model.addAttribute("movie-stuff", mh.makeMovieList(searchTerm));
+        String[] listOfApiIds = mh.makeMovieList(searchTerm);
+        ApiMovie[] movies;
+        movies = new ApiMovie[10];
+
+        model.addAttribute("apis", listOfApiIds);
+
+        for (int i = 0; i < listOfApiIds.length; i++){
+            ApiMovie apiMovie1 = new ApiMovie();
+            apiMovie1.setMovieInfoById(listOfApiIds[i]);
+            movies[i] = apiMovie1;
+
+
+            String year = apiMovie1.getYear();
+            String title = apiMovie1.getTitle();
+            String apiId = apiMovie1.getApiID();
+            System.out.println(title);
+
+            /*model.addAttribute("title", title);
+            model.addAttribute("year", year);
+            model.addAttribute("apiId", apiId);*/
+
+        }
+
+        model.addAttribute("movies",movies);
+
 
 
         apiMovie.setMovieInfoByName(searchTerm);
