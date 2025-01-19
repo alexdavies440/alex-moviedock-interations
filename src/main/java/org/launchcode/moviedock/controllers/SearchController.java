@@ -44,6 +44,7 @@ public class SearchController {
 
         model.addAttribute("apis", listOfApiIds);
 
+
         for (int i = 0; i < listOfApiIds.length; i++){
             ApiMovie apiMovie1 = new ApiMovie();
             apiMovie1.setMovieInfoById(listOfApiIds[i]);
@@ -59,6 +60,7 @@ public class SearchController {
 
         }
 
+        //checks if movies is populated
         if (movies[0]!=null) {
             model.addAttribute("movies", movies);
         }
@@ -93,16 +95,22 @@ public class SearchController {
         model.addAttribute("poster", poster);
 
 
-        Optional<ApiMovie> optApiMovie = apiMovieRepository.findById(apiMovie.getId());
+        System.out.println(plot);
+    if (plot!=null) {
+        Optional<ApiMovie> optApiMovie = apiMovieRepository.findByApiID(apiMovie.getApiID());
         if (optApiMovie.isPresent()) {
+            System.out.println(apiMovie.getApiID());
             ApiMovie a = (ApiMovie) optApiMovie.get();
+            System.out.println("it exists");
             a.userView();
             apiMovieRepository.save(a);
         }
         else{
+            System.out.println("it doesn't exist");
+            apiMovie.userView();
             apiMovieRepository.save(apiMovie);
         }
-
+    }
 
 
 
