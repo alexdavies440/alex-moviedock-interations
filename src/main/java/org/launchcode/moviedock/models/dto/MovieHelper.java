@@ -25,14 +25,7 @@ public class MovieHelper {
         return restTemplate.getForObject(url, String.class);
     }
 
-    /*public void getMovies(String s) throws JsonProcessingException {
 
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode node = objectMapper.readTree(this.getMoviesBySearch(s));
-        System.out.println(node);
-
-    }*/
 
     public String[] makeMovieList(String stringToParse) {
         String parsedString = getMoviesBySearch(stringToParse);
@@ -50,6 +43,7 @@ public class MovieHelper {
         //remove everything after the imdb id
         for (int i = 0; i < unparsedMovies.length; i++){
             unparsedMovies[i] =  unparsedMovies[i].substring(0, unparsedMovies[i].indexOf('"'));
+            System.out.println(unparsedMovies[i]);
         }
 
         //removes last element
@@ -59,15 +53,5 @@ public class MovieHelper {
         return parsedMovies;
     }
 
-
-
-   /* public void getMovies(String s) throws JsonProcessingException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> map
-                = objectMapper.readValue(s, new TypeReference<Map<String,Object>>(){});
-
-
-    }*/
 
 }

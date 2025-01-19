@@ -38,6 +38,8 @@ public class SearchController {
         MovieHelper mh = new MovieHelper();
         String[] listOfApiIds = mh.makeMovieList(searchTerm);
         ApiMovie[] movies;
+
+        //the way text parsing is currently working, 10 movies are being sent to listOfApiIds
         movies = new ApiMovie[10];
 
         model.addAttribute("apis", listOfApiIds);
@@ -45,6 +47,7 @@ public class SearchController {
         for (int i = 0; i < listOfApiIds.length; i++){
             ApiMovie apiMovie1 = new ApiMovie();
             apiMovie1.setMovieInfoById(listOfApiIds[i]);
+
             movies[i] = apiMovie1;
 
 
@@ -53,28 +56,17 @@ public class SearchController {
             String apiId = apiMovie1.getApiID();
             System.out.println(title);
 
-            /*model.addAttribute("title", title);
-            model.addAttribute("year", year);
-            model.addAttribute("apiId", apiId);*/
 
         }
 
-        model.addAttribute("movies",movies);
+        if (movies[0]!=null) {
+            model.addAttribute("movies", movies);
+        }
+        else{
+            model.addAttribute("error", "No movies found, please enter another movie title");
+        }
 
 
-
-        apiMovie.setMovieInfoByName(searchTerm);
-        String year = apiMovie.getYear();
-        String title = apiMovie.getTitle();
-        String apiId = apiMovie.getApiID();
-        String plot = apiMovie.getPlot();
-
-
-
-
-        model.addAttribute("title", title);
-        model.addAttribute("year", year);
-        model.addAttribute("apiId", apiId);
 
 
         return "search";
