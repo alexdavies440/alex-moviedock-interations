@@ -42,7 +42,11 @@ ul li a:hover {
 }
 
 .dropdown-menu {
-    background-color: rgb(36, 36, 35) !important;
+    background: rgb(230, 254, 255) !important;
+}
+
+.dropdown-toggle {
+    background-color: rgb(255, 255, 255, 0) !important;
 }
 
 
