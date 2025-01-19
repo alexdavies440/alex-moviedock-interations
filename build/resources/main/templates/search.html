@@ -7,6 +7,35 @@
 
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
-<h1>Search page can go here</h1>
+
+<div class="container body-content">
+    <h1>Search for a movie</h1>
+
+    <form th:action="@{/search/results}" method = "post">
+
+
+
+
+        <p>
+            <label for="searchTerm">Keyword:</label>
+            <input type="text" name="searchTerm" id="searchTerm" />
+        </p>
+
+        <input type="submit" value="Search" />
+    </form>
+
+    <hr />
+
+
+    <a th:href="@{'movie-view/' + ${apiId}}"th:text="${title}"></a>
+    <th:block th:text="${year}"></th:block>
+
+
+
+
+
+
+
+
 </body>
 </html>
