@@ -35,6 +35,8 @@ public class WebSecurityConfig {
                             .requestMatchers("/signup-verify").permitAll()
                             .requestMatchers("/movies").permitAll()
                             .requestMatchers("/search").permitAll()
+                            .requestMatchers("/user_search").permitAll()
+                            .requestMatchers("/searched_profile").permitAll()
                             .anyRequest().authenticated();
                             //.anyRequest().permitAll();
                 })
