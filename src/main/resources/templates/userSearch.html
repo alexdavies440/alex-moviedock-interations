@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container bg-1">
+<nav th:replace="fragments :: header"></nav>
+
+
+<form th:action="@{/user_search}" method="post">
+    <div class="form-group">
+
+        <label>
+            <input type="text" name="searchName" class="form-control"/>
+        </label>
+
+
+    </div>
+    <input type="submit" value="Search User" class="btn btn-primary">
+</form>
+
+<br>
+<br>
+
+<!--ALERT Message for submitting empty text field-->
+<p th:text="${blankField}"></p>
+
+<!--ALERT displayed when no match found for searched text-->
+<p th:text="${noMatch}"></p>
+
+<table th:if="${ usersList != null and not #lists.isEmpty(usersList)}" style="width:25%" class="table">
+    <thead>
+    <tr>
+        <th>Match found for searched user</th>
+    </tr>
+    </thead>
+    <tr th:each="user : ${usersList}">
+        <td><a th:href="@{/searched_profile(userId=${user.id})}" th:text="${user.username}"></a></td>
+    </tr>
+</table>
+
+</body>
+</html>
