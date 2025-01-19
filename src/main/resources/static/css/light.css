@@ -12,19 +12,19 @@
     background-size: cover;
     background-repeat: no-repeat;
     color: DodgerBlue;
-  }
+}
 
-  .table-background {
-      background: rgb(255, 255, 255, 0.5);
-      border-radius: 5px;
-  }
+/* Set color of links in navbar */
+ul.nav li a, ul.nav li a:visited {
+    color: rgb(124, 129, 132);
+}
 
-  .dropdown-menu {
-      background-color: rgb(247, 247, 247) !important;
-  }
+.dropdown-menu {
+    background-color: rgb(247, 247, 247) !important;
+}
 
-  .dropdown-toggle {
-      background-color: rgb(255, 255, 255, 0) !important;
-  }
+.dropdown-toggle {
+    background-color: rgb(255, 255, 255, 0) !important;
+}
 
 

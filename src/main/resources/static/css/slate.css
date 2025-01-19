@@ -5,7 +5,7 @@
 .bar {
     box-shadow: 0 0 15px rgb(150, 150, 150);
     background: rgb(33, 33, 33, 0.7);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
 }
 
 .bg-1 {
@@ -27,12 +27,6 @@ ul.nav li a:hover {
     text-shadow: 0 0 3px;
 }
 
-.table-background {
-     background: rgb(209, 209, 209);
-     border-radius: 5px;
-     color: black;
-}
-
 .dropdown-menu {
     background-color: rgb(33, 33, 33) !important;
 }
@@ -41,6 +35,9 @@ ul.nav li a:hover {
     background-color: rgb(255, 255, 255, 0) !important;
 }
 
+#home {
+    background-image: url("https://c8.alamy.com/comp/2CGEXFJ/isometric-cubes-seamless-vector-pattern-repeating-ornament-for-textile-wraping-paper-fashion-etc-2CGEXFJ.jpg") !important;
+}
 
 
 
