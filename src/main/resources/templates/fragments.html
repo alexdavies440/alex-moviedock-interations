@@ -30,7 +30,16 @@
                         <li sec:authorize="isAuthenticated()">
                             <a href="/profile">MY PROFILE</a></li>
                         <li sec:authorize="isAuthenticated()">
-                            <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+                            <a class="dropdown-toggle" href="#" role="button" id="settings-menu" data-toggle="dropdown" >
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="settings-menu">
+                                <a class="dropdown-item " href="/settings/change-theme">Customize Theme</a><br>
+                                <a class="dropdown-item" href="/settings/update-email">Update Email</a><br>
+                                <a class="dropdown-item" href="/settings/delete-account">Delete Account</a>
+                            </div>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/search"><span class="glyphicon glyphicon-search"></span></a></li>

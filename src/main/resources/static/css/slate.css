@@ -33,5 +33,9 @@ ul.nav li a:hover {
      color: black;
 }
 
+.dropdown-menu {
+    background-color: rgb(36, 36, 35) !important;
+}
+
 
 

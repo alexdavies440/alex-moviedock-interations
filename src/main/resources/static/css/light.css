@@ -19,4 +19,8 @@
       border-radius: 5px;
   }
 
+  .dropdown-menu {
+      background-color: rgb(36, 36, 35) !important;
+  }
+
 
