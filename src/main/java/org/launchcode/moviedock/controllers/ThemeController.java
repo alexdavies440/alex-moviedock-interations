@@ -20,8 +20,6 @@ public class ThemeController {
     @Autowired
     private AppUserRepository appUserRepository;
 
-
-
     // Global modelattribute theme based on user logged in. Default is dark
     @ModelAttribute("theme")
     public Theme globalTheme() {

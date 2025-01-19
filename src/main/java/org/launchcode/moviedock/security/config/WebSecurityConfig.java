@@ -24,7 +24,6 @@ public class WebSecurityConfig {
         return httpSecurity
                 // For the purposes of this project, CSRF protection is overkill
 //                .csrf(AbstractHttpConfigurer::disable)
-                .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> {
                     authorize
                             .requestMatchers("/css/*").permitAll()
