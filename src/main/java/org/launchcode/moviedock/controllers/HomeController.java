@@ -36,7 +36,7 @@ public class HomeController {
         //the number of movies displayed can be changed in the query in ApiMovieRepository
         List<String> listOfApiIds = apiMovieRepository.getTopMovies();
         System.out.println(listOfApiIds);
-        ApiMovie[] movies = new ApiMovie[5];
+        ApiMovie[] movies = new ApiMovie[listOfApiIds.size()];
 
         //
         for (int i = 0; i < movies.length; i++){
