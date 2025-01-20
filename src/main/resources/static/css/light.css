@@ -19,8 +19,9 @@ ul.nav li a, ul.nav li a:visited {
     color: rgb(124, 129, 132);
 }
 
-.dropdown-menu {
+ul.dropdown-menu {
     background-color: rgb(247, 247, 247) !important;
+    width: 200px;
 }
 
 .dropdown-toggle {

@@ -33,22 +33,23 @@
                             <a class="dropdown-toggle" href="#" role="button" id="settings-menu" data-toggle="dropdown" >
                                 <span class="glyphicon glyphicon-cog"></span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="settings-menu">
-                                <a class="dropdown-item" href="/settings/change-theme">Customize Theme</a><br>
-                                <a class="dropdown-item" href="/settings/update-email">Update Email</a><br>
-                                <a class="dropdown-item" href="/settings/delete-account">Delete Account</a>
-                            </div>
+                            <ul class="dropdown-menu" aria-labelledby="settings-menu">
+                                <li><a class="dropdown-item" href="/settings/change-theme">CUSTOMIZE THEME</a></li>
+                                <li><a class="dropdown-item" href="/settings/update-email">UPDATE EMAIL</a></li>
+                                <li><a class="dropdown-item" href="/settings/delete-account">DELETE ACCOUNT</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="glyphicon glyphicon-search" type="button" data-toggle="dropdown"></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/search">Movies</a></li>
-                                    <li><a href="user_search">User</a></li>
-                                </ul>
-
+                        <li>
+                            <a class="dropdown-toggle" href="#" role="button" id="search-menu" data-toggle="dropdown" >
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="search-menu">
+                                <li><a class="dropdown-item" href="/search">Movies</a></li>
+                                <li><a class="dropdown-item" href="user_search">User</a></li>
+                            </ul>
                         </li>
-
                         <li>
                             <a sec:authorize="!isAuthenticated()" th:href="@{/signin}">SIGN IN</a>
                             <a sec:authorize="isAuthenticated()" th:href="@{/signout}">SIGN OUT</a>

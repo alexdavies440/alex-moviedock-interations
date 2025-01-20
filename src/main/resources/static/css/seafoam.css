@@ -32,8 +32,11 @@ ul li a:hover {
     text-shadow: 0 0 1px Aquamarine;
 }
 
-.dropdown-menu {
+ul.dropdown-menu {
     background-color: rgb(230, 254, 255) !important;
+    backdrop-filter: blur(20px);
+    padding: 14px;
+    width: 200px;
 }
 
 .dropdown-toggle {

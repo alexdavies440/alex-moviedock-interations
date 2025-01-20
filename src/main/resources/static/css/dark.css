@@ -27,8 +27,9 @@ ul.nav li a:hover {
 }
 
 /* Overrides bootstrap dropdown menu background color */
-.dropdown-menu {
+ul.dropdown-menu {
     background-color: rgb(36, 36, 35) !important;
+    width: 200px;
 }
 
 /* Makes toggle button background same as navbar */
