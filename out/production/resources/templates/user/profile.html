@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container bg-1">
+<nav th:replace="fragments :: header"></nav>
+
+<h2 th:text="${user.username.toUpperCase()}"></h2>
+
+<br>
+<div>
+    <h3>Favorite Movies</h3>
+    <ul th:each="favoriteMovie : ${user.favoriteMovies}">
+        <li>
+            <p th:text="${favoriteMovie.name}"></p>
+        </li>
+    </ul>
+</div>
+<br>
+</div>
+<h3>To Watch Movies</h3>
+<ul th:each="toWatchMovie : ${user.toWatchMovies}">
+    <li>
+        <p th:text="${toWatchMovie.name}"></p>
+    </li>
+</ul>
+</div>
+
+
+<div>
+    <h3>Reviews</h3>
+
+    <p th:if="${#lists.isEmpty(user.reviewsList)}">No movies reviewed yet</p>
+
+
+
+    <table th:unless="${#lists.isEmpty(user.reviewsList)}" style="width:50%" class="table table-bordered table-dark">
+        <thead>
+        <tr>
+            <th style="width:30%">Movie Name</th>
+            <th style="width:60%">Review</th>
+            <th style="width:10%">Star Rating</th>
+        </tr>
+        </thead>
+<!--        <tr th:each="review : ${reviews}">-->
+        <tr th:each="review : ${user.reviewsList}">
+
+            <td th:text="${review.movie}"></td>
+            <td th:text="${review.review_text}"></td>
+            <td th:text="${review.star_rating}"></td>
+        </tr>
+    </table>
+
+
+</div>
+</body>
+</html>

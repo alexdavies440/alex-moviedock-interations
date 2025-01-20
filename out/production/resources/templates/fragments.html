@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <!--    Bootstrap dependencies-->
+<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title th:text="${title}">Moviedock</title>
+</head>
+<body>
+    <div th:fragment="header" id="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top bar">
+            <div class="container-fluid">
+                <div>
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="/">HOME</a></li>
+                        <li><a href="/movies">MOVIES</a></li>
+                        <li sec:authorize="isAuthenticated()"><a href="/profile">MY PROFILE</a></li>
+                        <li sec:authorize="isAuthenticated()"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="glyphicon glyphicon-search" type="button" data-toggle="dropdown"></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/search">Movies</a></li>
+                                    <li><a href="user_search">User</a></li>
+                                </ul>
+
+                        </li>
+
+                        <li>
+                            <a sec:authorize="!isAuthenticated()" th:href="@{/signin}">SIGN IN</a>
+                            <a sec:authorize="isAuthenticated()" th:href="@{/signout}">SIGN OUT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
