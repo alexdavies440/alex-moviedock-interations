@@ -22,6 +22,7 @@
 <body>
     <div th:fragment="header" id="navigation">
         <nav th:attr="class=${theme.navMode}">
+            <div class="outer">
             <div class="container-fluid">
                 <div>
                     <ul class="nav navbar-nav navbar-left">
@@ -29,7 +30,7 @@
                         <li><a href="/movies">MOVIES</a></li>
                         <li sec:authorize="isAuthenticated()">
                             <a href="/profile">MY PROFILE</a></li>
-                        <li sec:authorize="isAuthenticated()">
+                        <li sec:authorize="isAuthenticated()" class="settings">
                             <a class="dropdown-toggle" href="#" role="button" id="settings-menu" data-toggle="dropdown" >
                                 <span class="glyphicon glyphicon-cog"></span>
                             </a>
@@ -46,8 +47,8 @@
                                 <span class="glyphicon glyphicon-search"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="search-menu">
-                                <li><a class="dropdown-item" href="/search">Movies</a></li>
-                                <li><a class="dropdown-item" href="user_search">User</a></li>
+                                <li><a class="dropdown-item" href="/search">SEARCH MOVIES</a></li>
+                                <li><a class="dropdown-item" href="user_search">SEARCH USERS</a></li>
                             </ul>
                         </li>
                         <li>

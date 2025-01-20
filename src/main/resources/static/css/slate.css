@@ -29,7 +29,6 @@ ul.nav li a:hover {
 
 ul.dropdown-menu {
     background-color: rgb(66, 66, 66) !important;
-    backdrop-filter: blur(20px);
     width: 200px;
 }
 
