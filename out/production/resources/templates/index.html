@@ -8,13 +8,6 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<h1 class="container-content">Popular movies(by search count)</h1>
-
-
-<div th:each="movie : ${movies}">
-    <a th:href="@{'movie-view/' + ${movie.getApiID()}}" th:text="${movie.getTitle()}"></a>
-    <th:block th:text="${movie.getYear}"></th:block>
-</div>
-
+<h1 class="container-content">Landing page goes here</h1>
 </body>
 </html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container bg-1">
+<nav th:replace="fragments :: header"></nav>
+
+
+
+<h1 th:text ="${title}"></h1>
+<h3 th:text ="${year}"></h3>
+<h3 th:text ="${'Director: ' + director}"></h3>
+<img th:src="${poster}" alt="poster">
+<h3 th:text ="${plot}"></h3>
+
+<hr />
+
+<p>Add to watch later</p>
+<p>Add to favorite</p>
+<form>
+  <label for="fname">Write a review here:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
