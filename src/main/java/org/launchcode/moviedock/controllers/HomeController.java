@@ -37,6 +37,7 @@ public class HomeController {
         List<String> listOfApiIds = apiMovieRepository.getTopMovies();
         System.out.println(listOfApiIds);
         ApiMovie[] movies = new ApiMovie[listOfApiIds.size()];
+
         //
         for (int i = 0; i < movies.length; i++){
             ApiMovie apiMovie1 = new ApiMovie();
@@ -53,8 +54,6 @@ public class HomeController {
 
         }
 
-
-
         if(movies[0]!=null) {
             model.addAttribute("movies", movies);
         }
@@ -65,7 +64,7 @@ public class HomeController {
 
     @GetMapping("/profile")
     public String myProfile(Model model) {
-        AppUser user = principalService.getPrincipal();
+        AppUser user = principalService.getPrincipal().get();
         model.addAttribute("user", user);
 
         return "user/profile";
