@@ -22,6 +22,7 @@ ul.nav li a, ul.nav li a:visited {
 }
 /* Color on hover */
 ul.nav li a:hover {
+    background: rgb(255, 255, 255, 0);
     color: rgb(209, 209, 209);
     text-shadow: 0 0 1px;
 }
