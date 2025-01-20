@@ -31,25 +31,6 @@ public class SettingsController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
-    // CONSIDER MAKING THIS A DROP-DOWN MENU IN THE NAVBAR INSTEAD OF A PAGE
-
-
-    @GetMapping("/settings")
-    public String settings(Model model) {
-
-        String username = principalService.getAuthentication().getName();
-        Optional<AppUser> principal = appUserRepository.findByUsername(username);
-
-        if (principal.isPresent()) {
-            model.addAttribute("email", principal.get().getEmail());
-            return "user/settings";
-        }
-
-        return "redirect:..";
-    }
-
     @GetMapping("/settings/delete-account")
     public String deleteAccount(Model model) {
 
@@ -85,29 +66,29 @@ public class SettingsController {
     @GetMapping("/settings/update-email")
     public String updateEmail(Model model) {
 
+        AppUser principal = principalService.getPrincipal();
+
+        model.addAttribute("email", principal.getEmail());
         model.addAttribute(new EmailDto());
 
         return "user/update-email";
     }
 
     @PostMapping("/settings/update-email")
-    public String updateEmailSuccess(@Valid @ModelAttribute EmailDto emailDto, Errors errors) {
+    public String updateEmailSuccess(@Valid @ModelAttribute EmailDto emailDto, Errors errors, Model model) {
+
+        AppUser principal = principalService.getPrincipal();
+        model.addAttribute("email", principal.getEmail());
 
         if (errors.hasErrors()) {
+            model.addAttribute("email", principal.getEmail());
             return "user/update-email";
         }
 
-        String username = principalService.getAuthentication().getName();
+        principal.setEmail(emailDto.getEmail());
+        appUserRepository.save(principal);
 
-        Optional<AppUser> principal = appUserRepository.findByUsername(username);
-
-        if (principal.isPresent()) {
-            principal.get().setEmail(emailDto.getEmail());
-            appUserRepository.save(principal.get());
-
-            return "redirect:/settings";
-        }
-        return "redirect:..";
+        return "redirect:/settings/update-email";
     }
 
     @GetMapping("/settings/change-theme")
