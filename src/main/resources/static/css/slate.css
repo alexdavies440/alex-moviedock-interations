@@ -4,8 +4,8 @@
 
 .bar {
     box-shadow: 0 0 15px rgb(150, 150, 150);
-    background-color: rgb(33, 33, 33, 0.7);
-    backdrop-filter: blur(20px);
+    background-color: rgb(33, 33, 33, 0.3);
+    backdrop-filter: blur(50px);
 }
 
 .bg-1 {

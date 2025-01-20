@@ -36,8 +36,7 @@ public class HomeController {
         //the number of movies displayed can be changed in the query in ApiMovieRepository
         List<String> listOfApiIds = apiMovieRepository.getTopMovies();
         System.out.println(listOfApiIds);
-        ApiMovie[] movies = new ApiMovie[5];
-
+        ApiMovie[] movies = new ApiMovie[listOfApiIds.size()];
         //
         for (int i = 0; i < movies.length; i++){
             ApiMovie apiMovie1 = new ApiMovie();
@@ -66,7 +65,7 @@ public class HomeController {
 
     @GetMapping("/profile")
     public String myProfile(Model model) {
-        AppUser user = principalService.getPrincipal().get();
+        AppUser user = principalService.getPrincipal();
         model.addAttribute("user", user);
 
         return "user/profile";

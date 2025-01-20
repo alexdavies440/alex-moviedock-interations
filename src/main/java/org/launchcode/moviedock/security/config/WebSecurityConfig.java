@@ -40,6 +40,7 @@ public class WebSecurityConfig {
                             .requestMatchers("/search/*").permitAll()
                             .requestMatchers("/search/results").permitAll()
                             .requestMatchers("/search/movie-view/*").permitAll()
+                            .requestMatchers("movie-view/*").permitAll()
                             .anyRequest().authenticated();
                             //.anyRequest().permitAll();
                 })
