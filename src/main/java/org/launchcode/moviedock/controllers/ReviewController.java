@@ -62,8 +62,9 @@ public class ReviewController {
 
 
             model.addAttribute("userReview", userReview);
+            model.addAttribute("review",review);
             model.addAttribute("dispText","You have already reviewed '" + movie.getName() + "'. You can update your old review.");
-
+            model.addAttribute("deleteButton","true");
             return "review/addReview.html";
         }
         else{
@@ -122,7 +123,7 @@ public class ReviewController {
     }
 
 
-    @GetMapping("delete_review")
+    @PostMapping("delete_review")
     public String deleteMovieReview(@RequestParam int reviewId, Model model) {
 
 //        Optional<Review> opReview = reviewRepository.findById(reviewId);
