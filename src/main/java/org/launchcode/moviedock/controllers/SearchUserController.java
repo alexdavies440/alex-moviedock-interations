@@ -3,7 +3,10 @@ package org.launchcode.moviedock.controllers;
 
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
+import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,9 @@ public class SearchUserController {
 
     @Autowired
     AppUserRepository appUserRepository;
+
+    @Autowired
+    private PrincipalService principalService;
 
 
     @GetMapping("user_search")
@@ -55,8 +61,33 @@ public class SearchUserController {
 
         Optional<AppUser> appUser = appUserRepository.findById(userId);
         AppUser userFound = appUser.get();
-        model.addAttribute("user",userFound);
-        return "user/profile";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+//        if (authentication != null && authentication.isAuthenticated()) {
+        if (authentication != null && !authentication.toString().contains("anonymous")) {
+            //            return "User is logged in";
+            AppUser loggedInUser = principalService.getPrincipal().get();
+            if(!userFound.equals(loggedInUser)){
+                model.addAttribute("selfProfile","false");
+                model.addAttribute("user",userFound);
+                return "user/profile";
+            }else{
+                model.addAttribute("selfProfile","true");
+                model.addAttribute("user",userFound);
+                return "user/profile";
+            }
+
+        } else {
+//            return "User is not logged in";
+            model.addAttribute("selfProfile","false");
+            model.addAttribute("user",userFound);
+            return "user/profile";
+
+        }
+
+//        model.addAttribute("user",userFound);
+//        return "user/profile";
     }
 
 
