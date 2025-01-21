@@ -3,6 +3,7 @@ package org.launchcode.moviedock.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.ApiMovieRepository;
+import org.launchcode.moviedock.data.MovieRepository;
 import org.launchcode.moviedock.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ import java.util.Optional;
 public class SearchController {
 
     @Autowired
-    private ApiMovieRepository apiMovieRepository;
+    private MovieRepository movieRepository;
 
     @GetMapping("results")
     public String index(Model model){
@@ -30,32 +31,32 @@ public class SearchController {
 
 
     @PostMapping("results")
-    public String processSearchResults(@ModelAttribute @Valid ApiMovie apiMovie, Model model, @RequestParam String searchTerm) throws JsonProcessingException {
+    public String processSearchResults(@ModelAttribute @Valid Movie movie, Model model, @RequestParam String searchTerm) throws JsonProcessingException {
 
         //model.addAttribute("title", "search for a movie");
 
         //get list of api ids
         MovieHelper mh = new MovieHelper();
         String[] listOfApiIds = mh.makeMovieList(searchTerm);
-        ApiMovie[] movies;
+        Movie[] movies;
 
         //the way text parsing is currently working, 10 movies are being sent to listOfApiIds
-        movies = new ApiMovie[10];
+        movies = new Movie[10];
 
         model.addAttribute("apis", listOfApiIds);
 
 
         for (int i = 0; i < listOfApiIds.length; i++){
-            ApiMovie apiMovie1 = new ApiMovie();
-            apiMovie1.setMovieInfoById(listOfApiIds[i]);
+            Movie movie1 = new Movie();
+            movie1.setMovieInfoById(listOfApiIds[i]);
 
-            movies[i] = apiMovie1;
+            movies[i] = movie1;
 
 
-            String year = apiMovie1.getYear();
-            String title = apiMovie1.getTitle();
-            String apiId = apiMovie1.getApiID();
-            System.out.println(title);
+            String year = movie1.getYear();
+            String title = movie1.getName();
+            String apiId = movie1.getApiID();
+
 
 
         }
@@ -76,17 +77,17 @@ public class SearchController {
 
 
     @GetMapping("movie-view/{apiId}")
-    public String displayViewMovie(Model model, @PathVariable String apiId, @ModelAttribute @Valid ApiMovie apiMovie) throws JsonProcessingException{
+    public String displayViewMovie(Model model, @PathVariable String apiId, @ModelAttribute @Valid Movie movie) throws JsonProcessingException{
 
 
 
-        apiMovie.setMovieInfoById(apiId);
+        movie.setMovieInfoById(apiId);
 
-        String year = apiMovie.getYear();
-        String title = apiMovie.getTitle();
-        String plot = apiMovie.getPlot();
-        String director = apiMovie.getDirector();
-        String poster = apiMovie.getPoster();
+        String year = movie.getYear();
+        String title = movie.getName();
+        String plot = movie.getPlot();
+        String director = movie.getDirector();
+        String poster = movie.getPoster();
 
         model.addAttribute("plot", plot);
         model.addAttribute("year", year);
@@ -97,18 +98,18 @@ public class SearchController {
 
         System.out.println(plot);
     if (plot!=null) {
-        Optional<ApiMovie> optApiMovie = apiMovieRepository.findByApiID(apiMovie.getApiID());
-        if (optApiMovie.isPresent()) {
-            System.out.println(apiMovie.getApiID());
-            ApiMovie a = (ApiMovie) optApiMovie.get();
+        Optional<Movie> optMovie = movieRepository.findByApiID(movie.getApiID());
+        if (optMovie.isPresent()) {
+            System.out.println(movie.getApiID());
+            Movie a = (Movie) optMovie.get();
             System.out.println("it exists");
             a.userView();
-            apiMovieRepository.save(a);
+            movieRepository.save(a);
         }
         else{
             System.out.println("it doesn't exist");
-            apiMovie.userView();
-            apiMovieRepository.save(apiMovie);
+            movie.userView();
+            movieRepository.save(movie);
         }
     }
 

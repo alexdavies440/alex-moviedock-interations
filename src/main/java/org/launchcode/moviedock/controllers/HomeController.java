@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.ApiMovieRepository;
 import org.launchcode.moviedock.data.AppUserRepository;
+import org.launchcode.moviedock.data.MovieRepository;
 import org.launchcode.moviedock.models.ApiMovie;
 import org.launchcode.moviedock.models.AppUser;
+import org.launchcode.moviedock.models.Movie;
 import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +27,7 @@ public class HomeController {
     AppUserRepository appUserRepository;
 
     @Autowired
-    ApiMovieRepository apiMovieRepository;
+    MovieRepository MovieRepository;
 
     @Autowired
     private PrincipalService principalService;
@@ -34,29 +37,35 @@ public class HomeController {
 
         //returns apiID of movies by view count
         //the number of movies displayed can be changed in the query in ApiMovieRepository
-        List<String> listOfApiIds = apiMovieRepository.getTopMovies();
-        System.out.println(listOfApiIds);
-        ApiMovie[] movies = new ApiMovie[listOfApiIds.size()];
 
-        //
+        List<String> listOfApiIds = new ArrayList<>();
+
+
+        //if (MovieRepository.getTopMovies()!=null) {
+            listOfApiIds = MovieRepository.getTopMovies();
+        //}
+
+
+
+
+        Movie[] movies = new Movie[listOfApiIds.size()];
+
+
         for (int i = 0; i < movies.length; i++){
-            ApiMovie apiMovie1 = new ApiMovie();
-            apiMovie1.setMovieInfoById(listOfApiIds.get(i));
+            Movie Movie1 = new Movie();
+            Movie1.setMovieInfoById(listOfApiIds.get(i));
 
-            movies[i] = apiMovie1;
+            movies[i] = Movie1;
 
 
-            String year = apiMovie1.getYear();
-            String title = apiMovie1.getTitle();
-            String apiId = apiMovie1.getApiID();
-            System.out.println(title);
-            System.out.println(i);
-
+            String year = Movie1.getYear();
+            String title = Movie1.getName();
+            String apiId = Movie1.getApiID();
         }
 
 
 
-        if(movies[0]!=null) {
+        if (movies.length!=0) {
             model.addAttribute("movies", movies);
         }
 
@@ -92,17 +101,17 @@ public class HomeController {
     }
 
     @GetMapping("movie-view/{apiId}")
-    public String displayViewMovie(Model model, @PathVariable String apiId, @ModelAttribute @Valid ApiMovie apiMovie) throws JsonProcessingException{
+    public String displayViewMovie(Model model, @PathVariable String apiId, @ModelAttribute @Valid Movie movie) throws JsonProcessingException{
 
 
 
-        apiMovie.setMovieInfoById(apiId);
+        movie.setMovieInfoById(apiId);
 
-        String year = apiMovie.getYear();
-        String title = apiMovie.getTitle();
-        String plot = apiMovie.getPlot();
-        String director = apiMovie.getDirector();
-        String poster = apiMovie.getPoster();
+        String year = movie.getYear();
+        String title = movie.getName();
+        String plot = movie.getPlot();
+        String director = movie.getDirector();
+        String poster = movie.getPoster();
 
         model.addAttribute("plot", plot);
         model.addAttribute("year", year);

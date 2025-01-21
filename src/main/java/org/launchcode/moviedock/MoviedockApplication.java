@@ -9,8 +9,4 @@ public class MoviedockApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MoviedockApplication.class, args);
 	}
-
 }
-
-
-

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ArrayUtils;
-import org.launchcode.moviedock.models.ApiMovie;
+import org.launchcode.moviedock.models.Movie;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class MovieHelper {
 
 
-    ArrayList<ApiMovie> movies = new ArrayList<ApiMovie>();
+    ArrayList<Movie> movies = new ArrayList<Movie>();
 
 
     public String getMoviesBySearch(String s){
@@ -43,12 +43,30 @@ public class MovieHelper {
         //remove everything after the imdb id
         for (int i = 0; i < unparsedMovies.length; i++){
             unparsedMovies[i] =  unparsedMovies[i].substring(0, unparsedMovies[i].indexOf('"'));
-            System.out.println(unparsedMovies[i]);
+            //System.out.println(unparsedMovies[i]);
         }
 
-        //removes last element
-        String[] parsedMovies = Arrays.copyOf(unparsedMovies, unparsedMovies.length-1);
 
+        //removes last element as it is junk data
+        //String[] parsedMovies = Arrays.copyOf(unparsedMovies, unparsedMovies.length-1);
+
+
+        //removes last element of array
+        /*List<String> helper = new ArrayList<>(Arrays.asList(unparsedMovies));
+        helper.removeAll(Arrays.asList("Results"));
+
+        String[] parsedMovies = helper.toArray(new String[0]);*/
+
+
+
+        //i suspect that this line is the issue with the bug
+        String[] parsedMovies = Arrays.copyOf(unparsedMovies, unparsedMovies.length-1);
+        //System.out.println("everything after this shouldn't contain extra keyword");
+
+
+        for (int i = 0; i < parsedMovies.length; i++){
+            //System.out.println(parsedMovies[i]);
+        }
 
         return parsedMovies;
     }
