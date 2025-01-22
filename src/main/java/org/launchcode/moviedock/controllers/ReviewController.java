@@ -43,7 +43,7 @@ public class ReviewController {
     public String displayReviewForm(@RequestParam Integer movieId,HttpServletRequest request, Model model){
         Optional<Movie> value = movieRepository.findById(movieId);
         Movie movie = value.get();
-        AppUser user = principalService.getPrincipal().get();
+        AppUser user = principalService.getPrincipal();
         Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(),user.getId());
 
         UserReviewDTO userReview =new UserReviewDTO();
@@ -93,7 +93,7 @@ public class ReviewController {
         } else {
 
             Movie movie = userReview.getMovie();
-            AppUser user = principalService.getPrincipal().get();
+            AppUser user = principalService.getPrincipal();
 
             Review review = reviewRepository.findByUserIdAndMovieId(movie.getId(), user.getId());
 
@@ -130,7 +130,7 @@ public class ReviewController {
 //        Review deleteReview = opReview.get();
 
         reviewRepository.deleteById(reviewId);
-        AppUser user = principalService.getPrincipal().get();
+        AppUser user = principalService.getPrincipal();
         model.addAttribute("user",user);
         return "user/profile.html";
 

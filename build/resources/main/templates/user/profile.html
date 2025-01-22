@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments :: head"></head>
 
 <body class="container bg-1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <nav th:replace="fragments :: header"></nav>
 
 <h2 th:text="${user.username.toUpperCase()}"></h2>
@@ -34,24 +36,65 @@
 
 
 
-    <table th:unless="${#lists.isEmpty(user.reviewsList)}" style="width:50%" class="table table-bordered table-dark">
+    <table th:unless="${#lists.isEmpty(user.reviewsList)}" style="width:50%" class="table table-responsive">
         <thead>
         <tr>
-            <th style="width:30%">Movie Name</th>
-            <th style="width:60%">Review</th>
-            <th style="width:10%">Star Rating</th>
+            <th style="width:25%">Movie Name</th>
+            <th style="width:50%">Review</th>
+            <th style="width:20%">Star Rating</th>
+            <th style="width:5%" th:unless="${selfProfile =='false'}">
+
+            </th>
         </tr>
         </thead>
-<!--        <tr th:each="review : ${reviews}">-->
+
         <tr th:each="review : ${user.reviewsList}">
 
             <td th:text="${review.movie}"></td>
             <td th:text="${review.review_text}"></td>
-            <td th:text="${review.star_rating}"></td>
+<!--            <td th:text="${review.star_rating}"></td>-->
+            <td >
+                <span th:each="i:${#numbers.sequence(1, 5)}">
+                    <span th:if="${review.star_rating >=i }"  class="fa fa-star star-checked"></span>
+                    <span th:unless="${review.star_rating >=i }"  class="fa fa-star"></span>
+                </span>
+
+<!--                <span th:if="${review.star_rating >=1 }"  class="fa fa-star checked"></span>-->
+<!--                <span th:unless="${review.star_rating >=1 }"  class="fa fa-star"></span>-->
+<!--                <span th:if="${review.star_rating >=2 }"  class="fa fa-star checked"></span>-->
+<!--                <span th:unless="${review.star_rating >=2 }"  class="fa fa-star"></span>-->
+<!--                <span th:if="${review.star_rating >=3 }"  class="fa fa-star checked"></span>-->
+<!--                <span th:unless="${review.star_rating >=3 }"  class="fa fa-star"></span>-->
+<!--                <span th:if="${review.star_rating >=4 }"  class="fa fa-star checked"></span>-->
+<!--                <span th:unless="${review.star_rating >=4 }"  class="fa fa-star"></span>-->
+<!--                <span th:if="${review.star_rating >=5 }"  class="fa fa-star checked"></span>-->
+<!--                <span th:unless="${review.star_rating >=5 }"  class="fa fa-star"></span>-->
+            </td>
+            <td th:unless="${selfProfile =='false'}">
+
+<!--                <a th:href="@{/delete_review(reviewId=${review.id})}"-->
+<!--                   th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"-->
+<!--                   onclick="return confirm(this.getAttribute('data-confirm-delete'))" style="color:red;">Delete</a>-->
+
+                <form th:action="@{/delete_review(reviewId=${review.id})}" method="post">
+                     <button type="submit" class="btn btn-link" style="color:red;"
+                             th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"
+                             onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+                     >Delete</button>
+                </form>
+
+            </td>
         </tr>
     </table>
 
 
 </div>
+
 </body>
+<!--<style>-->
+<!--    .star-checked {-->
+<!--      color: orange;-->
+<!--    }-->
+<!--    -->
+<!--</style>-->
 </html>

@@ -15,22 +15,11 @@ public class AuthenticationSuccessHandller extends SavedRequestAwareAuthenticati
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
 
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
-
         boolean isUser = authentication.getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_USER"));
 
-        // Set custom page to display when user logs in depending on authorities
-
         if (isUser) {
             setDefaultTargetUrl("/profile");
-        }
-        else if (isAdmin) {
-            setDefaultTargetUrl("/profile");
-        }
-        else {
-            setDefaultTargetUrl("/");
         }
 
         super.onAuthenticationSuccess(request, response, authentication);

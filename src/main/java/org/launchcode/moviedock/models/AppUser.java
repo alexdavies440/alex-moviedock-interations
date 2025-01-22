@@ -31,6 +31,8 @@ public class AppUser extends AbstractEntity {
 
     private String verificationCode;
 
+    private Theme theme;
+
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -56,13 +58,14 @@ public class AppUser extends AbstractEntity {
 
     public AppUser() {}
 
-    public AppUser(String username, String email, String password, String role, boolean enabled, String verificationCode) {
+    public AppUser(String username, String email, String password, String role, boolean enabled, String verificationCode, Theme theme) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.enabled = enabled;
         this.verificationCode = verificationCode;
+        this.theme = theme;
     }
 
     public String getUsername() {
@@ -133,4 +136,7 @@ public class AppUser extends AbstractEntity {
         this.toWatchMovies.add(movie);
     }
 
+    public Theme getTheme() { return theme; }
+
+    public void setTheme(Theme theme) { this.theme = theme; }
 }

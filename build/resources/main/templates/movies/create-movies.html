@@ -7,14 +7,14 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<form method="post">
+<form th:action="@{/movies/create-movies}" method="post">
     <div class="form-group">
         <label>Movie Name
             <input th:field="${movie.name}" class="form-control">
         </label>
         <span th:errors="${movie.name}" class="error"></span>
     </div>
-    <input type="submit" value="Create Favorite Movie" class="btn btn-primary">
+    <input type="submit" value="Create Favorite Movie" class="btn btn-success">
 </form>
 </body>
 </html>

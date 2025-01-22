@@ -30,7 +30,7 @@ public class AppUserDetailsService implements UserDetailsService {
                     .username(userObj.getUsername())
                     .password(userObj.getPassword())
                     .roles(userObj.getRole())
-                    .disabled(!userObj.isEnabled()) // Value is reversed since disabled should be false if enabled
+                    .disabled(!userObj.isEnabled())
                     .build();
         } else {
             throw new UsernameNotFoundException(username);
