@@ -130,7 +130,7 @@ public class ReviewController {
 //        Review deleteReview = opReview.get();
 
         reviewRepository.deleteById(reviewId);
-        AppUser user = principalService.getPrincipal().get();
+        AppUser user = principalService.getPrincipal();
         model.addAttribute("user",user);
         return "user/profile.html";
 
