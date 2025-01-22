@@ -1,7 +1,11 @@
 package org.launchcode.moviedock.models;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,8 +16,7 @@ import java.util.Set;
 @Entity
 public class Movie extends AbstractEntity{
 
-    @NotNull(message = "Movie name is needed")
-    private String name;
+
 
     private int search_count;
 
@@ -42,8 +45,82 @@ public class Movie extends AbstractEntity{
     }
 
 
+    //adding in code that was originally in apimovie class
+
+    private String name;
+    private String title;
+    private String director;
+    private String plot;
+    private String poster;
+    private String year;
+    private String apiID;
+
+    private int viewCount;
+
+
+    public String getMovieByName(String t) {
+        String url = "http://www.omdbapi.com/?apikey=b0901f52&t="+t;
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
+
+    public String getMovieById(String i){
+        String url = "http://www.omdbapi.com/?apikey=b0901f52&i="+i;
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
+
+
+
+
+
+    public String getMoviesBySearch(String s){
+        String url = "http://www.omdbapi.com/?apikey=b0901f52&s="+s;
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(url, String.class);
+    }
+
+    public void setMovieInfoByName(String t) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode node = objectMapper.readTree(this.getMovieByName(t));
+
+        if (node.get("Title")!=null) {
+            this.name = node.get("Title").asText();
+            this.director = node.get("Director").asText();
+            this.plot = node.get("Plot").asText();
+            this.poster = node.get("Poster").asText();
+            this.year = node.get("Year").asText();
+            this.apiID = node.get("imdbID").asText();
+        }
+    }
+
+    public void setMovieInfoById(String i) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode node = objectMapper.readTree(this.getMovieById(i));
+
+        if (node.get("Title")!=null) {
+            this.name = node.get("Title").asText();
+            this.director = node.get("Director").asText();
+            this.plot = node.get("Plot").asText();
+            this.poster = node.get("Poster").asText();
+            this.year = node.get("Year").asText();
+            this.apiID = node.get("imdbID").asText();
+        }
+    }
+
+
+    //end of code that was originally in apimovie class
+
+    public void userView(){
+        this.viewCount++;
+    }
 
     public String getName() {
+        return name;
+    }
+
+    //leave this in to keep display working properly
+    public String getTitle() {
         return name;
     }
 
@@ -87,6 +164,45 @@ public class Movie extends AbstractEntity{
         this.toWatchUsers.add(user);
     }
 
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getApiID() {
+        return apiID;
+    }
+
+    public void setApiID(String apiID) {
+        this.apiID = apiID;
+    }
 
     @Override
     public String toString() {

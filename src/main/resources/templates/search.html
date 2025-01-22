@@ -26,11 +26,11 @@
 
     <hr />
 
-
     <div th:each="movie : ${movies}">
-        <a th:href="@{'movie-view/' + ${movie.getApiID()}}" th:text="${movie.getTitle()}"></a>
+        <a th:href="@{'movie-view/' + ${movie.getApiID()}}" th:text="${movie.getTitle()}" ></a>
         <th:block th:text="${movie.getYear}"></th:block>
     </div>
+
 
     <h1 th:text="${error}"></h1>
 
