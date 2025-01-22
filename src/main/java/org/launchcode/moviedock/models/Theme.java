@@ -4,8 +4,6 @@ import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
 public enum Theme {
     DARK("/css/dark.css", "navbar navbar-inverse navbar-fixed-top bar"),
     LIGHT("/css/light.css", "navbar navbar-default navbar-fixed-top bar"),
@@ -33,16 +31,5 @@ public enum Theme {
 
     public String getNavMode() {
         return navMode;
-    }
-
-    public boolean isChecked(Theme theme) {
-
-        String username = principalService.getAuthentication().getName();
-        Optional<AppUser> appUser = appUserRepository.findByUsername(username);
-
-        if (theme.equals(appUser.get().getTheme())) {
-            return true;
-        }
-        return false;
     }
 }
