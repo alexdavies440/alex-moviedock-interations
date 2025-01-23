@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.ApiMovieRepository;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.data.MovieRepository;
+import org.launchcode.moviedock.data.ReviewRepository;
 import org.launchcode.moviedock.models.ApiMovie;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.Movie;
@@ -28,6 +29,9 @@ public class HomeController {
 
     @Autowired
     MovieRepository MovieRepository;
+
+    @Autowired
+    ReviewRepository reviewRepository;
 
     @Autowired
     private PrincipalService principalService;
@@ -68,6 +72,10 @@ public class HomeController {
         if (movies.length!=0) {
             model.addAttribute("movies", movies);
         }
+
+//        For displaying reviews
+//        model.addAttribute("reviewsAll",reviewRepository.findAll());
+        model.addAttribute("reviewsTopFour",reviewRepository.findTopFour());
 
         return "index";
     }

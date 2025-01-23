@@ -4,6 +4,7 @@
 
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -17,11 +18,40 @@
 
 <p>Add to watch later</p>
 <p>Add to favorite</p>
-<form>
-  <label for="fname">Write a review here:</label><br>
-  <input type="text" id="fname" name="fname"><br>
-  <input type="submit" value="Submit">
-</form>
+<!--<form>-->
+<!--  <label for="fname">Write a review here:</label><br>-->
+<!--  <input type="text" id="fname" name="fname"><br>-->
+<!--  <input type="submit" value="Submit">-->
+<!--</form>-->
 
+
+<a th:href="@{/review(movieId=${movie.id})}">Click to Add Review</a>
+
+<hr />
+    <h4>Latest Reviews </h4>
+<hr />
+
+<table>
+    <tr th:each="review : ${movie.reviewsList}">
+
+        <br>
+        <label style="font-weight: normal">Review by:  <a th:href="@{/searched_profile(userId=${review.user.id})}" style="font-weight: bold;" th:text="${review.user.username}"></a></label>
+
+        <span th:each="i:${#numbers.sequence(1, 5)}">
+                    <span th:if="${review.star_rating >=i }"  class="fa fa-star star-checked"></span>
+                    <span th:unless="${review.star_rating >=i }"  class="fa fa-star"></span>
+                </span>
+        <p th:text="${review.review_text}"></p>
+        <hr class="hr-light"/>
+    </tr>
+</table>
+<style>
+    .star-checked {
+      color: orange;
+    }
+
+    .hr-light { background-color: #404040; height: 1px; border: 0; }
+
+</style>
 </body>
 </html>
