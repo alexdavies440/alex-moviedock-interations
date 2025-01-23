@@ -34,12 +34,16 @@
 
     <p th:if="${#lists.isEmpty(user.reviewsList)}">No movies reviewed yet</p>
 
+
+
     <table th:unless="${#lists.isEmpty(user.reviewsList)}" style="width:50%" class="table table-responsive">
 <!--    <table th:unless="${#lists.isEmpty(user.reviewsList)}" class="table table-borderless">-->
 
 <!--        <li th:each="i : ${#numbers.sequence(user.reviewsList.size() - 1, 0, -1)}">-->
 <!--            <h4 type="text" th:text="${user.reviewsList[i].movie.getTitle()}"></h4>-->
 <!--        </li>-->
+
+
 
         <tr th:each="i : ${#numbers.sequence(user.reviewsList.size() - 1, 0, -1)}">
 
