@@ -96,6 +96,8 @@ public class SearchController {
         model.addAttribute("poster", poster);
 
 
+
+
         System.out.println(plot);
     if (plot!=null) {
         Optional<Movie> optMovie = movieRepository.findByApiID(movie.getApiID());

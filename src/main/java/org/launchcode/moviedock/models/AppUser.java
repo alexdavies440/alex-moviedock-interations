@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.scheduling.config.Task;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,7 +39,7 @@ public class AppUser extends AbstractEntity {
     )
     private final List<Review> reviewsList = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
             name = "user_favourite_movies",
             joinColumns = @JoinColumn(name = "favorite_user_id",referencedColumnName = "id") ,
@@ -46,7 +47,7 @@ public class AppUser extends AbstractEntity {
     )
     private Set<Movie> favoriteMovies = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_to_watch_movies",
             joinColumns = @JoinColumn(name = "to_watch_user_id",referencedColumnName = "id") ,
@@ -132,5 +133,18 @@ public class AppUser extends AbstractEntity {
     public void addToWatchMovies(Movie movie) {
         this.toWatchMovies.add(movie);
     }
+
+    public void removeFavoriteMovie(Movie movie){
+        if (favoriteMovies.contains(movie)) {
+            this.favoriteMovies.remove(movie);
+        }
+    }
+
+    public void removeToWatchMovie(Movie movie){
+        if (toWatchMovies.contains(movie)) {
+            this.toWatchMovies.remove(movie);
+        }
+    }
+
 
 }
