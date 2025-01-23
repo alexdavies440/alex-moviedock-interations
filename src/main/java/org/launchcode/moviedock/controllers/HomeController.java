@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.data.MovieRepository;
-
-
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.Movie;
 import org.launchcode.moviedock.security.service.PrincipalService;
