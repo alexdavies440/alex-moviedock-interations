@@ -23,7 +23,7 @@
         <td><a th:href="@{'/search/movie-view/' + ${favoriteMovie.getApiID()}}" th:text="${favoriteMovie.name}"></a>
         <td><form th:action="@{/movies/{movieId}(movieId=${favoriteMovie.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
         </form></td>
     </tr>
     </tbody>
@@ -41,7 +41,7 @@
         <td><a th:href="@{'/search/movie-view/' + ${toWatchMovie.getApiID()}}" th:text="${toWatchMovie.name}"></a>
         <td><form th:action="@{/movies/to-watch-movie/{movieId}(movieId=${toWatchMovie.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
         </form></td>
     </tr>
     </tbody>
@@ -52,7 +52,7 @@
 
     <p th:if="${#lists.isEmpty(user.reviewsList)}">No movies reviewed yet</p>
 
-    <table th:unless="${#lists.isEmpty(user.reviewsList)}" class="table table-borderless">
+    <table th:unless="${#lists.isEmpty(user.reviewsList)}" class="table">
 
         <tr th:each="i : ${#numbers.sequence(user.reviewsList.size() - 1, 0, -1)}">
 
@@ -78,15 +78,15 @@
 <!--                </form>-->
 
                 <form th:unless="${selfProfile =='false'}" th:action="@{/delete_review(reviewId=${user.reviewsList[i].id})}" method="post">
-                <button type="submit" class="btn btn-link" style="color:red;outline: none;"
+                <button type="submit" class="btn btn-danger btn-xs"
                         th:data-confirm-delete="|Are you sure you want to delete review for: ${user.reviewsList[i].movie.name}?|"
                         onclick="return confirm(this.getAttribute('data-confirm-delete'))"
                 >Delete</button>
 
-                <button class="btn btn-link"><a th:href="@{/review(movieId=${user.reviewsList[i].movie.id})}" style="color:green"
+                <a class="btn btn-success btn-xs" role="button" th:href="@{/review(movieId=${user.reviewsList[i].movie.id})}"
                          th:data-confirm-update="|Are you sure you want to update review for: ${user.reviewsList[i].movie.name}?|"
                          onclick="return confirm(this.getAttribute('data-confirm-update'))"
-                >Update</a></button>
+                >Update</a>
 
 
             </form>
@@ -103,20 +103,4 @@
 </div>
 
 </body>
-<style>
-    .star-checked {
-      color: orange;
-    }
-
-    .hr-light { background-color: #404040; height: 1px; border: 0; }
-
-    .img-poster {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 100px;
-}
-
-
-</style>
 </html>
