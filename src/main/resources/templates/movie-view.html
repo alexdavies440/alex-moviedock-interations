@@ -18,6 +18,15 @@
 
 
 
+<p>
+    <a th:href="'/movies/add-favorite-movie?movieId=' + ${movie.id}"><h4>Add To Favorite Movies List</h4></a>
+</p>
+
+
+
+<p>
+    <a th:href="'/movies/add-to-watch-movie?movieId=' + ${movie.id}"><h4>Add To To-Watch Movies List</h4></a>
+</p>
 
 <a th:href="@{/review(movieId=${movie.id})}">Click to Add Review</a>
 
