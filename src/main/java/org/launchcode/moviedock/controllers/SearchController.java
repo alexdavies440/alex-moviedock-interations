@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.launchcode.moviedock.models.dto.MovieHelper;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 
@@ -41,7 +42,7 @@ public class SearchController {
         Movie[] movies;
 
         //the way text parsing is currently working, 10 movies are being sent to listOfApiIds
-        movies = new Movie[10];
+        movies = new Movie[listOfApiIds.length];
 
         model.addAttribute("apis", listOfApiIds);
 
@@ -69,7 +70,7 @@ public class SearchController {
             model.addAttribute("error", "No movies found, please enter another movie title");
         }
 
-
+        System.out.println(Arrays.toString(movies));
 
 
         return "search";
@@ -94,6 +95,8 @@ public class SearchController {
         model.addAttribute("title", title);
         model.addAttribute("director", director);
         model.addAttribute("poster", poster);
+
+
 
 
         System.out.println(plot);
