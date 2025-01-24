@@ -105,11 +105,19 @@ public class SearchController {
             System.out.println("it exists");
             a.userView();
             movieRepository.save(a);
+
+//            For adding review Link and diplaying reviews for the movie
+            model.addAttribute("movie",a);
+
         }
         else{
             System.out.println("it doesn't exist");
             movie.userView();
             movieRepository.save(movie);
+
+            //            For adding review Link and diplaying reviews for the movie
+            model.addAttribute("movie",movie);
+
         }
     }
 

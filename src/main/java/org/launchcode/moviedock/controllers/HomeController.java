@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.launchcode.moviedock.data.ReviewRepository;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,9 @@ public class HomeController {
 
     @Autowired
     MovieRepository MovieRepository;
+
+    @Autowired
+    ReviewRepository reviewRepository;
 
     @Autowired
     private PrincipalService principalService;
@@ -66,6 +71,10 @@ public class HomeController {
         if (movies.length!=0) {
             model.addAttribute("movies", movies);
         }
+
+//        For displaying reviews
+//        model.addAttribute("reviewsAll",reviewRepository.findAll());
+        model.addAttribute("reviewsTopFour",reviewRepository.findTopFour());
 
         return "index";
     }
