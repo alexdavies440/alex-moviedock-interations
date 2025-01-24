@@ -63,7 +63,7 @@ public class SearchController {
         }
 
         //checks if movies is populated
-        if (movies[0]!=null) {
+        if (movies.length>0) {
             model.addAttribute("movies", movies);
         }
         else{
