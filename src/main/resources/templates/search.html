@@ -13,15 +13,13 @@
 
     <form th:action="@{/search/results}" method = "post">
 
+        <div class="form-group">
+            <label>Keyword:
+                <input class="form-control" type="text" name="searchTerm" id="searchTerm" />
+            </label>
+        </div>
 
-
-
-        <p>
-            <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
-        </p>
-
-        <input type="submit" value="Search" />
+        <input type="submit" value="Search" class="btn btn-success"/>
     </form>
 
     <hr />

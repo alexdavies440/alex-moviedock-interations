@@ -10,7 +10,7 @@
 
 <form th:action="@{/settings/update-email}" method="post">
     <div class="container-content">
-        <h1>Update Email</h1>
+        <h1>Update Email: <span th:text="${email}"></span></h1>
     </div>
     <br>
     <div class="form-group">

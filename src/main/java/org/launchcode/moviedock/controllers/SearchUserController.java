@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Optional;
 
+@RequestMapping("/")
 @Controller
 public class SearchUserController {
 
@@ -67,7 +68,7 @@ public class SearchUserController {
 //        if (authentication != null && authentication.isAuthenticated()) {
         if (authentication != null && !authentication.toString().contains("anonymous")) {
             //            return "User is logged in";
-            AppUser loggedInUser = principalService.getPrincipal().get();
+            AppUser loggedInUser = principalService.getPrincipal();
             if(!userFound.equals(loggedInUser)){
                 model.addAttribute("selfProfile","false");
                 model.addAttribute("user",userFound);

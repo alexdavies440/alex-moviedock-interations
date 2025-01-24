@@ -54,7 +54,7 @@
 
 
 
-    <table th:unless="${#lists.isEmpty(user.reviewsList)}" style="width:50%" class="table table-bordered table-dark">
+    <table th:unless="${#lists.isEmpty(user.reviewsList)}" style="width:50%" class="table table-responsive">
         <thead>
         <tr>
             <th style="width:25%">Movie Name</th>
@@ -70,35 +70,35 @@
 
             <td th:text="${review.movie}"></td>
             <td th:text="${review.review_text}"></td>
-<!--            <td th:text="${review.star_rating}"></td>-->
+            <!--            <td th:text="${review.star_rating}"></td>-->
             <td >
                 <span th:each="i:${#numbers.sequence(1, 5)}">
                     <span th:if="${review.star_rating >=i }"  class="fa fa-star star-checked"></span>
                     <span th:unless="${review.star_rating >=i }"  class="fa fa-star"></span>
                 </span>
 
-<!--                <span th:if="${review.star_rating >=1 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=1 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=2 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=2 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=3 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=3 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=4 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=4 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=5 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=5 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=1 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=1 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=2 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=2 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=3 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=3 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=4 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=4 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=5 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=5 }"  class="fa fa-star"></span>-->
             </td>
             <td th:unless="${selfProfile =='false'}">
 
-<!--                <a th:href="@{/delete_review(reviewId=${review.id})}"-->
-<!--                   th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"-->
-<!--                   onclick="return confirm(this.getAttribute('data-confirm-delete'))" style="color:red;">Delete</a>-->
+                <!--                <a th:href="@{/delete_review(reviewId=${review.id})}"-->
+                <!--                   th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"-->
+                <!--                   onclick="return confirm(this.getAttribute('data-confirm-delete'))" style="color:red;">Delete</a>-->
 
                 <form th:action="@{/delete_review(reviewId=${review.id})}" method="post">
-                     <button type="submit" class="btn btn-link" style="color:red;"
-                             th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"
-                             onclick="return confirm(this.getAttribute('data-confirm-delete'))"
-                     >Delete</button>
+                    <button type="submit" class="btn btn-link" style="color:red;"
+                            th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"
+                            onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+                    >Delete</button>
                 </form>
 
             </td>

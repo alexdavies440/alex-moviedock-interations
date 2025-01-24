@@ -62,7 +62,7 @@ public class MovieController {
     @GetMapping("/movies/movie-detail")
     public String displayMovieDetailsForm(@RequestParam Integer movieId, Model model, HttpServletRequest request) {
 
-        AppUser user = principalService.getPrincipal().get();
+        AppUser user = principalService.getPrincipal();
         Optional<Movie> optMovie = movieRepository.findById(movieId);
         Movie movie = optMovie.get();
         UserMovieDTO userMovieDTO = new UserMovieDTO();
@@ -79,7 +79,7 @@ public class MovieController {
     public String processMovieDetailsForm(@ModelAttribute @Valid UserMovieDTO userMovieDTO, Errors errors, HttpServletRequest request, Model model){
         Movie movie = userMovieDTO.getMovie();
         if (!errors.hasErrors()) {
-            AppUser user = principalService.getPrincipal().get();
+            AppUser user = principalService.getPrincipal();
                 //if(!user.getFavoriteMovies().contains(movie)){
                 //user.getFavoriteMovies().add(movie);
                 user.addFavoriteMovies(movie);

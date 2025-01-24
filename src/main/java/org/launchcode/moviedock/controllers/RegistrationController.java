@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.models.AppUser;
+import org.launchcode.moviedock.models.Theme;
 import org.launchcode.moviedock.models.dto.AppUserDto;
 import org.launchcode.moviedock.models.dto.VerifyCodeDto;
 import org.launchcode.moviedock.security.service.EmailService;
@@ -59,8 +60,8 @@ public class RegistrationController {
         }
 
         String password = appUserDto.getPassword();
-
         String verifyPassword = appUserDto.getVerifyPassword();
+
         if (!password.equals(verifyPassword)) {
             errors.rejectValue(
                     "password",
@@ -83,13 +84,17 @@ public class RegistrationController {
                 password,
                 role,
                 isEnabled,
-                verificationCode);
+                verificationCode,
+                Theme.DARK);
         appUserRepository.save(newUser);
 
         emailService.sendEmail(
                 "Thank you for joining Moviedock!",
                 appUserDto.getEmail(),
-                "To complete sign up for " + newUser.getUsername() + ", please verify your account with this code: " + verificationCode);
+                "To complete sign up for "
+                        + newUser.getUsername()
+                        + ", please verify your account with this code: "
+                        + verificationCode);
 
         return "redirect:/signup-verify";
     }

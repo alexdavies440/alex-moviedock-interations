@@ -16,5 +16,52 @@
     <th:block th:text="${movie.getYear}"></th:block>
 </div>
 
+
+<div>
+    <h3>Latest Reviews</h3>
+
+    <p th:if="${#lists.isEmpty(reviewsTopFour)}">No movies reviewed yet</p>
+
+    <table th:unless="${#lists.isEmpty(reviewsTopFour)}" class="table table-borderless">
+
+        <tr th:each="review : ${reviewsTopFour}">
+
+            <td style="width:15%"><img class="img-poster" th:src="${review.movie.poster}" alt="poster"></td>
+
+            <td>
+                <h3> <a th:href="@{'search/movie-view/' + ${review.movie.getApiID()}}" style="font-weight: bold;" th:text="${review.movie.getTitle()}"></a></h3>
+                <span th:each="i:${#numbers.sequence(1, 5)}">
+                        <span th:if="${review.star_rating >=i }"  class="fa fa-star star-checked"></span>
+                        <span th:unless="${review.star_rating >=i }"  class="fa fa-star"></span>
+                    </span>
+                <p style="font-weight: normal">Review by:  <a th:href="@{/searched_profile(userId=${review.user.id})}" style="font-weight: bold;" th:text="${review.user.username}"></a></p>
+                <p th:text="${review.review_text}"></p>
+
+                <!--                <hr class="hr-light"/>-->
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+
+
+
 </body>
+<style>
+    .star-checked {
+      color: orange;
+    }
+
+    .hr-light { background-color: #404040; height: 1px; border: 0; }
+
+    .img-poster {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+}
+
+
+</style>
 </html>

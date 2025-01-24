@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="${theme.getCssPath()}" rel="stylesheet" />
     <!--    Bootstrap dependencies-->
 <!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -21,24 +21,35 @@
 </head>
 <body>
     <div th:fragment="header" id="navigation">
-        <nav class="navbar navbar-inverse navbar-fixed-top bar">
+        <nav th:attr="class=${theme.getNavMode()}">
             <div class="container-fluid">
                 <div>
                     <ul class="nav navbar-nav navbar-left">
                         <li><a href="/">HOME</a></li>
                         <li><a href="/movies">MOVIES</a></li>
-                        <li sec:authorize="isAuthenticated()"><a href="/profile">MY PROFILE</a></li>
-                        <li sec:authorize="isAuthenticated()"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/profile">MY PROFILE</a></li>
+                        <li sec:authorize="isAuthenticated()" class="settings">
+                            <a class="dropdown-toggle" href="#" role="button" id="settings-menu" data-toggle="dropdown" >
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="settings-menu">
+                                <li><a class="dropdown-item" href="/settings/change-theme">CUSTOMIZE THEME</a></li>
+                                <li><a class="dropdown-item" href="/settings/update-email">UPDATE EMAIL</a></li>
+                                <li><a class="dropdown-item" href="/settings/delete-account">DELETE ACCOUNT</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="glyphicon glyphicon-search" type="button" data-toggle="dropdown"></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/search">Movies</a></li>
-                                    <li><a href="user_search">User</a></li>
-                                </ul>
-
+                        <li>
+                            <a class="dropdown-toggle" href="#" role="button" id="search-menu" data-toggle="dropdown" >
+                                <span class="glyphicon glyphicon-search"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="search-menu">
+                                <li><a class="dropdown-item" href="/search">SEARCH MOVIES</a></li>
+                                <li><a class="dropdown-item" href="user_search">SEARCH USERS</a></li>
+                            </ul>
                         </li>
-
                         <li>
                             <a sec:authorize="!isAuthenticated()" th:href="@{/signin}">SIGN IN</a>
                             <a sec:authorize="isAuthenticated()" th:href="@{/signout}">SIGN OUT</a>
