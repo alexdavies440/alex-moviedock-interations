@@ -32,4 +32,7 @@ ul.dropdown-menu {
     color: orange;
 }
 
+.table, th, td {
+    border-color: DodgerBlue !important;
+}
 
