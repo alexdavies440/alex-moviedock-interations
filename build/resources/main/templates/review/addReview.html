@@ -13,8 +13,12 @@
             <input type="hidden" th:field="${userReview.movie}">
             <input type="hidden" th:field="${userReview.user}">
 
+        <h3>What do you think?</h3>
+        <img th:src="${userReview.movie.poster}" alt="poster">
+
         <div class="form-group">
 
+            <br>
             <label th:text="${dispText}"></label>
 
 
