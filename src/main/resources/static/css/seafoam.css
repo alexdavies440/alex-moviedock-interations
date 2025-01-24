@@ -50,7 +50,7 @@ ul.dropdown-menu {
     color: orange;
 }
 
-.table, th, td {
+.table, th, td, hr {
     border-color: rgb(20, 81, 84) !important;
 }
 

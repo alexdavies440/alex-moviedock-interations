@@ -5,7 +5,8 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-
+<div class="container body-content">
+<h1>Search for a user</h1>
 <form th:action="@{/user_search}" method="post">
     <div class="form-group">
 
@@ -37,6 +38,6 @@
         <td><a th:href="@{/searched_profile(userId=${user.id})}" th:text="${user.username}"></a></td>
     </tr>
 </table>
-
+</div>
 </body>
 </html>
