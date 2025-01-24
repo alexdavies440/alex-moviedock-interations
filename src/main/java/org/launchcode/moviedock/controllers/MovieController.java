@@ -87,8 +87,6 @@ public class MovieController {
             model.addAttribute("userMovieDTO",userMovieDTO);
             return "/movies/add-to-watch-movie";
         }else {
-            model.addAttribute("alertMessage", "This movie is already added in To Watch Movies List");
-            System.out.println("movie is already added");
             return "redirect:/profile";
         }
 
