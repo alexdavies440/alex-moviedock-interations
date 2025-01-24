@@ -60,20 +60,17 @@
 <!--                </form>-->
 
                 <form th:unless="${selfProfile =='false'}" th:action="@{/delete_review(reviewId=${user.reviewsList[i].id})}" method="post">
-                <button type="submit" class="btn btn-link" style="color:red;text-decoration:none"
+                <button type="submit" class="btn btn-link" style="color:red;outline: none;"
                         th:data-confirm-delete="|Are you sure you want to delete review for: ${user.reviewsList[i].movie.name}?|"
                         onclick="return confirm(this.getAttribute('data-confirm-delete'))"
                 >Delete</button>
 
-                <a th:href="@{/review(movieId=${user.reviewsList[i].movie.id})}" style="color:green; text-decoration:none"
+                <button class="btn btn-link"><a th:href="@{/review(movieId=${user.reviewsList[i].movie.id})}" style="color:green"
                          th:data-confirm-update="|Are you sure you want to update review for: ${user.reviewsList[i].movie.name}?|"
                          onclick="return confirm(this.getAttribute('data-confirm-update'))"
-                >Update</a>
+                >Update</a></button>
 
-<!--                <button  type="submit" th:formaction="@{/review(movieId=${user.reviewsList[i].movie.id})}" method="get" class="btn btn-link" style="color:green;"-->
-<!--                         th:data-confirm-update="|Are you sure you want to update review for: ${user.reviewsList[i].movie.name}?|"-->
-<!--                         onclick="return confirm(this.getAttribute('data-confirm-update'))"-->
-<!--                >Update</button>-->
+
             </form>
 
                 </p>

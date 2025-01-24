@@ -127,24 +127,28 @@ public class HomeController {
         model.addAttribute("poster", poster);
 
 
-        //commenting out so popular movies aren't made more popular from clicking on front page
 
-        /*System.out.println(plot);
+
+        System.out.println(plot);
         if (plot!=null) {
-            Optional<ApiMovie> optApiMovie = apiMovieRepository.findByApiID(apiMovie.getApiID());
-            if (optApiMovie.isPresent()) {
-                System.out.println(apiMovie.getApiID());
-                ApiMovie a = (ApiMovie) optApiMovie.get();
+            Optional<Movie> optMovie = MovieRepository.findByApiID(movie.getApiID());
+            if (optMovie.isPresent()) {
+                System.out.println(movie.getApiID());
+                Movie a = (Movie) optMovie.get();
                 System.out.println("it exists");
                 a.userView();
-                apiMovieRepository.save(a);
+                MovieRepository.save(a);
+                //            For adding review Link and diplaying reviews for the movie
+                model.addAttribute("movie",a);
             }
             else{
                 System.out.println("it doesn't exist");
-                apiMovie.userView();
-                apiMovieRepository.save(apiMovie);
+                movie.userView();
+                MovieRepository.save(movie);
+                //            For adding review Link and diplaying reviews for the movie
+                model.addAttribute("movie",movie);
             }
-        }*/
+        }
         return "movie-view";
     }
 
