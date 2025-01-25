@@ -151,6 +151,4 @@ public class HomeController {
         }
         return "movie-view";
     }
-
-
 }

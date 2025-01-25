@@ -116,13 +116,13 @@ public class SettingsController {
     }
 
     @GetMapping("/settings/change-password")
-    public String resetPasswordPage(Model model) {
+    public String changePasswordPage(Model model) {
         model.addAttribute(new ChangePasswordDto());
         return "user/change-password";
     }
 
     @PostMapping("/settings/change-password")
-    public String resetPassword(@ModelAttribute @Valid ChangePasswordDto changePasswordDto, Errors errors, Model model) {
+    public String changePassword(@ModelAttribute @Valid ChangePasswordDto changePasswordDto, Errors errors, Model model) {
 
         AppUser principal = principalService.getPrincipal();
 
@@ -163,7 +163,7 @@ public class SettingsController {
         principal.setPassword(passwordEncoder.encode(newPassword));
         appUserRepository.save(principal);
 
-        model.addAttribute("greeting", "Your password has been successfully set");
+        model.addAttribute("greeting", "Your password has been changed successfully");
 
         return "user/change-password";
     }
