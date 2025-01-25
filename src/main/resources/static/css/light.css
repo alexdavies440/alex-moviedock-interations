@@ -32,4 +32,14 @@ ul.dropdown-menu {
     color: orange;
 }
 
+.table, th, td, hr {
+    border-color: DodgerBlue !important;
+}
+
+.img-poster {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+}
 
