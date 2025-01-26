@@ -20,7 +20,7 @@
     </thead>
     <tbody>
     <tr th:each="favoriteMovie : ${user.favoriteMovies}">
-        <td><a th:href="@{'/search/movie-view/' + ${favoriteMovie.getApiID()}}" th:text="${favoriteMovie.name}"></a>
+        <td style = "max-width: 100px"><a th:href="@{'/search/movie-view/' + ${favoriteMovie.getApiID()}}" th:text="${favoriteMovie.name}"></a>
         <td><form th:action="@{/movies/{movieId}(movieId=${favoriteMovie.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
             <button type="submit" class="btn btn-danger">Delete</button>
@@ -29,7 +29,7 @@
     </tbody>
 </table>
 <h3>To-Watch Movies List</h3>
-<table class="table table-bordered table-striped table-responsive-md">
+<table class="table table-bordered table-striped table-responsive-md" >
     <thead>
     <tr>
         <th>To-Watch Movie Name</th>
@@ -38,7 +38,7 @@
     </thead>
     <tbody>
     <tr th:each="toWatchMovie : ${user.toWatchMovies}">
-        <td><a th:href="@{'/search/movie-view/' + ${toWatchMovie.getApiID()}}" th:text="${toWatchMovie.name}"></a>
+        <td style = "max-width: 100px"><a th:href="@{'/search/movie-view/' + ${toWatchMovie.getApiID()}}" th:text="${toWatchMovie.name}"></a>
         <td><form th:action="@{/movies/to-watch-movie/{movieId}(movieId=${toWatchMovie.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
             <button type="submit" class="btn btn-danger">Delete</button>
@@ -70,35 +70,35 @@
 
             <td th:text="${review.movie}"></td>
             <td th:text="${review.review_text}"></td>
-<!--            <td th:text="${review.star_rating}"></td>-->
+            <!--            <td th:text="${review.star_rating}"></td>-->
             <td >
                 <span th:each="i:${#numbers.sequence(1, 5)}">
                     <span th:if="${review.star_rating >=i }"  class="fa fa-star star-checked"></span>
                     <span th:unless="${review.star_rating >=i }"  class="fa fa-star"></span>
                 </span>
 
-<!--                <span th:if="${review.star_rating >=1 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=1 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=2 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=2 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=3 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=3 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=4 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=4 }"  class="fa fa-star"></span>-->
-<!--                <span th:if="${review.star_rating >=5 }"  class="fa fa-star checked"></span>-->
-<!--                <span th:unless="${review.star_rating >=5 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=1 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=1 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=2 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=2 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=3 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=3 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=4 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=4 }"  class="fa fa-star"></span>-->
+                <!--                <span th:if="${review.star_rating >=5 }"  class="fa fa-star checked"></span>-->
+                <!--                <span th:unless="${review.star_rating >=5 }"  class="fa fa-star"></span>-->
             </td>
             <td th:unless="${selfProfile =='false'}">
 
-<!--                <a th:href="@{/delete_review(reviewId=${review.id})}"-->
-<!--                   th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"-->
-<!--                   onclick="return confirm(this.getAttribute('data-confirm-delete'))" style="color:red;">Delete</a>-->
+                <!--                <a th:href="@{/delete_review(reviewId=${review.id})}"-->
+                <!--                   th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"-->
+                <!--                   onclick="return confirm(this.getAttribute('data-confirm-delete'))" style="color:red;">Delete</a>-->
 
                 <form th:action="@{/delete_review(reviewId=${review.id})}" method="post">
-                     <button type="submit" class="btn btn-link" style="color:red;"
-                             th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"
-                             onclick="return confirm(this.getAttribute('data-confirm-delete'))"
-                     >Delete</button>
+                    <button type="submit" class="btn btn-link" style="color:red;"
+                            th:data-confirm-delete="|Are you sure you want to delete review for: ${review.movie.name}?|"
+                            onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+                    >Delete</button>
                 </form>
 
             </td>
