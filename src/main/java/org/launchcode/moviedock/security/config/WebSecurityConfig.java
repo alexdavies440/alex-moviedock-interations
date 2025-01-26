@@ -30,6 +30,8 @@ public class WebSecurityConfig {
                             .requestMatchers("/").permitAll()
                             .requestMatchers("/signin").permitAll()
                             .requestMatchers("/signup").permitAll()
+                            .requestMatchers("/reset-password").permitAll()
+                            .requestMatchers("/reset-password/verify").permitAll()
                             .requestMatchers("/profile/*").permitAll()
                             .requestMatchers("/signup-verify").permitAll()
                             .requestMatchers("/movies").permitAll()
@@ -41,7 +43,7 @@ public class WebSecurityConfig {
                             .requestMatchers("/search/movie-view/*").permitAll()
                             .requestMatchers("/movie-view/*").permitAll()
                             .anyRequest().authenticated();
-                            //.anyRequest().permitAll();
+//                            .anyRequest().permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer
