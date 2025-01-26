@@ -15,13 +15,13 @@
     <thead>
     <tr>
         <th>Favorite Movie Name</th>
-        <th>Delete Favorite Movie</th>
+        <th th:unless="${selfProfile =='false'}">Delete Favorite Movie</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="favoriteMovie : ${user.favoriteMovies}">
         <td><a th:href="@{'/search/movie-view/' + ${favoriteMovie.getApiID()}}" th:text="${favoriteMovie.name}"></a>
-        <td><form th:action="@{/movies/{movieId}(movieId=${favoriteMovie.id})}" method="post">
+        <td th:unless="${selfProfile =='false'}"><form th:action="@{/movies/{movieId}(movieId=${favoriteMovie.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
             <button type="submit" class="btn btn-danger btn-xs">Delete</button>
         </form></td>
@@ -33,13 +33,13 @@
     <thead>
     <tr>
         <th>To-Watch Movie Name</th>
-        <th>Delete To-Watch Movie</th>
+        <th th:unless="${selfProfile =='false'}">Delete To-Watch Movie</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="toWatchMovie : ${user.toWatchMovies}">
         <td><a th:href="@{'/search/movie-view/' + ${toWatchMovie.getApiID()}}" th:text="${toWatchMovie.name}"></a>
-        <td><form th:action="@{/movies/to-watch-movie/{movieId}(movieId=${toWatchMovie.id})}" method="post">
+        <td th:unless="${selfProfile =='false'}"><form th:action="@{/movies/to-watch-movie/{movieId}(movieId=${toWatchMovie.id})}" method="post">
             <input type="hidden" name="_method" value="delete">
             <button type="submit" class="btn btn-danger btn-xs">Delete</button>
         </form></td>

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -64,31 +63,31 @@ public class SearchUserController {
         AppUser userFound = appUser.get();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user",userFound);
 
-//        if (authentication != null && authentication.isAuthenticated()) {
+
         if (authentication != null && !authentication.toString().contains("anonymous")) {
-            //            return "User is logged in";
+            //             "User is logged in";
             AppUser loggedInUser = principalService.getPrincipal();
             if(!userFound.equals(loggedInUser)){
                 model.addAttribute("selfProfile","false");
-                model.addAttribute("user",userFound);
+//                model.addAttribute("user",userFound);
                 return "user/profile";
             }else{
                 model.addAttribute("selfProfile","true");
-                model.addAttribute("user",userFound);
+//                model.addAttribute("user",userFound);
                 return "user/profile";
             }
 
         } else {
-//            return "User is not logged in";
+//             "User is not logged in";
             model.addAttribute("selfProfile","false");
-            model.addAttribute("user",userFound);
+//            model.addAttribute("user",userFound);
             return "user/profile";
 
         }
 
-//        model.addAttribute("user",userFound);
-//        return "user/profile";
+
     }
 
 

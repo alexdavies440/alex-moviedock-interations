@@ -126,9 +126,6 @@ public class ReviewController {
     @PostMapping("delete_review")
     public String deleteMovieReview(@RequestParam int reviewId, Model model) {
 
-//        Optional<Review> opReview = reviewRepository.findById(reviewId);
-//        Review deleteReview = opReview.get();
-
         reviewRepository.deleteById(reviewId);
         AppUser user = principalService.getPrincipal();
         model.addAttribute("user",user);
