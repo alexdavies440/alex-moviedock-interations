@@ -5,10 +5,14 @@
 <body class="container bg-1">
 <nav th:replace="fragments :: header"></nav>
 
-<div>
 
-    <h3>Movie Name: </h3>
-    <h2 th:text="${movie.name}"></h2>
+    <h3>Movie </h3>
+<div>
+    <a th:href="@{'/search/movie-view/' + ${movie.getApiID()}}" th:text="${movie.name}"></a>
+</div>
+<br>
+<div>
+    <img width = 25% th:src="${movie.poster}" alt="poster">
 </div>
 
 <form th:action="@{/movies/add-favorite-movie}" method="post">
@@ -20,6 +24,8 @@
     </div>
 
     <input type="submit" class="btn btn-success" value="Submit">
+
+
 </form>
 </body>
 </html>
