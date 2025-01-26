@@ -20,13 +20,10 @@
     </thead>
     <tbody>
     <tr th:each="favoriteMovie : ${user.favoriteMovies}">
-<<<<<<< HEAD
+
         <td style = "max-width: 100px"><a th:href="@{'/search/movie-view/' + ${favoriteMovie.getApiID()}}" th:text="${favoriteMovie.name}"></a>
-        <td><form th:action="@{/movies/{movieId}(movieId=${favoriteMovie.id})}" method="post">
-=======
-        <td><a th:href="@{'/search/movie-view/' + ${favoriteMovie.getApiID()}}" th:text="${favoriteMovie.name}"></a>
         <td th:unless="${selfProfile =='false'}"><form th:action="@{/movies/{movieId}(movieId=${favoriteMovie.id})}" method="post">
->>>>>>> origin/main
+
             <input type="hidden" name="_method" value="delete">
             <button type="submit" class="btn btn-danger btn-xs">Delete</button>
         </form></td>
@@ -34,11 +31,9 @@
     </tbody>
 </table>
 <h3>To-Watch Movies List</h3>
-<<<<<<< HEAD
-<table class="table table-bordered table-striped table-responsive-md" >
-=======
+
+
 <table class="table">
->>>>>>> origin/main
     <thead>
     <tr>
         <th>To-Watch Movie Name</th>
@@ -47,13 +42,10 @@
     </thead>
     <tbody>
     <tr th:each="toWatchMovie : ${user.toWatchMovies}">
-<<<<<<< HEAD
+
         <td style = "max-width: 100px"><a th:href="@{'/search/movie-view/' + ${toWatchMovie.getApiID()}}" th:text="${toWatchMovie.name}"></a>
-        <td><form th:action="@{/movies/to-watch-movie/{movieId}(movieId=${toWatchMovie.id})}" method="post">
-=======
-        <td><a th:href="@{'/search/movie-view/' + ${toWatchMovie.getApiID()}}" th:text="${toWatchMovie.name}"></a>
         <td th:unless="${selfProfile =='false'}"><form th:action="@{/movies/to-watch-movie/{movieId}(movieId=${toWatchMovie.id})}" method="post">
->>>>>>> origin/main
+
             <input type="hidden" name="_method" value="delete">
             <button type="submit" class="btn btn-danger btn-xs">Delete</button>
         </form></td>
