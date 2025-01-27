@@ -28,6 +28,8 @@
                         <li><a href="/">HOME</a></li>
                         <li sec:authorize="isAuthenticated()">
                             <a href="/profile">MY PROFILE</a></li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/movies">MOVIES</a></li>
                         <li sec:authorize="isAuthenticated()" class="settings">
                             <a class="dropdown-toggle" href="#" role="button" id="settings-menu" data-toggle="dropdown" >
                                 <span class="glyphicon glyphicon-cog"></span>

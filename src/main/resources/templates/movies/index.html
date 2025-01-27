@@ -9,19 +9,17 @@
 
 <div>
 <h3>Movies
-<!--    Add movie button will only show up if logged in-->
-    <a sec:authorize="isAuthenticated()" href="/movies/create-movies" class="btn btn-success btn-sm">
-    <span class="glyphicon glyphicon-plus"></span></a>
 </h3>
-
-<ol>
-    <li  th:each="movie : ${movies}">
-        <a th:href="'/movies/movie-detail?movieId=' +${movie.id}" th:text="${movie.name}"></a>
-    </li>
-</ol>
 </div>
-
-
+    <div class = "container">
+        <ul class="list-inline">
+            <li  class="list-inline-item" th:each="movie : ${movies}">
+                <br>
+                <a th:href="'/search/movie-view/' +${movie.getApiID()}">
+                <img  width = 50% th:src="${movie.poster}" alt="poster"></a>
+            </li>
+        </ul>
+    </div>
 
 </body>
 </html>

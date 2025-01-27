@@ -41,7 +41,7 @@ public class AppUser extends AbstractEntity {
     )
     private final List<Review> reviewsList = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @ManyToMany
     @JoinTable(
             name = "user_favourite_movies",
             joinColumns = @JoinColumn(name = "favorite_user_id",referencedColumnName = "id") ,
@@ -49,7 +49,7 @@ public class AppUser extends AbstractEntity {
     )
     private Set<Movie> favoriteMovies = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "user_to_watch_movies",
             joinColumns = @JoinColumn(name = "to_watch_user_id",referencedColumnName = "id") ,

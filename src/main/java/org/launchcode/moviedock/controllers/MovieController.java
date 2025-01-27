@@ -28,6 +28,12 @@ public class MovieController {
     private PrincipalService principalService;
 
 
+    @GetMapping("/movies")
+    public String displayMovies(Model model) {
+        model.addAttribute("movies", movieRepository.findAll());
+        return "movies/index";
+    }
+
 @GetMapping("/movies/add-favorite-movie")
     public String displayAddFavoriteMovieForm(@RequestParam Integer movieId, Model model) {
 
@@ -41,6 +47,9 @@ public class MovieController {
             userMovieDTO.setUser(user);
             model.addAttribute("movie", movie);
             model.addAttribute("userMovieDTO",userMovieDTO);
+            boolean isFavorite = user.getFavoriteMovies().contains(movie);
+            model.addAttribute("isFavorite", isFavorite);
+            model.addAttribute("favorite", "Movie already added in Favorite Movies list");
             return "/movies/add-favorite-movie";
         }
         else {
@@ -58,6 +67,8 @@ public class MovieController {
                 user.addFavoriteMovies(movie);
                 appUserRepository.save(user);
                 model.addAttribute("user", user);
+                boolean isFavorite = user.getFavoriteMovies().contains(movie);
+                model.addAttribute("isFavorite", !isFavorite);
                 return "user/profile";
             }
         } else{
@@ -80,6 +91,9 @@ public class MovieController {
             userMovieDTO.setUser(user);
             model.addAttribute("movie", movie);
             model.addAttribute("userMovieDTO",userMovieDTO);
+            boolean isToWatch = user.getToWatchMovies().contains(movie);
+            model.addAttribute("isToWatch", isToWatch);
+            model.addAttribute("toWatch", "Movie already added in To-Watch Movies list");
             return "/movies/add-to-watch-movie";
         }else {
             return "redirect:/profile";
@@ -96,6 +110,8 @@ public class MovieController {
                 user.addToWatchMovies(movie);
                 appUserRepository.save(user);
                 model.addAttribute("user", user);
+                boolean isToWatch = user.getToWatchMovies().contains(movie);
+                model.addAttribute("isToWatch", !isToWatch);
                 return "user/profile";
             }
         }else {
