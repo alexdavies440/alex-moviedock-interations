@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.data.MovieRepository;
+import org.launchcode.moviedock.data.ReviewRepository;
 import org.launchcode.moviedock.models.AppUser;
 import org.launchcode.moviedock.models.Movie;
+import org.launchcode.moviedock.movie_rec.Movie_rec;
 import org.launchcode.moviedock.security.service.PrincipalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.launchcode.moviedock.data.ReviewRepository;
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,6 +86,9 @@ public class HomeController {
         AppUser user = principalService.getPrincipal();
         model.addAttribute("user", user);
 
+
+
+
         return "user/profile";
     }
 
@@ -102,6 +106,62 @@ public class HomeController {
         }
     }
 
+    @GetMapping("/profile/recommendations")
+    public String viewRecs(Model model) throws IOException {
+        AppUser user = principalService.getPrincipal();
+
+        Movie_rec mr = new Movie_rec();
+        mr.runFromJava();
+
+        int user_id = user.getId();
+        List<String> fullStrings = mr.convertCsvToStrings();
+        List<String> strippedApis = new ArrayList<>();
+
+        //return the apis that belong to user
+        for (String string : fullStrings){
+            if (mr.returnAPiOfUser(user_id, string)!=null) {
+                strippedApis.add(mr.returnAPiOfUser(user_id, string));
+            }
+        }
+
+        Movie[] movies = new Movie[strippedApis.size()];
+        String[] listOfApiIds = new String[strippedApis.size()];
+
+        for (int i = 0; i < strippedApis.size();i++){
+            listOfApiIds[i] = mr.makeApiSearchable(strippedApis.get(i));
+        }
+
+        for (int i = 0; i < listOfApiIds.length; i++){
+            Movie movie1 = new Movie();
+            movie1.setMovieInfoById(listOfApiIds[i]);
+
+            movies[i] = movie1;
+
+
+            String year = movie1.getYear();
+            String title = movie1.getName();
+            String apiId = movie1.getApiID();
+
+        }
+
+        //checks if movies is populated
+        if (movies.length>0) {
+            model.addAttribute("movies", movies);
+        }
+        else{
+            model.addAttribute("error", "No movies suggested, try rating or liking movies");
+        }
+
+
+        model.addAttribute("user",user);
+
+        return "/recommendations";
+    }
+
+
+
+
+
     @GetMapping("/search")
     public String search() {
         return "search";
@@ -110,7 +170,49 @@ public class HomeController {
     @GetMapping("movie-view/{apiId}")
     public String displayViewMovie(Model model, @PathVariable String apiId, @ModelAttribute @Valid Movie movie) throws JsonProcessingException{
 
+        movie.setMovieInfoById(apiId);
 
+        String year = movie.getYear();
+        String title = movie.getName();
+        String plot = movie.getPlot();
+        String director = movie.getDirector();
+        String poster = movie.getPoster();
+
+        model.addAttribute("plot", plot);
+        model.addAttribute("year", year);
+        model.addAttribute("title", title);
+        model.addAttribute("director", director);
+        model.addAttribute("poster", poster);
+
+
+
+
+        System.out.println(plot);
+        if (plot!=null) {
+            Optional<Movie> optMovie = MovieRepository.findByApiID(movie.getApiID());
+            if (optMovie.isPresent()) {
+                System.out.println(movie.getApiID());
+                Movie a = (Movie) optMovie.get();
+                System.out.println("it exists");
+                a.userView();
+                MovieRepository.save(a);
+                //            For adding review Link and diplaying reviews for the movie
+                model.addAttribute("movie",a);
+            }
+            else{
+                System.out.println("it doesn't exist");
+                movie.userView();
+                MovieRepository.save(movie);
+                //            For adding review Link and diplaying reviews for the movie
+                model.addAttribute("movie",movie);
+            }
+        }
+        return "movie-view";
+    }
+
+    //lazy fix
+    @GetMapping("/profile/movie-view/{apiId}")
+    public String displayProfileViewMovie(Model model, @PathVariable String apiId, @ModelAttribute @Valid Movie movie) throws JsonProcessingException{
 
         movie.setMovieInfoById(apiId);
 
