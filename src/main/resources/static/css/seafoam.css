@@ -4,8 +4,8 @@
 
 .bar {
     box-shadow: 0 0 15px 1px;
-    background: rgb(230, 254, 255, 0.3);
-    backdrop-filter: blur(50px);
+    background: rgb(230, 254, 255, 0.5);
+    backdrop-filter: blur(30px);
 }
 
 .bg-1 {
@@ -60,4 +60,5 @@ ul.dropdown-menu {
   padding: 5px;
   width: 100px;
 }
+
 
