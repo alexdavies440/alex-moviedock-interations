@@ -123,7 +123,7 @@ public class MovieController {
 
 
 
-    @DeleteMapping("/movies/{movieId}")
+    @DeleteMapping("/movies/favorite-movie/{movieId}")
     public String deleteMovieFromFavoriteList(@PathVariable int movieId, Model model) {
         Optional<Movie> movie = movieRepository.findById(movieId);
         AppUser user = principalService.getPrincipal();
