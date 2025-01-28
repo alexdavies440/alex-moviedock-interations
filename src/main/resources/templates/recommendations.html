@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head th:replace="fragments :: head"></head>
+
+<body class="container bg-1">
+<nav th:replace="fragments :: header"></nav>
+
+<div class="container body-content">
+  <h1 th:text="'Movie recommendations for ' +${user.username}"></h1>
+
+  <hr />
+
+  <div th:each="movie : ${movies}">
+    <a th:href="@{'movie-view/' + ${movie.getApiID()}}" th:text="${movie.getTitle()}" ></a>
+    <th:block th:text="${movie.getYear}"></th:block>
+  </div>
+
+
+  <h4 th:text="${error}"></h4>
+
+
+  <hr />

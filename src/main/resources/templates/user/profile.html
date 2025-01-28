@@ -9,6 +9,11 @@
 
 <h2 th:text="${user.username.toUpperCase()}"></h2>
 
+
+    <h4 sec:authorize="isAuthenticated()"><a th:href="@{profile/recommendations}">Click here to view movie recommendations!</a></h4>
+
+
+
 <br><h3>Favorite Movies List</h3>
 
 <table class="table">
