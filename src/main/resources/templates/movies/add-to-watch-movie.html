@@ -7,11 +7,19 @@
 
 <div>
 
-    <h3>Movie Name: </h3>
-    <h2 th:text="${movie.name}"></h2>
+    <h3>Movie </h3>
+    <a th:href="@{'/search/movie-view/' + ${movie.getApiID()}}" th:text="${movie.name}"></a>
+</div>
+<br>
+<div>
+    <img width = 25% th:src="${movie.poster}" alt="poster">
 </div>
 
-<form th:action="@{/movies/add-to-watch-movie}" method="post">
+<div>
+    <h2 th:if="${isToWatch}" th:text="${toWatch}"></h2>
+</div>
+
+<form th:if="${!isToWatch}" th:action="@{/movies/add-to-watch-movie}" method="post">
     <div class="form-group">
         <input type="hidden" th:field="${userMovieDTO.user}">
         <h3>Update To-Watch Movies List</h3>
