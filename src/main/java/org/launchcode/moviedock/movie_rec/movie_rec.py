@@ -263,6 +263,7 @@ moviedock_output['id'] = moviedock_output['id'].astype(int)
 moviedock_output=moviedock_output.reindex(columns=['id','imdbId'])
 
 print("im in it!")
+moviedock_output.drop_duplicates()
 moviedock_output.to_csv('movie_rec_output.csv', index=False, header=False )
 
 
