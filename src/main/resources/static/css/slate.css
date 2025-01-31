@@ -46,6 +46,7 @@ ul.dropdown-menu {
 
 .img-poster {
     width: 100px;
+    box-shadow: 0 0 15px rgb(90, 90, 90);
 }
 
 
