@@ -83,13 +83,6 @@
 
                 <p th:unless="${selfProfile =='false'}">
 
-<!--                <form th:unless="${selfProfile =='false'}" th:action="@{/delete_review(reviewId=${user.reviewsList[i].id})}" method="post">-->
-<!--                    <button type="submit" class="btn btn-link" style="color:red;"-->
-<!--                            th:data-confirm-delete="|Are you sure you want to delete review for: ${user.reviewsList[i].movie.name}?|"-->
-<!--                            onclick="return confirm(this.getAttribute('data-confirm-delete'))"-->
-<!--                    >Delete</button>-->
-<!--                </form>-->
-
                 <form th:unless="${selfProfile =='false'}" th:action="@{/delete_review(reviewId=${user.reviewsList[i].id})}" method="post">
                 <button type="submit" class="btn btn-danger btn-xs"
                         th:data-confirm-delete="|Are you sure you want to delete review for: ${user.reviewsList[i].movie.name}?|"
@@ -111,7 +104,6 @@
 
 
     </table>
-
 
 </div>
 
