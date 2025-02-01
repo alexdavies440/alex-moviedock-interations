@@ -11,7 +11,7 @@
 <h1 th:text ="${title}"></h1>
 <h3 th:text ="${year}"></h3>
 <h3 th:text ="${'Director: ' + director}"></h3>
-<img th:src="${poster}" alt="poster">
+<img class="view-poster" th:src="${poster}" alt="poster">
 <h3 th:text ="${plot}"></h3>
 
 <hr />
@@ -28,7 +28,7 @@
 <h4><a th:href="@{/review(movieId=${movie.id})}">Click to Add Review</a></h4>
 
 <hr />
-    <h4>Latest Reviews </h4>
+    <h3>Latest Reviews </h3>
 <hr />
 
 <table>
