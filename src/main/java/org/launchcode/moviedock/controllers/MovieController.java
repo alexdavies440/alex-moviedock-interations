@@ -32,6 +32,8 @@ public class MovieController {
     @GetMapping("/movies/add-favorite-movie")
     public String displayAddFavoriteMovieForm(@RequestParam Integer movieId, Model model) {
 
+        model.addAttribute("title", "Add a Favorite Movie");
+
         AppUser user = principalService.getPrincipal();
         Optional<Movie> optMovie = movieRepository.findById(movieId);
 
@@ -47,6 +49,7 @@ public class MovieController {
             model.addAttribute("favorite", "Movie already added in Favorite Movies list");
             return "/movies/add-favorite-movie";
         } else {
+            model.addAttribute("title", "My Profile");
             return "redirect:/profile";
         }
     }
@@ -62,11 +65,13 @@ public class MovieController {
                 model.addAttribute("user", user);
                 boolean isFavorite = user.getFavoriteMovies().contains(movie);
                 model.addAttribute("isFavorite", !isFavorite);
+                model.addAttribute("title", "My Profile");
                 return "user/profile";
             }
         } else {
             model.addAttribute("user", user);
         }
+        model.addAttribute("title", "My Profile");
         return "user/profile";
     }
 
@@ -86,8 +91,10 @@ public class MovieController {
             boolean isToWatch = user.getToWatchMovies().contains(movie);
             model.addAttribute("isToWatch", isToWatch);
             model.addAttribute("toWatch", "Movie already added in To-Watch Movies list");
+            model.addAttribute("title", "Add To Watch Movie");
             return "/movies/add-to-watch-movie";
         } else {
+            model.addAttribute("title", "My Profile");
             return "redirect:/profile";
         }
     }
@@ -103,6 +110,7 @@ public class MovieController {
                 model.addAttribute("user", user);
                 boolean isToWatch = user.getToWatchMovies().contains(movie);
                 model.addAttribute("isToWatch", !isToWatch);
+                model.addAttribute("title", "My Profile");
                 return "user/profile";
             }
         } else {
@@ -129,6 +137,7 @@ public class MovieController {
         model.addAttribute("user", user);
         user.removeToWatchMovie(movie.get());
         appUserRepository.save(user);
+        model.addAttribute("title", "My Profile");
         return "user/profile";
     }
 }

@@ -17,18 +17,13 @@
 <hr />
 
 
-    <p>
-        <a th:href="'/movies/add-favorite-movie?movieId=' + ${movie.id}">
-            <button class="btn btn-primary" type="button">Add to Favorite Movies list</button>
-        </a>
-    </p>
+<h4>
+    <a th:href="'/movies/add-favorite-movie?movieId=' + ${movie.id}">Add to Favorite Movies list</a>
+</h4>
 
-
-<p>
-  <a  th:href="'/movies/add-to-watch-movie?movieId=' + ${movie.id}">
-      <button class="btn btn-success" type="button">Add to To-Watch Movies list</button>
-  </a>
-</p>
+<h4>
+  <a  th:href="'/movies/add-to-watch-movie?movieId=' + ${movie.id}">Add to To-Watch Movies list</a>
+</h4>
 
 <h4><a th:href="@{/review(movieId=${movie.id})}">Click to Add Review</a></h4>
 
@@ -51,13 +46,5 @@
         <hr class="hr-light"/>
     </tr>
 </table>
-<style>
-    .star-checked {
-      color: orange;
-    }
-
-    .hr-light { background-color: #404040; height: 1px; border: 0; }
-
-</style>
 </body>
 </html>

@@ -33,12 +33,15 @@ public class SettingsController {
     @GetMapping("/settings/delete-account")
     public String deleteAccount(Model model) {
 
+        model.addAttribute("title", "Delete Account");
+
         return "user/delete-account";
     }
 
     @PostMapping("/settings/delete-account")
     public String deleteAccountSuccess(@RequestParam String providedPassword, Model model, HttpServletRequest request)
     {
+
 
         AppUser principal = principalService.getPrincipal();
 
@@ -47,11 +50,14 @@ public class SettingsController {
             model.addAttribute("error", true);
 
             if (!passwordEncoder.matches(providedPassword, userPassword)) {
+                model.addAttribute("title", "Delete Account");
                 return "user/delete-account";
             }
 
             appUserRepository.delete(principal);
             request.getSession().invalidate();
+
+            model.addAttribute("title", "Home");
 
         return "redirect:..";
     }
@@ -61,6 +67,7 @@ public class SettingsController {
 
         AppUser principal = principalService.getPrincipal();
 
+        model.addAttribute("title", "Update Email");
         model.addAttribute("email", principal.getEmail());
         model.addAttribute(new EmailDto());
 
@@ -70,11 +77,15 @@ public class SettingsController {
     @PostMapping("/settings/update-email")
     public String updateEmailSuccess(@Valid @ModelAttribute EmailDto emailDto, Errors errors, Model model) {
 
+        model.addAttribute("title", "Update Email");
+
         AppUser principal = principalService.getPrincipal();
         model.addAttribute("email", principal.getEmail());
 
         if (errors.hasErrors()) {
             model.addAttribute("email", principal.getEmail());
+            model.addAttribute("title", "Update Email");
+
             return "user/update-email";
         }
 
@@ -86,6 +97,8 @@ public class SettingsController {
 
     @GetMapping("/settings/change-theme")
     public String displayThemeSettings(Model model) {
+
+        model.addAttribute("title", "Change Theme");
 
         AppUser principal = principalService.getPrincipal();
 
@@ -105,7 +118,9 @@ public class SettingsController {
     }
 
     @PostMapping("/settings/change-theme")
-    public String changeTheme(@RequestParam Theme theme) {
+    public String changeTheme(@RequestParam Theme theme, Model model) {
+
+        model.addAttribute("title", "Change Theme");
 
         AppUser principal = principalService.getPrincipal();
 
@@ -117,6 +132,7 @@ public class SettingsController {
 
     @GetMapping("/settings/change-password")
     public String changePasswordPage(Model model) {
+        model.addAttribute("title", "Change Password");
         model.addAttribute(new ChangePasswordDto());
         return "user/change-password";
     }
@@ -124,9 +140,12 @@ public class SettingsController {
     @PostMapping("/settings/change-password")
     public String changePassword(@ModelAttribute @Valid ChangePasswordDto changePasswordDto, Errors errors, Model model) {
 
+        model.addAttribute("title", "Change Password");
+
         AppUser principal = principalService.getPrincipal();
 
         if (errors.hasErrors()) {
+            model.addAttribute("title", "Change Password");
             return "user/change-password";
         }
 
@@ -138,6 +157,7 @@ public class SettingsController {
                     "verifyNewPassword",
                     "passwords.mismatch",
                     "Please check that passwords match");
+            model.addAttribute("title", "Change Password");
 
             return "user/change-password";
         }
@@ -149,6 +169,8 @@ public class SettingsController {
                     "newPassword",
                     "password.notNew",
                     "New password should be different from current password");
+            model.addAttribute("title", "Change Password");
+
             return "user/change-password";
         }
 
@@ -157,6 +179,8 @@ public class SettingsController {
                     "currentPassword",
                     "password.incorrect",
                     "Please check current password");
+            model.addAttribute("title", "Change Password");
+
             return "user/change-password";
         }
 

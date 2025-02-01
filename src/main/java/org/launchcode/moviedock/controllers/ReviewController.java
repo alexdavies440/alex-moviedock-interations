@@ -41,6 +41,9 @@ public class ReviewController {
 
     @GetMapping("review")
     public String displayReviewForm(@RequestParam Integer movieId,HttpServletRequest request, Model model){
+
+        model.addAttribute("title", "Add a Review");
+
         Optional<Movie> value = movieRepository.findById(movieId);
         Movie movie = value.get();
         AppUser user = principalService.getPrincipal();
@@ -65,17 +68,18 @@ public class ReviewController {
             model.addAttribute("review",review);
             model.addAttribute("dispText","You have already reviewed '" + movie.getName() + "'. You can update your old review.");
             model.addAttribute("deleteButton","true");
+            model.addAttribute("title", "Add a Review");
+
             return "review/addReview.html";
         }
         else{
 
             model.addAttribute("userReview", userReview);
             model.addAttribute("dispText","Enter your review for " + movie.getName());
+            model.addAttribute("title", "Add a Review");
 
             return "review/addReview.html";
         }
-
-
     }
 
     @PostMapping("review")
@@ -114,8 +118,8 @@ public class ReviewController {
 
 
             model.addAttribute("user", user);
-//            model.addAttribute("reviews",reviewRepository.findByUserId(user.getId()));
-//            model.addAttribute("movies",movieRepository.findAllById(reviewRepository.findMovieByUserId(user.getId())));
+            model.addAttribute("title", "My Profile");
+
             return "user/profile.html";
         }
 
@@ -129,6 +133,8 @@ public class ReviewController {
         reviewRepository.deleteById(reviewId);
         AppUser user = principalService.getPrincipal();
         model.addAttribute("user",user);
+        model.addAttribute("title", "My Profile");
+
         return "user/profile.html";
 
     }
