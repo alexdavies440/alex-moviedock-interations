@@ -1,22 +1,10 @@
 package org.launchcode.moviedock.models;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.*;
-
-import java.io.IOException;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.Entity;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
