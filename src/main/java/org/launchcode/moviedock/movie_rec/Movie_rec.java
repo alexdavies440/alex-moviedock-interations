@@ -43,6 +43,8 @@ public class Movie_rec {
     }
 
 
+
+
     public String returnAPiOfUser(int id, String line){
         String api = null;
         boolean isId = false;
@@ -83,7 +85,7 @@ public class Movie_rec {
     }
 
     public String runFromJava() throws IOException {
-        System.out.println("HI HI HIHIHI IM IN THE JAVA TEST IN THE JAVA SECTION");
+
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
         //check OS

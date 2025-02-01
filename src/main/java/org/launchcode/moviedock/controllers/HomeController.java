@@ -131,6 +131,9 @@ public class HomeController {
             listOfApiIds[i] = mr.makeApiSearchable(strippedApis.get(i));
         }
 
+
+
+
         for (int i = 0; i < listOfApiIds.length; i++){
             Movie movie1 = new Movie();
             movie1.setMovieInfoById(listOfApiIds[i]);
@@ -143,6 +146,8 @@ public class HomeController {
             String apiId = movie1.getApiID();
 
         }
+
+
 
         //checks if movies is populated
         if (movies.length>0) {
