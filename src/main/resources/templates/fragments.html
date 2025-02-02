@@ -25,13 +25,16 @@
             <div class="container-fluid">
                 <div>
                     <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <div class="navbar-brand">MOVIE DOCK
+                                <span class="glyphicon glyphicon-film"></span>
+                            </div>
+                        </li>
                         <li><a href="/">HOME</a></li>
                         <li sec:authorize="isAuthenticated()">
                             <a href="/profile">MY PROFILE</a></li>
                         <li sec:authorize="isAuthenticated()">
-                            <a href="/movies">MOVIES</a></li>
-                        <li sec:authorize="isAuthenticated()" class="settings">
-                            <a class="dropdown-toggle" href="#" role="button" id="settings-menu" data-toggle="dropdown" >
+                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" >
                                 <span class="glyphicon glyphicon-cog"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="settings-menu">

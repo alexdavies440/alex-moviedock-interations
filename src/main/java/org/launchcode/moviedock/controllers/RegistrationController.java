@@ -37,6 +37,7 @@ public class RegistrationController {
 
     @GetMapping("/signup")
     public String signup(Model model) {
+        model.addAttribute("title", "Sign Up");
         model.addAttribute(new AppUserDto());
         return "/user/signup";
     }
@@ -46,6 +47,8 @@ public class RegistrationController {
                                 Errors errors) throws ServletException {
 
         if (errors.hasErrors()) {
+            model.addAttribute("title", "Sign Up");
+
             return "user/signup";
         }
 
@@ -56,6 +59,8 @@ public class RegistrationController {
                     "username",
                     "username.alreadyexists",
                     "Sorry, someone has already taken that username. Please try another");
+            model.addAttribute("title", "Sign Up");
+
             return "user/signup";
         }
 
@@ -67,6 +72,8 @@ public class RegistrationController {
                     "password",
                     "passwords.mismatch",
                     "Please check that passwords match");
+            model.addAttribute("title", "Sign Up");
+
             return "user/signup";
         }
 
@@ -102,6 +109,7 @@ public class RegistrationController {
     @GetMapping("/signup-verify")
     public String verifyNewUserEmail(Model model) {
 
+        model.addAttribute("title", "Email Verification");
         model.addAttribute(new VerifyCodeDto());
 
             return "user/verify-email";
@@ -121,6 +129,7 @@ public class RegistrationController {
             }
 
             model.addAttribute("greeting", "You can now sign into your new account for the first time");
+            model.addAttribute("title", "Please Sign In");
 
             return "user/signin";
         }

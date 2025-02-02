@@ -41,23 +41,28 @@ public class LoginController {
 
     @GetMapping("/signout")
     public String signout(HttpServletRequest request, Model model){
+        model.addAttribute("title", "Moviedock");
         model.addAttribute("greeting", "You have been signed out");
         request.getSession().invalidate();
         return "redirect:/signin";
     }
 
     @GetMapping("/reset-password")
-    public String resetPassword() {
+    public String resetPassword(Model model) {
+        model.addAttribute("title", "Reset Password");
         return "user/reset-password";
     }
 
     @PostMapping("/reset-password")
     public String sendNewPassword(@RequestParam String username, Model model) {
 
+        model.addAttribute("title", "Reset Password");
+
         Optional<AppUser> appUser = appUserRepository.findByUsername(username);
 
         if (appUser.isEmpty()) {
             model.addAttribute("error", true);
+            model.addAttribute("title", "Reset Password");
             return "user/reset-password";
         }
 
@@ -80,6 +85,7 @@ public class LoginController {
 
     @GetMapping("/reset-password/verify")
     public String verifyEmailCode(Model model) {
+        model.addAttribute("title", "Verify Password");
         model.addAttribute(new VerifyCodeDto());
         return "user/verify-email-password";
     }
@@ -95,6 +101,8 @@ public class LoginController {
             userObj.setVerificationCode(null);
             appUserRepository.save(userObj);
         }
+
+        model.addAttribute("title", "Please Sign In");
 
         model.addAttribute("greeting", "You can now sign into your account with the password we emailed you");
 

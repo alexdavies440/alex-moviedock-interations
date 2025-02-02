@@ -43,7 +43,6 @@ public class WebSecurityConfig {
                             .requestMatchers("/search/movie-view/*").permitAll()
                             .requestMatchers("/movie-view/*").permitAll()
                             .anyRequest().authenticated();
-//                            .anyRequest().permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer

@@ -26,7 +26,6 @@ public class SearchController {
 
     @GetMapping("results")
     public String index(Model model){
-        //model.addAttribute("title", "search for a movie");
         return "search";
     }
 
@@ -34,7 +33,7 @@ public class SearchController {
     @PostMapping("results")
     public String processSearchResults(@ModelAttribute @Valid Movie movie, Model model, @RequestParam String searchTerm) throws JsonProcessingException {
 
-        //model.addAttribute("title", "search for a movie");
+        model.addAttribute("title", "Movie Search Results");
 
         //get list of api ids
         MovieHelper mh = new MovieHelper();
@@ -123,8 +122,6 @@ public class SearchController {
 
         }
     }
-
-
 
         return "movie-view";
     }

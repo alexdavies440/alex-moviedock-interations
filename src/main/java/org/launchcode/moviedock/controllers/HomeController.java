@@ -39,6 +39,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) throws JsonProcessingException {
 
+        model.addAttribute("title", "Home");
         //returns apiID of movies by view count
         //the number of movies displayed can be changed in the query in ApiMovieRepository
 
@@ -74,7 +75,6 @@ public class HomeController {
         }
 
 //        For displaying reviews
-//        model.addAttribute("reviewsAll",reviewRepository.findAll());
         model.addAttribute("reviewsTopFour",reviewRepository.findTopFour());
 
         return "index";
@@ -83,31 +83,19 @@ public class HomeController {
 
     @GetMapping("/profile")
     public String myProfile(Model model) {
+
+        model.addAttribute("title", "My Profile");
         AppUser user = principalService.getPrincipal();
         model.addAttribute("user", user);
-
-
-
 
         return "user/profile";
     }
 
-    @GetMapping("/profile/{username}")
-    public String viewProfile(@PathVariable String username, Model model) {
-
-        Optional<AppUser> appUser = appUserRepository.findByUsername(username);
-
-        if(appUser.isPresent()) {
-            AppUser user = (AppUser) appUser.get();
-            model.addAttribute("user", user);
-            return "user/profile";
-        } else {
-            return "redirect:..";
-        }
-    }
-
     @GetMapping("/profile/recommendations")
     public String viewRecs(Model model) throws IOException {
+
+        model.addAttribute("title", "Movie Recommendations");
+
         AppUser user = principalService.getPrincipal();
 
         Movie_rec mr = new Movie_rec();
@@ -168,7 +156,8 @@ public class HomeController {
 
 
     @GetMapping("/search")
-    public String search() {
+    public String search(Model model) {
+        model.addAttribute("title", "Search Movies");
         return "search";
     }
 
@@ -212,6 +201,8 @@ public class HomeController {
                 model.addAttribute("movie",movie);
             }
         }
+        model.addAttribute("title", movie.getTitle());
+
         return "movie-view";
     }
 
@@ -256,6 +247,8 @@ public class HomeController {
                 model.addAttribute("movie",movie);
             }
         }
+        model.addAttribute("title", movie.getTitle());
+
         return "movie-view";
     }
 }

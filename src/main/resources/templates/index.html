@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav th:replace="fragments :: header"></nav>
 
-<h1 class="container-content">Popular Movies(by search count)</h1>
-
+<h1 class="container-content">Popular Movies</h1>
+<br>
 
 <div th:each="movie : ${movies}">
     <a th:href="@{'movie-view/' + ${movie.getApiID()}}" th:text="${movie.getTitle()}"></a>
