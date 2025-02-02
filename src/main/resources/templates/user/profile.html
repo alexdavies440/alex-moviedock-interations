@@ -23,8 +23,7 @@
     <tr>
         <th>Favorite Movie Name</th>
         <th th:unless="${selfProfile =='false'}">Delete Favorite Movie</th>
-        <p style="color:orange;" th:if="${#lists.isEmpty(user.favoriteMovies)}">Favorite Movies List is empty. Please
-            search for movies to add to favorite movies list!</p>
+        <p th:if="${#lists.isEmpty(user.favoriteMovies)}">Favorite Movies List is empty</p>
     </tr>
     </thead>
     <tbody>
@@ -50,8 +49,7 @@
     <tr>
         <th>To-Watch Movie Name</th>
         <th th:unless="${selfProfile =='false'}">Delete To-Watch Movie</th>
-        <p style="color:green;" th:if="${#lists.isEmpty(user.toWatchMovies)}">To-Watch Movies List is empty. Please
-            search for movies to add to to-watch movies list!</p>
+        <p th:if="${#lists.isEmpty(user.toWatchMovies)}">To-Watch Movies List is empty</p>
     </tr>
     </thead>
     <tbody>

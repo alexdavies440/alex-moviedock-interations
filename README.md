@@ -5,15 +5,27 @@ This is a simple social media app centered around movies. Users can search for m
 When the user opens the website using (http://localhost:8080/) they see the Home page, where they see the Popular movies listed(which are the most searched movies by the users of the application).
 The Home page also displays the latest four reviews by registered users.
 
+# Setting up the relational database:
+The database currently has the following tables:
+app_user
+movie
+review
+user_favourite_movies
+user_to_watch_movies
+Of these, `AppUser`, `Movie` and `Review` are entity classes which represent the above tables.
+`AbstractEntity` is the super class used by the above mentioned classes to generate their primary key 'Id'. This key is Generated using strategy = GenerationType.IDENTITY, which indicates that the persistence provider must assign primary keys for the entity using a database identity column.
+AppUser and Movie classes are related through ManyToMany relationship and this relationship can be seen within join tables `user_favourite_movies` and `user_to_watch_movies`.
+Similarly AppUser has a OneToMany relationship with the Review entity.
+and Movie entity also has a OneToMany relationship with the Review entity.
+
 # Search:
 ## Search Movies:
-
+This project is using the OMDB api to retrieve movie details. Movie search functionality has been added that returns 10 (or less) movies The users search string is sent to an api call and returns a json file with the most relevant movies. From there the unique movie api ids are returned by string. The movie class is then able to find a specific movie based on this Id and stores the movie details.
 
 ## Search-Users:
 Users can search for registered users and view their profile page to check their `Favorite List, To-Watch List, Reviews/ratings given by this searched user`. Search-User feature can be accessed even when a user is not logged in.
 A warning message is displayed, if a blank field is searched, or no user is found for a search string.
 This feature ensures that the resultant profile page has only view access when you are looking at someone else's profile, but has edit access when you are viewing your own profile.
-
 
 # Add Review:
 A user can search for a movie from Search-Movie dropdown option, and select to view the details of the desired movie.
@@ -27,6 +39,7 @@ Home page: latest 4 reviews by users within the app.
 Movie-View page(movie detail page): all Reviews for that particular movie, by users within the app, with the latest reviews on top.
 Profile page: all Reviews by that user, for various movies, with the latest reviews on top.
 The users can choose to update/delete their reviews from their profile page. If they do so, they are given a warning message before the action is performed.
+
 
 # User Account Creation and Management
 Creating an account is pretty simple, requiring a unique username, email and password. In order to avoid naming conflicts with the User class in Spring Security, our app has an AppUser class. A data transfer object representing an AppUser is used to retrieve user data in the signup process fields like role, isEnabled, and theme are set to default values. All new accounts are disabled by default. A verification code is generated and stored in the verificationCode field and sent to the email provided in order to verify the email before allowing the new user on the app. The user is prompted to enter the code they received by email. When the correct code is entered, the account isEnabled field is set to true and the verificationCode field is set to null (this field may later be used in the password reset process). The user is then told they can now sign in for the first time. Successful authentication will redirect them to their profile page.
