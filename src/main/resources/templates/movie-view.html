@@ -18,14 +18,14 @@
 
 
 <h4>
-    <a th:href="'/movies/add-favorite-movie?movieId=' + ${movie.id}">Add to Favorite Movies list</a>
+    <a class="btn btn-success" role="button" th:href="'/movies/add-favorite-movie?movieId=' + ${movie.id}">Add to Favorite Movies List</a>
 </h4>
 
 <h4>
-  <a  th:href="'/movies/add-to-watch-movie?movieId=' + ${movie.id}">Add to To-Watch Movies list</a>
+  <a class="btn btn-success" role="button" th:href="'/movies/add-to-watch-movie?movieId=' + ${movie.id}">Add to To-Watch Movies List</a>
 </h4>
 
-<h4><a th:href="@{/review(movieId=${movie.id})}">Click to Add Review</a></h4>
+<h4><a class="btn btn-success" role="button" th:href="@{/review(movieId=${movie.id})}">Click to Add Review</a></h4>
 
 <hr />
     <h3>Latest Reviews </h3>
