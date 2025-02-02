@@ -29,7 +29,9 @@ public class SearchUserController {
 
 
     @GetMapping("user_search")
-    public String userSearch() {
+    public String userSearch(Model model) {
+
+        model.addAttribute("title", "Search for a User");
 
         return "userSearch";
     }
@@ -39,6 +41,8 @@ public class SearchUserController {
 
         if (searchName.isEmpty()) {
             model.addAttribute("blankField", "Please Enter a name to search");
+            model.addAttribute("title", "Search for a User");
+
             return "userSearch";
         } else {
 
@@ -46,10 +50,14 @@ public class SearchUserController {
 
             if (usersList.isEmpty()) {
                 model.addAttribute("noMatch", "No user found with name '" + searchName + "'");
+                model.addAttribute("title", "Search for a User");
+
                 return "userSearch";
 
             } else {
                 model.addAttribute("usersList", usersList);
+                model.addAttribute("title", "Search for a User");
+
                 return "userSearch";
             }
         }
@@ -61,6 +69,7 @@ public class SearchUserController {
 
         Optional<AppUser> appUser = appUserRepository.findById(userId);
         AppUser userFound = appUser.get();
+        model.addAttribute("title",  userFound.getUsername() + "'s Profile");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user",userFound);
@@ -71,11 +80,11 @@ public class SearchUserController {
             AppUser loggedInUser = principalService.getPrincipal();
             if(!userFound.equals(loggedInUser)){
                 model.addAttribute("selfProfile","false");
-//                model.addAttribute("user",userFound);
+
                 return "user/profile";
             }else{
                 model.addAttribute("selfProfile","true");
-//                model.addAttribute("user",userFound);
+
                 return "user/profile";
             }
 
