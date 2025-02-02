@@ -54,6 +54,7 @@ public class MovieController {
         }
     }
 
+
     @PostMapping("/movies/add-favorite-movie")
     public String processAddFavoriteMovieForm(@ModelAttribute @Valid UserMovieDTO userMovieDTO, Errors errors, Model model) {
         Movie movie = userMovieDTO.getMovie();
@@ -120,6 +121,8 @@ public class MovieController {
     }
 
 
+
+
     @DeleteMapping("/movies/favorite-movie/{movieId}")
     public String deleteMovieFromFavoriteList(@PathVariable int movieId, Model model) {
         Optional<Movie> movie = movieRepository.findById(movieId);
@@ -127,6 +130,7 @@ public class MovieController {
         model.addAttribute("user", user);
         user.removeFavoriteMovie(movie.get());
         appUserRepository.save(user);
+        model.addAttribute("title", "My Profile");
         return "user/profile";
     }
 

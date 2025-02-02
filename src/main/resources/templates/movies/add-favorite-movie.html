@@ -6,13 +6,13 @@
 <nav th:replace="fragments :: header"></nav>
 
 
-    <h3>Movie </h3>
+<h3>Movie </h3>
 <div>
     <a th:href="@{'/search/movie-view/' + ${movie.getApiID()}}" th:text="${movie.name}"></a>
 </div>
 <br>
 <div>
-    <img width = 25% th:src="${movie.poster}" alt="poster">
+    <img width=25% th:src="${movie.poster}" alt="poster">
 </div>
 
 <div>
@@ -23,11 +23,11 @@
     <div class="form-group">
         <input type="hidden" th:field="${userMovieDTO.user}">
         <h3>Update Favorite Movies List</h3>
-        <input type="checkbox"  th:field= "${userMovieDTO.movie}" th:value="${movie.id}">
+        <input type="checkbox" th:field="${userMovieDTO.movie}" th:value="${movie.id}">
         <label>Add To Favorite Movies List</label>
     </div>
 
-    <input type="submit" class="btn btn-success" value="Submit">
+    <input class="alert alert-success" type="submit" value="Submit">
 
 
 </form>
