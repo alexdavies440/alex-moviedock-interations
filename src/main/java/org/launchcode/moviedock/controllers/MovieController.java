@@ -34,113 +34,141 @@ public class MovieController {
         return "movies/index";
     }
 
-@GetMapping("/movies/add-favorite-movie")
+    @GetMapping("/movies/add-favorite-movie")
     public String displayAddFavoriteMovieForm(@RequestParam Integer movieId, Model model) {
+        try {
 
-        AppUser user = principalService.getPrincipal();
-        Optional<Movie> optMovie = movieRepository.findById(movieId);
+            AppUser user = principalService.getPrincipal();
+            Optional<Movie> optMovie = movieRepository.findById(movieId);
 
-        if(optMovie.isPresent()){
-            Movie movie = (Movie) optMovie.get();
-            UserMovieDTO userMovieDTO = new UserMovieDTO();
-            userMovieDTO.setMovie(movie);
-            userMovieDTO.setUser(user);
-            model.addAttribute("movie", movie);
-            model.addAttribute("userMovieDTO",userMovieDTO);
-            boolean isFavorite = user.getFavoriteMovies().contains(movie);
-            model.addAttribute("isFavorite", isFavorite);
-            model.addAttribute("favorite", "Movie already added in Favorite Movies list");
-            return "/movies/add-favorite-movie";
+            if (optMovie.isPresent()) {
+                Movie movie = (Movie) optMovie.get();
+                UserMovieDTO userMovieDTO = new UserMovieDTO();
+                userMovieDTO.setMovie(movie);
+                userMovieDTO.setUser(user);
+                model.addAttribute("movie", movie);
+                model.addAttribute("userMovieDTO", userMovieDTO);
+                boolean isFavorite = user.getFavoriteMovies().contains(movie);
+                model.addAttribute("isFavorite", isFavorite);
+                model.addAttribute("favorite", "Movie already added in Favorite Movies list");
+                return "/movies/add-favorite-movie";
+            } else {
+                return "redirect:/profile";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else {
-            return "redirect:/profile";
-        }
-
+        return "redirect:/profile";
     }
 
     @PostMapping("/movies/add-favorite-movie")
-    public String processAddFavoriteMovieForm(@ModelAttribute @Valid UserMovieDTO userMovieDTO, Errors errors, Model model){
-        Movie movie = userMovieDTO.getMovie();
-        AppUser user = principalService.getPrincipal();
-        if (!errors.hasErrors()) {
-            if (movie != null) {
-                user.addFavoriteMovies(movie);
-                appUserRepository.save(user);
+    public String processAddFavoriteMovieForm(@ModelAttribute @Valid UserMovieDTO userMovieDTO, Errors errors, Model model) {
+        try {
+            Movie movie = userMovieDTO.getMovie();
+            AppUser user = principalService.getPrincipal();
+            if (!errors.hasErrors()) {
+                if (movie != null) {
+                    user.addFavoriteMovies(movie);
+                    appUserRepository.save(user);
+                    model.addAttribute("user", user);
+                    boolean isFavorite = user.getFavoriteMovies().contains(movie);
+                    model.addAttribute("isFavorite", !isFavorite);
+                    return "user/profile";
+                }
+            } else {
                 model.addAttribute("user", user);
-                boolean isFavorite = user.getFavoriteMovies().contains(movie);
-                model.addAttribute("isFavorite", !isFavorite);
-                return "user/profile";
             }
-        } else{
-                model.addAttribute("user", user);
+            return "redirect:/profile";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-                return "user/profile";
-
+        return "redirect:/profile";
     }
 
     @GetMapping("/movies/add-to-watch-movie")
     public String displayToWatchMovieForm(@RequestParam Integer movieId, Model model) {
+        try {
+            AppUser user = principalService.getPrincipal();
+            Optional<Movie> optMovie = movieRepository.findById(movieId);
 
-        AppUser user = principalService.getPrincipal();
-        Optional<Movie> optMovie = movieRepository.findById(movieId);
-
-        if(optMovie.isPresent()){
-            Movie movie = (Movie) optMovie.get();
-            UserMovieDTO userMovieDTO = new UserMovieDTO();
-            userMovieDTO.setMovie(movie);
-            userMovieDTO.setUser(user);
-            model.addAttribute("movie", movie);
-            model.addAttribute("userMovieDTO",userMovieDTO);
-            boolean isToWatch = user.getToWatchMovies().contains(movie);
-            model.addAttribute("isToWatch", isToWatch);
-            model.addAttribute("toWatch", "Movie already added in To-Watch Movies list");
-            return "/movies/add-to-watch-movie";
-        }else {
-            return "redirect:/profile";
+            if (optMovie.isPresent()) {
+                Movie movie = (Movie) optMovie.get();
+                UserMovieDTO userMovieDTO = new UserMovieDTO();
+                userMovieDTO.setMovie(movie);
+                userMovieDTO.setUser(user);
+                model.addAttribute("movie", movie);
+                model.addAttribute("userMovieDTO", userMovieDTO);
+                boolean isToWatch = user.getToWatchMovies().contains(movie);
+                model.addAttribute("isToWatch", isToWatch);
+                model.addAttribute("toWatch", "Movie already added in To-Watch Movies list");
+                return "/movies/add-to-watch-movie";
+            } else {
+                return "redirect:/profile";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return "redirect:/profile";
 
     }
 
     @PostMapping("/movies/add-to-watch-movie")
     public String processToWatchMovieForm(@ModelAttribute @Valid UserMovieDTO userMovieDTO, Errors errors, Model model) {
-        Movie movie = userMovieDTO.getMovie();
-        AppUser user = principalService.getPrincipal();
-        if (!errors.hasErrors()) {
-            if (movie != null) {
-                user.addToWatchMovies(movie);
-                appUserRepository.save(user);
-                model.addAttribute("user", user);
-                boolean isToWatch = user.getToWatchMovies().contains(movie);
-                model.addAttribute("isToWatch", !isToWatch);
-                return "user/profile";
-            }
-        }else {
+        try {
+            Movie movie = userMovieDTO.getMovie();
+            AppUser user = principalService.getPrincipal();
+            if (!errors.hasErrors()) {
+                if (movie != null) {
+                    user.addToWatchMovies(movie);
+                    appUserRepository.save(user);
+                    model.addAttribute("user", user);
+                    boolean isToWatch = user.getToWatchMovies().contains(movie);
+                    model.addAttribute("isToWatch", !isToWatch);
+                    return "user/profile";
+                }
+            } else {
                 model.addAttribute("user", user);
             }
             return "user/profile";
 //        return "redirect:movies/add-to-watch-movie?" +movie.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return "redirect:/profile";
 
+    }
 
 
     @DeleteMapping("/movies/favorite-movie/{movieId}")
     public String deleteMovieFromFavoriteList(@PathVariable int movieId, Model model) {
-        Optional<Movie> movie = movieRepository.findById(movieId);
-        AppUser user = principalService.getPrincipal();
-        model.addAttribute("user",user);
-        user.removeFavoriteMovie(movie.get());
-        appUserRepository.save(user);
-        return "user/profile";
+        try {
+            Optional<Movie> movie = movieRepository.findById(movieId);
+            AppUser user = principalService.getPrincipal();
+            model.addAttribute("user", user);
+            user.removeFavoriteMovie(movie.get());
+            appUserRepository.save(user);
+            return "user/profile";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/profile";
+
     }
 
     @DeleteMapping("/movies/to-watch-movie/{movieId}")
     public String deleteMovieFromToWatchList(@PathVariable int movieId, Model model) {
-        Optional<Movie> movie = movieRepository.findById(movieId);
-        AppUser user = principalService.getPrincipal();
-        model.addAttribute("user",user);
-        user.removeToWatchMovie(movie.get());
-        appUserRepository.save(user);
-        return "user/profile";
+        try {
+            Optional<Movie> movie = movieRepository.findById(movieId);
+            AppUser user = principalService.getPrincipal();
+            model.addAttribute("user", user);
+            user.removeToWatchMovie(movie.get());
+            appUserRepository.save(user);
+            return "user/profile";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/profile";
+
     }
 
 
