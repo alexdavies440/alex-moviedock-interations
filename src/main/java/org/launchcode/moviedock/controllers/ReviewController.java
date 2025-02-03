@@ -1,7 +1,6 @@
 package org.launchcode.moviedock.controllers;
 
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.launchcode.moviedock.data.AppUserRepository;
 import org.launchcode.moviedock.data.MovieRepository;
@@ -40,7 +39,7 @@ public class ReviewController {
     private String reviewError = "false";
 
     @GetMapping("review")
-    public String displayReviewForm(@RequestParam Integer movieId,HttpServletRequest request, Model model){
+    public String displayReviewForm(@RequestParam Integer movieId, Model model){
 
         model.addAttribute("title", "Add a Review");
 
@@ -84,7 +83,7 @@ public class ReviewController {
 
     @PostMapping("review")
     public String saveMovieReview(@ModelAttribute @Valid UserReviewDTO userReview,
-                                  Errors errors, HttpServletRequest request,
+                                  Errors errors,
                                   Model model) {
 
 

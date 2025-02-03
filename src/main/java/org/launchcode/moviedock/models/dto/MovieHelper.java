@@ -39,20 +39,6 @@ public class MovieHelper {
             //System.out.println(unparsedMovies[i]);
         }
 
-
-        //removes last element as it is junk data
-        //String[] parsedMovies = Arrays.copyOf(unparsedMovies, unparsedMovies.length-1);
-
-
-        //removes last element of array
-        /*List<String> helper = new ArrayList<>(Arrays.asList(unparsedMovies));
-        helper.removeAll(Arrays.asList("Results"));
-
-        String[] parsedMovies = helper.toArray(new String[0]);*/
-
-
-
-        //i suspect that this line is the issue with the bug
         String[] parsedMovies = Arrays.copyOf(unparsedMovies, unparsedMovies.length-1);
         //System.out.println("everything after this shouldn't contain extra keyword");
 
