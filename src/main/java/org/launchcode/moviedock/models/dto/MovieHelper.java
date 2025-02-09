@@ -13,7 +13,10 @@ public class MovieHelper {
 
 
     public String getMoviesBySearch(String s){
-        String url = "http://www.omdbapi.com/?apikey=b0901f52&s="+s;
+
+        String apiKey = "";
+
+        String url = "http://www.omdbapi.com/?apikey=" + apiKey + "&s=" +s;
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(url, String.class);
     }

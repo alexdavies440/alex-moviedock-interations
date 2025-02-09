@@ -42,6 +42,7 @@ public class WebSecurityConfig {
                             .requestMatchers("/search/results").permitAll()
                             .requestMatchers("/search/movie-view/*").permitAll()
                             .requestMatchers("/movie-view/*").permitAll()
+                            .requestMatchers("/test/*").permitAll()
                             .anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
